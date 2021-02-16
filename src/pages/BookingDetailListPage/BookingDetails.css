@@ -1,0 +1,25 @@
+.booking_detail_list_scroll{
+    height: 824px;
+    padding: 25px;
+    overflow: auto;
+}
+.booking_detail_box {
+    border: 2px solid #f70101;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    padding: 7px;
+    margin-bottom: 20px;
+}
+.booking_detail_op {
+    color: red;
+    font-size: 14px;
+    font-weight: 600;
+}
+.booking_title_op {
+    font-size: 14px;
+    font-weight: 600;
+}
+.booking_title_right {
+    text-align: center;
+}

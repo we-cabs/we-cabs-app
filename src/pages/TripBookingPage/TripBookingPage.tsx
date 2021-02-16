@@ -5,22 +5,27 @@ import { RouteComponentProps } from 'react-router';
 import SubPageHeaderComponent from '../../components/Header/SubPageHeaderComponent';
 import './TripBookingPage.css';
 interface TripBookingPageProps extends RouteComponentProps<{
-  id: string;
+  type: string;
 }> {}
 
 const TripBookingPage: React.FC<TripBookingPageProps> = ({match, history}) => {
+
+  const openBookingDetailPage = (e:any,type:string) =>{
+    e.preventDefault();
+    history.push(`/dashboard/bookingdetail/${type}`);
+  }
   return (
     <IonPage>
       <SubPageHeaderComponent/>
       <div className="container">
       <IonRow>
          <IonCol>
-            <IonButton className="trip_booking_button">Check Out Avaliable Bookings</IonButton>
+            <IonButton onClick={(e) => openBookingDetailPage(e,match.params.type)} className="trip_booking_button">Check Out Avaliable Bookings</IonButton>
           </IonCol>
         </IonRow>
         <IonRow>     
           <IonCol>
-            <IonButton className="trip_booking_button">Enter Details To Get Bookings</IonButton>
+            <IonButton onClick={(e) => openBookingDetailPage(e,match.params.type)} className="trip_booking_button">Enter Details To Get Bookings</IonButton>
           </IonCol>
         </IonRow>
       </div>

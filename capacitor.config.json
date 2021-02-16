@@ -1,6 +1,7 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "bookcab",
+  "appId": "com.wecab.app",
+  "windowsAndroidStudioPath": "C:Program FilesAndroidAndroid Studio\binstudio64.exe",
+  "appName": "wecab",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "build",

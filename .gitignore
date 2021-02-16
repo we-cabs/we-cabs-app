@@ -5,9 +5,14 @@
 package-lock.json
 /.pnp
 .pnp.js
-
+/ios
+/android
+/electron
+/.gradle
 # testing
 /coverage
+.idea
+.env
 
 # production
 /build
