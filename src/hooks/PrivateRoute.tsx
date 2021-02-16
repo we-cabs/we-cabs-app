@@ -1,6 +1,6 @@
 import  React from  "react";
 import { Route, Redirect } from  "react-router-dom";
-import {isLogin} from '../middlewear/auth'
+import {isLogin} from '../middlewear/auth';
 
 const  PrivateRoute: React.FC<{
         component: any;

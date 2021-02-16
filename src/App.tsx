@@ -34,6 +34,7 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import Logout from './components/AlertPopup/Logout';
 import DashboardPage from './pages/DashboardPage';
 
+
 library.add(faSignOutAlt);
 
 const App: React.FC = () => (
@@ -44,7 +45,7 @@ const App: React.FC = () => (
         <IonContent fullscreen>
           <Route path="/dashboard" render={props => <DashboardPage {...props} />} />
           <PrivateRoute  path="/dashboard" component={DashboardPage}  exact/>
-          <Route exact path="/" render={() => <Redirect to="/dashboard" />} />
+          <Route exact path="/" render={() => (isLogin()) ? <Redirect to="/dashboard"/> : <Redirect to="/login"/> } />
         </IonContent>
       </IonRouterOutlet>
     </IonReactRouter>

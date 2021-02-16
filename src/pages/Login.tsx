@@ -1,22 +1,24 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { IonGrid, IonRow, IonCol } from '@ionic/react';
 import { personCircle } from "ionicons/icons";
 import { useHistory } from "react-router-dom";
 import { IonItem, IonLabel, IonInput, IonButton, IonIcon, IonAlert } from '@ionic/react';
-import { loginApiCall,getUserDataById} from '../services/ApiServices';
-import { setUserSigninInfo } from '../services/userservice';
+import { useDispatch, useSelector,RootStateOrAny } from 'react-redux';
+import { signin } from '../actions/UserAction';
 
 function validateEmail(email: string) {
     const re = /^((?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]))$/;
     return re.test(String(email).toLowerCase());
 }
 const Login: React.FC = () => {
-  const history = useHistory();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState<string>("eve.holt@reqres.in");
   const [password, setPassword] = useState<string>("cityslicka");
   const [iserror, setIserror] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
+  const userInfo = useSelector((state:RootStateOrAny) => state.userSignin);
+  const history = useHistory();
   const handleLogin = () => {
     if (!email) {
         setMessage("Please enter a valid email");
@@ -40,20 +42,10 @@ const Login: React.FC = () => {
     }
 
     ////// calling api login service //////
-    loginApiCall(loginData).then(res => {        
-      getUserDataById(res.data.id).then((userRes:any) => {
-        console.log('userRes',userRes);
-        setUserSigninInfo(userRes.data.data);
-        localStorage.setItem('userInfo',JSON.stringify(userRes.data.data));
-        window.location.reload();
-      })
-   })
-   .catch(error=>{
-      setMessage("Auth failure! Please create an account");
-      setIserror(true)
-   })
-  };
-  ////// calling api login service //////
+    dispatch(signin(loginData));
+    ////// calling api login service //////
+  }
+
 
   return (
     <IonPage>

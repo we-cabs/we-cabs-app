@@ -9,7 +9,7 @@ const SubPageHeaderComponent: React.FC = () => {
           <IonButtons slot="start">
             <IonBackButton />
           </IonButtons>
-          <IonTitle>Booking Detail</IonTitle>
+          <IonTitle>Booking</IonTitle>
         </IonToolbar>
       </IonHeader>
   );
