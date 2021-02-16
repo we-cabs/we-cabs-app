@@ -1,0 +1,24 @@
+.user_avatar_image_icon img {
+    width: 50px;
+    border-radius: 50%;
+    height: 50px;
+}
+.user_avatar_image_icon {
+    width: 88%;
+}
+.header_section {
+    display: inline-flex;
+    width: 100%;
+}
+.app_logout_button {
+    text-align: right;
+    width: 20%;
+}
+.app_logout_button svg{
+    width: 29px;
+    fill: #3c3b3b;
+    margin-top: 12px;
+}
+.back_button_icon_svg svg{
+    width: 30px;
+}
