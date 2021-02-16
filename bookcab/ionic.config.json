@@ -1,7 +1,0 @@
-{
-  "name": "bookcab",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "react"
-}
