@@ -23,3 +23,6 @@
 .booking_title_right {
     text-align: center;
 }
+ion-button.book_or_bid_button {
+    width: 100%;
+}

@@ -7,7 +7,7 @@ const SubPageHeaderComponent: React.FC = () => {
     <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref='/dashboard'/>
+            <IonBackButton defaultHref="/dashboard"/>
           </IonButtons>
           <IonTitle>Booking</IonTitle>
         </IonToolbar>
