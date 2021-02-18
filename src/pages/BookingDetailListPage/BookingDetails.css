@@ -2,6 +2,7 @@
     height: 824px;
     padding: 25px;
     overflow: auto;
+    background: white!important;
 }
 .booking_detail_box {
     border: 2px solid #f70101;
@@ -25,4 +26,7 @@
 }
 ion-button.book_or_bid_button {
     width: 100%;
+}
+.booking_title_left,.booking_title_right {
+    margin-bottom: 5px;
 }

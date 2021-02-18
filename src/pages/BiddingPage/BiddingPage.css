@@ -1,0 +1,93 @@
+.bidding_page_container{
+    height: 824px;
+    padding: 25px;
+    overflow: auto;
+    background: white!important;
+}
+.base_price_section {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+    color: red;
+    font-size: 16px;
+    font-weight: 700;
+}
+.clock_section_container {
+    text-align: center;
+    margin: 20px;
+}
+.clock_section_container svg{
+    width: 38%;
+}
+.time_remaining_section{
+    color: #f70101;
+    font-size: 14px;
+  
+}
+.minimun_bid_received_section {
+    margin-top: 38px;
+    border: 2px solid #f70101;
+
+    height: auto;
+    position: absolute;
+    right: 25px;
+    border-radius: 4px;
+    padding: 7px;
+    margin-bottom: 20px;
+}
+.minimun_bid_received_section .bid_received_title{
+    font-size: 14px;
+}
+.minimun_bid_received_section .bid_received_value{
+    color: #f70101;
+    font-size: 14px;
+}
+.place_youir_bid_section {
+    border: 20px;
+    padding: 10px;
+    background: red;
+    position: absolute;
+    bottom: 233px;
+    width: 90%;
+    display: inline-flex;
+}
+input.edit_bid_input {
+    width: 60px;
+    border: none;
+    border-radius: 3px;
+    padding: 3px;
+    font-size: 13px;
+    margin-left: 12px;
+    margin-right: 12px;
+}
+.place_your_bid_section {
+    margin-left: 116px;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+}
+span.edit_bid_icon {
+    font-size: 17px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+.leave_bid_section {
+    border: 20px;
+    padding: 10px;
+    background: red;
+    position: absolute;
+    bottom: 128px;
+    width: 32%;
+    left: 34%;
+    display: inline-flex;
+    text-align: -webkit-auto;
+}
+.edit_your_bid_section {
+    margin-left: 14px;
+}
+.leave_this_bid_section {
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+}

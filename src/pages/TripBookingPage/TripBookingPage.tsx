@@ -9,14 +9,20 @@ interface TripBookingPageProps extends RouteComponentProps<{
 }> {}
 
 const TripBookingPage: React.FC<TripBookingPageProps> = ({match, history}) => {
-
+  const hrederTitle = () =>{
+    if(match.params.type == 'oneway'){
+       return 'One Way Booking';
+    }else{
+      return 'Round Trip Booking';
+    }
+  }
   const openBookingDetailPage = (e:any,type:string) =>{
     e.preventDefault();
     history.push(`/dashboard/bookingdetail/${type}`);
   }
   return (
     <IonPage>
-      <SubPageHeaderComponent/>
+      <SubPageHeaderComponent title={hrederTitle()}/>
       <div className="container">
       <IonRow>
          <IonCol>

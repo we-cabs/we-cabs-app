@@ -1,21 +1,35 @@
 
 import React from 'react';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonRow,IonCol, IonButton } from '@ionic/react'
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import HeaderComponent from '../../components/Header/HeaderComponent';
 import './BookingDetails.css';
 import SubPageHeaderComponent from '../../components/Header/SubPageHeaderComponent';
 import { useDispatch, useSelector,RootStateOrAny } from 'react-redux';
+import { addBiddingBookingData } from '../../actions/BookingAction';
 
-const BookingDetails: React.FC<RouteComponentProps> = ({history}) => {
-  const openTripBookingPage = (e:any,type:string) =>{
+interface BookingDetailsProps extends RouteComponentProps<{
+  type: string;
+}> {}
+
+const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
+
+   const dispatch = useDispatch();
+
+
+  const openBiddingPage = (e:any,data:any) =>{
     e.preventDefault();
-    history.push(`/dashboard/tripbooking/${type}`);
+    dispatch(addBiddingBookingData(data));
+    history.push(`/dashboard/bidding`);
+  }
+
+  const hrederTitle = () =>{
+    return 'Avialable Bookings';
   }
   const {booking,loading} = useSelector((state:RootStateOrAny) => state.bookingDetails);
   return (
     <IonPage>
-      <SubPageHeaderComponent/>
+      <SubPageHeaderComponent title={hrederTitle()}/>
        <div className="booking_detail_list_scroll">
            <IonRow>
              <IonCol>
@@ -55,7 +69,7 @@ const BookingDetails: React.FC<RouteComponentProps> = ({history}) => {
                       </div>
                     </IonCol>
                   </IonRow>
-                  <IonButton className="book_or_bid_button">BID NOW or BOOK TO BID</IonButton>
+                  <IonButton onClick={(e)=>openBiddingPage(e,data)} className="book_or_bid_button">BID NOW or BOOK TO BID</IonButton>
                 </div> 
               ))}   
               </>  
