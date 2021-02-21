@@ -12,7 +12,7 @@ export const SideMenu: React.FC = () => {
       <IonMenu side="start" contentId="main-content" type="overlay">
       <IonHeader>
         <IonToolbar>
-            <IonMenuButton slot="end" color="primary" />
+           
           </IonToolbar>
         </IonHeader>
         <IonContent>

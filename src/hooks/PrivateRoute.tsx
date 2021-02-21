@@ -1,13 +1,17 @@
-import  React from  "react";
-import { Route, Redirect } from  "react-router-dom";
-import {isLogin} from '../middlewear/auth';
+import React from 'react'
+import {Redirect, Route, RouteProps} from 'react-router'
 
-const  PrivateRoute: React.FC<{
-        component: any;
-        path: string;
-        exact: boolean;
-    }> = (props) => {
-    const condition = isLogin();
-    return  condition ? (<Route  path={props.path}  exact={props.exact} component={props.component} />) : (<Redirect  to="/login"/>);
-};
-export  default  PrivateRoute;
+export interface IPrivateRouteProps extends RouteProps {
+  isAuth: boolean // is authenticate route
+  redirectPath: string // redirect path if don't authenticate route
+}
+
+const PrivateRoute: React.FC<IPrivateRouteProps> = (props) => {
+   return props.isAuth ? (
+    <Route {...props} component={props.component} render={undefined} />
+  ) : (
+    <Redirect to={{pathname: props.redirectPath}} />
+  )
+}
+
+export default PrivateRoute

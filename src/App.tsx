@@ -33,6 +33,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import Logout from './components/AlertPopup/Logout';
 import DashboardPage from './pages/Dashboard/DashboardPage';
+import TabRoot from './pages/TabPage/TabRoot';
 
 
 library.add(faSignOutAlt);
@@ -42,12 +43,9 @@ const App: React.FC = () => (
     <Logout/>
     <IonReactRouter>
       <IonRouterOutlet>
-        <PublicRoute restricted={true} component={Login} path="/login" exact />
-        <IonContent fullscreen>
-          <Route path="/dashboard" render={props => <DashboardPage {...props} />} />
-          <PrivateRoute  path="/dashboard" component={DashboardPage}  exact/>
-          <Route exact path="/" render={() => (isLogin()) ? <Redirect to="/dashboard"/> : <Redirect to="/login"/> } />
-        </IonContent>
+          <PublicRoute restricted={true} component={Login} path="/login" exact />
+          <Route path="/tabs" component={TabRoot}/>
+          <Route exact path="/" render={() => (isLogin()) ? <Redirect to="/tabs"/> : <Redirect to="/login"/> } />
       </IonRouterOutlet>
     </IonReactRouter>
 </IonApp>

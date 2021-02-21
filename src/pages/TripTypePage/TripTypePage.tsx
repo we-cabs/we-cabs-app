@@ -7,7 +7,7 @@ import './TripTypePage.css';
 const TripTypePage: React.FC<RouteComponentProps> = ({history}) => {
   const openTripBookingPage = (e:any,type:string) =>{
     e.preventDefault();
-    history.push(`/dashboard/tripbooking/${type}`);
+    history.push(`/tabs/dashboard/tripbooking/${type}`);
   }
   return (
     <IonPage>

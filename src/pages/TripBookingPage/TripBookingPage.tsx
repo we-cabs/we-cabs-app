@@ -18,7 +18,7 @@ const TripBookingPage: React.FC<TripBookingPageProps> = ({match, history}) => {
   }
   const openBookingDetailPage = (e:any,type:string) =>{
     e.preventDefault();
-    history.push(`/dashboard/bookingdetail/${type}`);
+    history.push(`/tabs/dashboard/bookingdetail/${type}`);
   }
   return (
     <IonPage>
