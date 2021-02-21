@@ -1,27 +1,4 @@
-.container {
-    text-align: center;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  
-  .container strong {
-    font-size: 20px;
-    line-height: 26px;
-  }
-  
-  .container p {
-    font-size: 16px;
-    line-height: 22px;
-    color: #8c8c8c;
-    margin: 0;
-  }
-  
-  .container a {
-    text-decoration: none;
-  }
+
   .trip_type_button{
     width: 59%;
     height: 65px;
@@ -29,13 +6,15 @@
     font-family: cursive;
   }
   .main_body_content_container {
-    height: 706px;
+    height: 1000px;
+    overflow: auto;
+    position: relative;
 }
 .extra_red_section_div {
   height: 200px;
   background: #ec0606!important;
   position: absolute;
-  top: 54px;
+  top: 0px;
   left: 0px;
   width: 100%;
 }

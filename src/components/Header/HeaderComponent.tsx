@@ -31,8 +31,8 @@ const HeaderComponent: React.FC<ContainerProps> = () => {
             </div>
           </div>
           </IonCol>
-          <IonCol>
-            <IonTitle className="header_title_text">Dashboard</IonTitle>
+          <IonCol className="header_title_col">
+            <span className="header_title_text">Dashboard</span>
           </IonCol>
           <IonCol>             
             <div className="notification_bell_icon">
