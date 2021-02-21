@@ -9,6 +9,7 @@
 .header_section {
     display: inline-flex;
     width: 100%;
+    padding: 0px 20px;
 }
 .app_logout_button {
     text-align: right;
