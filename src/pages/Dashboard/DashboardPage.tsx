@@ -2,12 +2,13 @@ import React from 'react';
 import { Route, RouteComponentProps } from 'react-router-dom';
 import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonBadge, IonRouterOutlet  } from '@ionic/react';
 
-import TripBookingPage from './TripBookingPage/TripBookingPage';
-import TripTypePage from './TripTypePage/TripTypePage';
-import BookingDetails from './BookingDetailListPage/BookingDetails';
-import BiddingPage from './BiddingPage/BiddingPage';
-import { SideMenu } from '../components/MenuDrawer/SideMenu';
-import { calendar, personCircle, map, informationCircle } from 'ionicons/icons';
+import TripBookingPage from '../TripBookingPage/TripBookingPage';
+import TripTypePage from '../TripTypePage/TripTypePage';
+import BookingDetails from '../BookingDetailListPage/BookingDetails';
+import BiddingPage from '../BiddingPage/BiddingPage';
+import { SideMenu } from '../../components/MenuDrawer/SideMenu';
+import {home , informationCircle } from 'ionicons/icons';
+import './DashboardPage.css'
 
 const DashboardPage: React.FC<RouteComponentProps> = ({match}) => {
   return (
@@ -21,24 +22,14 @@ const DashboardPage: React.FC<RouteComponentProps> = ({match}) => {
       <Route path={`${match.url}/bidding`} component={BiddingPage} />
     </IonRouterOutlet>
     <IonTabBar slot="bottom">
-      <IonTabButton tab="schedule">
-        <IonIcon icon={calendar} />
-        <IonLabel>Schedule</IonLabel>
-        <IonBadge>6</IonBadge>
-      </IonTabButton>
-      <IonTabButton tab="speakers">
-        <IonIcon icon={personCircle} />
-        <IonLabel>Speakers</IonLabel>
-      </IonTabButton>
-
       <IonTabButton tab="map">
-        <IonIcon icon={map} />
-        <IonLabel>Map</IonLabel>
+        <IonIcon className="active" icon={home} />
+        <IonLabel className="active">Home</IonLabel>
       </IonTabButton>
 
       <IonTabButton tab="about">
         <IonIcon icon={informationCircle} />
-        <IonLabel>About</IonLabel>
+        <IonLabel >About</IonLabel>
       </IonTabButton>
     </IonTabBar>
   </IonTabs>

@@ -1,5 +1,5 @@
 
-import { IonContent, IonHeader, IonPage,IonBackButton, IonTitle, IonToolbar,IonIcon, IonButton, IonMenuButton, IonButtons } from '@ionic/react';
+import { IonContent, IonHeader, IonPage,IonBackButton, IonTitle, IonToolbar,IonIcon, IonButton, IonMenuButton, IonButtons, IonRow, IonCol } from '@ionic/react';
 import React, { useState,useEffect, } from 'react';
 import './HeaderComponent.css';
 import { useHistory } from "react-router-dom";
@@ -12,10 +12,6 @@ import { menuController } from '@ionic/core';
 interface ContainerProps { }
 
 const HeaderComponent: React.FC<ContainerProps> = () => {
-  const logoutThisSession =()=>{
-    eventBus.dispatch("open-logout-popup", { message: "" });
-  }
-
   const {userInfo} = useSelector((state:RootStateOrAny) => state.userSignin);
   const openMenu = () =>{
     console.log('menu');
@@ -23,16 +19,27 @@ const HeaderComponent: React.FC<ContainerProps> = () => {
   }
   return (
     <IonHeader>
-      <IonToolbar color="primary">        
-          <Logout></Logout>
+      <IonToolbar>
+        <IonRow>
+          <IonCol>
           <div className="header_section">
             <div onClick={(e)=>openMenu()} className={'user_avatar_image_icon'}>
               <img src={userInfo.avatar}/>
-            </div>
-            <div onClick={() => logoutThisSession()} className={'app_logout_button'}>
-              <svg viewBox="0 0 512 512"><path d="M505.664 243.739l-54.783-38.622c-9.926-6.997-23.645.128-23.645 12.26v23.622h-263.04c-8.284 0-15.001 6.716-15.001 15.001s6.717 15 15.001 15h263.038v23.621c0 12.212 13.792 19.204 23.644 12.26l54.783-38.622c8.366-5.894 8.535-18.492.003-24.52zm-75.193 108.578c-7.169-4.146-16.347-1.698-20.496 5.474-35.236 60.916-101.103 101.811-176.372 101.811-112.266 0-203.602-91.336-203.602-203.602S121.337 52.398 233.603 52.398c75.319 0 141.156 40.933 176.371 101.809 4.148 7.172 13.328 9.619 20.496 5.474s9.621-13.325 5.474-20.496C395.418 69.127 319.729 22.397 233.603 22.397 104.49 22.397 0 126.876 0 256c0 129.113 104.479 233.603 233.603 233.603 86.163 0 161.833-46.763 202.342-116.79 4.147-7.171 1.697-16.347-5.474-20.496z"/></svg>
+              <div className="menu_drawer_icon_section">
+                <svg viewBox="0 0 512 512"><path d="M501.333 96H10.667C4.779 96 0 100.779 0 106.667s4.779 10.667 10.667 10.667h490.667c5.888 0 10.667-4.779 10.667-10.667S507.221 96 501.333 96zm0 149.333H10.667C4.779 245.333 0 250.112 0 256s4.779 10.667 10.667 10.667h490.667c5.888 0 10.667-4.779 10.667-10.667s-4.78-10.667-10.668-10.667zm0 149.334H10.667C4.779 394.667 0 399.445 0 405.333S4.779 416 10.667 416h490.667c5.888 0 10.667-4.779 10.667-10.667s-4.78-10.666-10.668-10.666z"/></svg>
+              </div>
             </div>
           </div>
+          </IonCol>
+          <IonCol>
+            <IonTitle className="header_title_text">Dashboard</IonTitle>
+          </IonCol>
+          <IonCol>             
+            <div className="notification_bell_icon">
+            <svg viewBox="0 0 512 512"><path d="M467.812 431.851l-36.629-61.056c-16.917-28.181-25.856-60.459-25.856-93.312V224c0-67.52-45.056-124.629-106.667-143.04V42.667C298.66 19.136 279.524 0 255.993 0s-42.667 19.136-42.667 42.667V80.96C151.716 99.371 106.66 156.48 106.66 224v53.483c0 32.853-8.939 65.109-25.835 93.291L44.196 431.83c-1.984 3.307-2.027 7.403-.128 10.752s5.419 5.419 9.259 5.419H458.66c3.84 0 7.381-2.069 9.28-5.397s1.835-7.468-.128-10.753zm-278.997 37.482C200.847 494.464 226.319 512 255.993 512s55.147-17.536 67.179-42.667H188.815z"/></svg>
+             </div>
+          </IonCol>
+        </IonRow>
       </IonToolbar>
    </IonHeader>
   );

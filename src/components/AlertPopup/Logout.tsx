@@ -9,7 +9,7 @@ export const Logout: React.FC = () => {
     eventBus.on("open-logout-popup", () =>
       setShowAlert(true)
     );
-  });
+  },[]);
     return (
       <IonContent>
         <IonAlert

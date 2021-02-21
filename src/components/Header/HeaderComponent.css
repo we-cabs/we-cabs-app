@@ -1,7 +1,7 @@
 .user_avatar_image_icon img {
-    width: 50px;
+    width: 45px;
     border-radius: 50%;
-    height: 50px;
+    height: 45px;
 }
 .user_avatar_image_icon {
     width: 88%;
@@ -22,4 +22,39 @@
 }
 .back_button_icon_svg svg{
     width: 30px;
+}
+ion-header ion-toolbar {
+    --background: #ec0606!important;
+    --border-color: #ec0606!important;
+}
+.menu_drawer_icon_section {
+    width: 21px;
+    height: 21px;
+    background: white;
+    text-align: center;
+    padding: 2px;
+    border-radius: 50%;
+    border: 1px solid #000000b5;
+    position: absolute;
+    left: 52px;
+    bottom: 0px;
+}
+.menu_drawer_icon_section svg {
+    width: 12px;
+}
+.header_title_text{
+    color: white;
+    font-family: revert;
+    letter-spacing: 1px;
+}
+.notification_bell_icon {
+    text-align: right;
+    padding: 8px 22px 0px 0px;
+}
+.notification_bell_icon svg{
+    fill: white;
+    width: 25px;
+    transform: rotate(
+        13deg
+        );
 }

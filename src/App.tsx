@@ -32,13 +32,14 @@ import TripBookingPage from './pages/TripBookingPage/TripBookingPage';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import Logout from './components/AlertPopup/Logout';
-import DashboardPage from './pages/DashboardPage';
+import DashboardPage from './pages/Dashboard/DashboardPage';
 
 
 library.add(faSignOutAlt);
 
 const App: React.FC = () => (
   <IonApp>
+    <Logout/>
     <IonReactRouter>
       <IonRouterOutlet>
         <PublicRoute restricted={true} component={Login} path="/login" exact />
