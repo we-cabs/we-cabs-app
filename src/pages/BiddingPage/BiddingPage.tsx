@@ -8,6 +8,11 @@ import { RouteComponentProps } from 'react-router';
 const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
     const biddingData= useSelector((state:RootStateOrAny) => state.biddingData);
     const [bidValue,setBidValue] = useState(biddingData.base_price);
+
+    const callToPlaceYourBid = () => {
+      
+    }
+
   return (
     <IonPage>
       <SubPageHeaderComponent title={"Bidding"}/>
@@ -71,14 +76,14 @@ const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
                       <input className="edit_bid_input" onChange={(e)=>setBidValue(e.target.value)} type="number" value={bidValue}/>
                     <span onClick={()=>setBidValue(bidValue+1)} className="edit_bid_icon">+</span>
                 </div>
-                <div className="place_your_bid_section">
+                <div onClick={()=>callToPlaceYourBid()} className="place_your_bid_section">
                   <span> PLACE YOUR BID </span>
                 </div>
             </div>
 
             <div onClick={()=>history.goBack()} className="leave_bid_section">
                 <span className="leave_this_bid_section">
-                  Leave This Bid
+                  LEAVE THIS BID
                 </span>
             </div>
       </div>
