@@ -16,7 +16,7 @@ const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
   return (
     <IonPage>
       <SubPageHeaderComponent title={"Bidding"}/>
-      <div className="bidding_page_container">
+      <div className="bidding_page_container mayank" >
           <div className="base_price_section">
               <span>Base Price: {biddingData.base_price}</span>
           </div>
