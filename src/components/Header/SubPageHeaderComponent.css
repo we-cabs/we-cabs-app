@@ -1,0 +1,7 @@
+ion-header ion-toolbar{
+    color: white!important;
+}
+ion-header ion-back-button {
+    display: block;
+    color: white!important;
+}

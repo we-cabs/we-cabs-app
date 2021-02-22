@@ -24,15 +24,11 @@ import './theme/variables.css';
 /* Theme variables */
 import './theme/variables.css';
 import Login from './pages/Login';
-import PrivateRoute from './hooks/PrivateRoute';
-import HeaderComponent from './components/Header/HeaderComponent';
-import TripTypeComponent from './pages/TripTypePage/TripTypePage';
 import PublicRoute from './hooks/PublicRoute';
-import TripBookingPage from './pages/TripBookingPage/TripBookingPage';
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import Logout from './components/AlertPopup/Logout';
-import DashboardPage from './pages/Dashboard/DashboardPage';
 import TabRoot from './pages/TabPage/TabRoot';
 
 

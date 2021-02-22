@@ -4,3 +4,12 @@
     font-size: 16px;
     font-family: cursive;
 }
+.trip_booking_button_text{
+    text-align: left;
+    letter-spacing: 1px;
+    font-size: 18px;
+    font-family: system-ui;
+}
+.inner_contant_container {
+    background: white;
+}

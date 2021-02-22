@@ -1,5 +1,6 @@
 import React from 'react';
-import {IonHeader, IonToolbar, IonTitle, IonBackButton, IonButtons } from '@ionic/react'
+import {IonHeader, IonToolbar, IonRow,IonCol, IonBackButton, IonButtons } from '@ionic/react'
+import './SubPageHeaderComponent.css';
 
 
 const SubPageHeaderComponent = (props:any) => {
@@ -7,9 +8,15 @@ const SubPageHeaderComponent = (props:any) => {
     <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/dashboard"/>
+                <IonBackButton defaultHref="/"/>
           </IonButtons>
-          <IonTitle>{props.title}</IonTitle>
+        <IonRow>
+          <IonCol size="10" className="header_title_col">
+            <span className="header_title_text">{props.title}</span>
+          </IonCol>
+          <IonCol size="2">                    
+          </IonCol>
+        </IonRow>
         </IonToolbar>
       </IonHeader>
   );

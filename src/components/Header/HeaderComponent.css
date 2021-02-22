@@ -6,6 +6,9 @@
 .user_avatar_image_icon {
     width: 88%;
 }
+ion-header ion-toolbar {
+    height: 65px;
+}
 .header_section {
     display: inline-flex;
     width: 100%;

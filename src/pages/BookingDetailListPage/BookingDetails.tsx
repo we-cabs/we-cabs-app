@@ -20,11 +20,11 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
   const openBiddingPage = (e:any,data:any) =>{
     e.preventDefault();
     dispatch(addBiddingBookingData(data));
-    history.push(`/dashboard/bidding`);
+    history.push(`/tabs/dashboard/bidding`);
   }
 
   const hrederTitle = () =>{
-    return 'Avialable Bookings';
+    return 'Available Bookings';
   }
   const {booking,loading} = useSelector((state:RootStateOrAny) => state.bookingDetails);
   return (

@@ -4,7 +4,9 @@ ion-label.active {
 ion-icon.active {
     color: #ec0606!important;
 }
-
+.inner_contant_container {
+  background: white;
+}
 .trip_type_button{
     width: 59%;
     height: 65px;
@@ -15,6 +17,7 @@ ion-icon.active {
     height: 1000px;
     overflow: auto;
     position: relative;
+    background: white;
 }
 .extra_red_section_div {
   height: 200px;
@@ -50,8 +53,8 @@ ion-icon.active {
 }
 .trip_bottom_button {
   text-align: center;
-  margin-top: 169px;
 }
+
 button.check_out_video_button {
   background: white;
   width: 85%;
