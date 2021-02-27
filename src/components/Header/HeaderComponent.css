@@ -26,7 +26,7 @@ ion-header ion-toolbar {
 .back_button_icon_svg svg{
     width: 30px;
 }
-ion-header ion-toolbar {
+ion-header.user_header_class ion-toolbar.user_header_toolbar {
     --background: #ec0606!important;
     --border-color: #ec0606!important;
 }

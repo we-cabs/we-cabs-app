@@ -23,7 +23,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 /* Theme variables */
 import './theme/variables.css';
-import Login from './pages/Login';
+import Login from './pages/Login/Login';
 import PublicRoute from './hooks/PublicRoute';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -39,7 +39,7 @@ const App: React.FC = () => (
     <Logout/>
     <IonReactRouter>
       <IonRouterOutlet>
-          <PublicRoute restricted={true} component={Login} path="/login" exact />
+          <Route path="/login" component={Login} exact/>
           <Route path="/tabs" component={TabRoot}/>
           <Route exact path="/" render={() => (isLogin()) ? <Redirect to="/tabs"/> : <Redirect to="/login"/> } />
       </IonRouterOutlet>

@@ -18,8 +18,8 @@ const HeaderComponent: React.FC<ContainerProps> = () => {
     menuController.open()
   }
   return (
-    <IonHeader>
-      <IonToolbar>
+    <IonHeader className="user_header_class">
+      <IonToolbar className="user_header_toolbar">
         <IonRow>
           <IonCol>
           <div className="header_section">

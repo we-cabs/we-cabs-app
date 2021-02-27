@@ -1,0 +1,4 @@
+ion-header.login_header_class ion-toolbar.login_header_toolbar {
+    --background: white!important;
+    --border-color: white!important;
+}

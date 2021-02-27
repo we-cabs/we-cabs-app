@@ -14,7 +14,7 @@ interface BookingDetailsProps extends RouteComponentProps<{
 
 const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
 
-   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
 
   const openBiddingPage = (e:any,data:any) =>{
@@ -26,6 +26,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
   const hrederTitle = () =>{
     return 'Available Bookings';
   }
+  
   const {booking,loading} = useSelector((state:RootStateOrAny) => state.bookingDetails);
   return (
     <IonPage>
@@ -36,6 +37,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
              {(loading || booking == undefined) ? 'Loading' : 
              <>
              {booking.map((data:any,i:number)=>(
+               <div className="booking_detail_container">
                   <div key={i} className="booking_detail_box loop">
                   <IonRow>
                     <IonCol size="7">
@@ -69,8 +71,9 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
                       </div>
                     </IonCol>
                   </IonRow>
-                  <IonButton onClick={(e)=>openBiddingPage(e,data)} className="book_or_bid_button">BID NOW or BOOK TO BID</IonButton>
                 </div> 
+                <IonButton onClick={(e)=>openBiddingPage(e,data)} className="book_or_bid_button">BID NOW or BOOK to BID</IonButton>
+                </div>
               ))}   
               </>  
              }      

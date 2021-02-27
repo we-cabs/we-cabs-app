@@ -1,0 +1,19 @@
+ion-header.admin_sub_header_class ion-toolbar.admin_sub_header_toolbar{
+    color: #212121!important;
+}
+ion-header.admin_sub_header_class ion-back-button {
+    display: block;
+    color: #212121!important;
+}
+ion-header.admin_sub_header_class ion-toolbar.admin_sub_header_toolbar {
+    --background: #ffffff!important;
+    --border-color: #ffffff!important;
+}
+.back_button_group{
+    margin-top: 6px!important;
+}
+.header_title_text_admin{
+    color: #212121!important;
+    font-family: revert;
+    letter-spacing: 1px;
+}

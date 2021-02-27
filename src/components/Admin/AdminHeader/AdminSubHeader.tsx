@@ -1,18 +1,18 @@
 import React from 'react';
 import {IonHeader, IonToolbar, IonRow,IonCol, IonBackButton, IonButtons } from '@ionic/react'
-import './SubPageHeaderComponent.css';
+import './AdminSubHeader.css';
 
 
-const SubPageHeaderComponent = (props:any) => {
+const AdminSubHeader = (props:any) => {
   return (
-    <IonHeader className="user_header_class">
-       <IonToolbar className="user_header_toolbar">
+    <IonHeader className="admin_sub_header_class">
+       <IonToolbar className="admin_sub_header_toolbar">
           <IonButtons className="back_button_group" slot="start">
                 <IonBackButton defaultHref="/"/>
           </IonButtons>
         <IonRow>
           <IonCol size="10" className="header_title_col">
-            <span className="header_title_text">{props.title}</span>
+            <span className="header_title_text_admin">{props.title}</span>
           </IonCol>
           <IonCol size="2">                    
           </IonCol>
@@ -22,4 +22,4 @@ const SubPageHeaderComponent = (props:any) => {
   );
 };
 
-export default SubPageHeaderComponent;
+export default AdminSubHeader;

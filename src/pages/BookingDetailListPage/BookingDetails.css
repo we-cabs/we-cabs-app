@@ -4,29 +4,38 @@
     overflow: auto;
     background: white!important;
 }
+.booking_detail_container{
+    position: relative;
+    margin-bottom: 92px;
+}
 .booking_detail_box {
-    border: 2px solid #f70101;
+    border: 1px solid #a03838;
     width: 100%;
     height: auto;
     border-radius: 8px;
-    padding: 7px;
-    margin-bottom: 20px;
+    padding: 7px 3px 0px 3px;
 }
 .booking_detail_op {
-    color: red;
+    color: #ec0606;
     font-size: 14px;
-    font-weight: 600;
 }
 .booking_title_op {
     font-size: 14px;
-    font-weight: 600;
+    letter-spacing: 0px;
+    font-family: revert;
 }
-.booking_title_right {
-    text-align: center;
-}
+
 ion-button.book_or_bid_button {
     width: 100%;
+    position: absolute;
+    bottom: -48px;
+    --background: #ec0606!important;
+    padding-top: 1px;
+    padding-bottom: 5px;
+    --border-radius: 7px;
+    font-weight: 600;
+    letter-spacing: 1px;
 }
 .booking_title_left,.booking_title_right {
-    margin-bottom: 5px;
+    margin-bottom: 2px;
 }

@@ -1,10 +1,12 @@
 import React, { useState,useEffect } from 'react';
 import { IonAlert, IonButton, IonContent } from '@ionic/react';
 import {eventBus} from "../../hooks/EventBus";
-import { setUserSigninInfo } from '../../services/userservice';
+import { useDispatch } from 'react-redux';
+import { signout } from '../../actions/UserAction';
 export const Logout: React.FC = () => {
 
   const [showAlert, setShowAlert] = useState(false);
+  const dispatch = useDispatch()
   useEffect(() => {
     eventBus.on("open-logout-popup", () =>
       setShowAlert(true)
@@ -31,9 +33,7 @@ export const Logout: React.FC = () => {
             {
               text: 'Ok',
               handler: () => {
-                setUserSigninInfo('');
-                localStorage.removeItem('userInfo');
-                window.location.reload();
+                dispatch(signout());
               }
             }
           ]}

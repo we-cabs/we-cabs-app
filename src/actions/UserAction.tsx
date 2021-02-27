@@ -13,9 +13,11 @@ export const signin = (loginData:any) => async (dispatch:any) => {
   try {
     api.post('/register', loginData).then(res=>{
         api.get('/users/'+res.data.id).then(user=>{
-            dispatch({ type: USER_SIGNIN_SUCCESS, payload: user.data.data });
-            localStorage.setItem('userInfo',JSON.stringify(user.data.data));
-            window.location.reload();
+            let userData = user.data.data;
+            userData.role = 'admin';
+            dispatch({ type: USER_SIGNIN_SUCCESS, payload: userData });
+            localStorage.setItem('userInfo',JSON.stringify(userData));
+            document.location.href = '/tabs';
         })
     })
   } catch (error) {
@@ -31,8 +33,6 @@ export const signin = (loginData:any) => async (dispatch:any) => {
 
 export const signout = () => (dispatch:any) => {
   localStorage.removeItem('userInfo');
-  localStorage.removeItem('cartItems');
-  localStorage.removeItem('shippingAddress');
   dispatch({ type: USER_SIGNOUT });
-  document.location.href = '/signin';
+  document.location.href = '/login';
 };
