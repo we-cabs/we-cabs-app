@@ -24,26 +24,35 @@ import './theme/variables.css';
 /* Theme variables */
 import './theme/variables.css';
 import Login from './pages/Login/Login';
-import PublicRoute from './hooks/PublicRoute';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import Logout from './components/AlertPopup/Logout';
 import TabRoot from './pages/TabPage/TabRoot';
-
-
 library.add(faSignOutAlt);
+
+const PrivateRoutes = () => {
+  return (
+    <IonReactRouter>
+        <Route path="/login" component={Login} exact={true} />
+        <Route path="/" render={() => <Redirect to="/login" />} />
+    </IonReactRouter>
+  );
+};
+const PublicRoutes = () => {
+  return (
+    <IonReactRouter>
+      <Route path="/tabs" component={TabRoot} />
+      <Route path="/" render={() => <Redirect to="/tabs" />} />
+    </IonReactRouter>
+  );
+};
+
 
 const App: React.FC = () => (
   <IonApp>
     <Logout/>
-    <IonReactRouter>
-      <IonRouterOutlet>
-          <Route path="/login" component={Login} exact/>
-          <Route path="/tabs" component={TabRoot}/>
-          <Route exact path="/" render={() => (isLogin()) ? <Redirect to="/tabs"/> : <Redirect to="/login"/> } />
-      </IonRouterOutlet>
-    </IonReactRouter>
+    {(isLogin()) ? <PublicRoutes /> : <PrivateRoutes />}
 </IonApp>
 );
 

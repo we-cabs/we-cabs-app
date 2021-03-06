@@ -27,8 +27,8 @@ ion-header ion-toolbar {
     width: 30px;
 }
 ion-header.user_header_class ion-toolbar.user_header_toolbar {
-    --background: #ec0606!important;
-    --border-color: #ec0606!important;
+    --background: var(--theme-color)!important;
+    --border-color: var(--theme-color)!important;
 }
 .menu_drawer_icon_section {
     width: 21px;

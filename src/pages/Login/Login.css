@@ -2,3 +2,77 @@ ion-header.login_header_class ion-toolbar.login_header_toolbar {
     --background: white!important;
     --border-color: white!important;
 }
+
+span.login_welcome_title {
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+span.login_welcome_message {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-family: inherit;
+    color: #505050;
+}
+.login_welcome_message_container {
+    margin: 38px 12px;
+}
+span.login_welcome_title {
+    font-size: 15px;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    display: block;
+}
+.login_button {
+    --background: var(--theme-color,rgb(218, 39, 46))!important;
+    --border-radius: 4px;
+    font-size: 17px;
+    font-weight: 600;
+}
+.login_phone_input_div_container {
+    border: 2px solid #efefef;
+    border-radius: 8px;
+    box-shadow: 0px 0px 13px 4px #f1f1f1;
+    padding: 2px 0px;
+    margin-top: 100px;
+}
+.phone_icon {
+    margin-top: 6px;
+}
+.phone_icon svg{
+    width: 15px;
+    fill: #969696;
+}
+.login_input_col{
+    text-align: left;
+}
+.login_input{
+    border: unset!important;
+    margin-top: 7px;
+    font-size: 20px;
+    color: #545454;
+}
+input:focus{
+    outline-offset: unset!important;
+}
+:focus{
+    outline: unset!important;
+}
+.forget_password_section {
+    text-align: right;
+    margin: 11px 0px;
+    color: #808080;
+    letter-spacing: 1px;
+    font-size: 15px;
+    font-family: system-ui;
+}
+span.signin_new_user {
+    color: #848484;
+    letter-spacing: 1px;
+}
+span.signin_new_user_link {
+    color: #1788e8;
+}
+.new_user_signin_section {
+    margin-top: 34px;
+}

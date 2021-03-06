@@ -6,8 +6,8 @@ ion-header.user_header_class ion-back-button {
     color: white!important;
 }
 ion-header.user_header_class ion-toolbar.user_header_toolbar {
-    --background: #ec0606!important;
-    --border-color: #ec0606!important;
+    --background: var(--theme-color,rgb(218, 39, 46))!important;
+    --border-color: var(--theme-color,rgb(218, 39, 46))!important;
 }
 .back_button_group{
     margin-top: 6px!important;

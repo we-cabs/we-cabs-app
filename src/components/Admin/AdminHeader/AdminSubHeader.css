@@ -7,7 +7,7 @@ ion-header.admin_sub_header_class ion-back-button {
 }
 ion-header.admin_sub_header_class ion-toolbar.admin_sub_header_toolbar {
     --background: #ffffff!important;
-    --border-color: #ffffff!important;
+    --border-color: #c5c5c5!important;
 }
 .back_button_group{
     margin-top: 6px!important;

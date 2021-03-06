@@ -6,19 +6,23 @@ import {
   USER_SIGNOUT,
 } from '../constants/UserConstants';
 const api = Axios.create({
-    baseURL: `https://reqres.in/api`
+    baseURL: `https://a46jrcmngi.execute-api.us-west-2.amazonaws.com/dev`
 })
 export const signin = (loginData:any) => async (dispatch:any) => {
   dispatch({ type: USER_SIGNIN_REQUEST });
   try {
-    api.post('/register', loginData).then(res=>{
-        api.get('/users/'+res.data.id).then(user=>{
-            let userData = user.data.data;
-            userData.role = 'admin';
-            dispatch({ type: USER_SIGNIN_SUCCESS, payload: userData });
-            localStorage.setItem('userInfo',JSON.stringify(userData));
-            document.location.href = '/tabs';
-        })
+    api.get(`/user/${loginData.phoneNumber}`).then(user=>{
+      let userData = user.data;
+      if(user.data){
+        dispatch({ type: USER_SIGNIN_SUCCESS, payload: userData });
+        localStorage.setItem('userInfo',JSON.stringify(userData));
+        document.location.href = '/tabs';
+      }else{
+        dispatch({
+          type: USER_SIGNIN_FAIL,
+          payload:'Invalid Login!',
+        });
+      }
     })
   } catch (error) {
     dispatch({
@@ -32,7 +36,9 @@ export const signin = (loginData:any) => async (dispatch:any) => {
 };
 
 export const signout = () => (dispatch:any) => {
-  localStorage.removeItem('userInfo');
-  dispatch({ type: USER_SIGNOUT });
   document.location.href = '/login';
+  localStorage.removeItem('userInfo');
+  setTimeout(function(){
+    dispatch({ type: USER_SIGNOUT });
+  },1000)
 };

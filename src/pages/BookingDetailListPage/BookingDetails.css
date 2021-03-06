@@ -16,7 +16,7 @@
     padding: 7px 3px 0px 3px;
 }
 .booking_detail_op {
-    color: #ec0606;
+    color: var(--theme-color,rgb(218, 39, 46))!important;
     font-size: 14px;
 }
 .booking_title_op {
@@ -29,7 +29,7 @@ ion-button.book_or_bid_button {
     width: 100%;
     position: absolute;
     bottom: -48px;
-    --background: #ec0606!important;
+    --background: var(--theme-color,rgb(218, 39, 46))!important;
     padding-top: 1px;
     padding-bottom: 5px;
     --border-radius: 7px;

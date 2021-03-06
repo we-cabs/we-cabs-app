@@ -1,8 +1,8 @@
 ion-label.active {
-    color: #ec0606!important;
+    color: var(--theme-color,rgb(218, 39, 46))!important;
 }
 ion-icon.active {
-    color: #ec0606!important;
+    color: var(--theme-color,rgb(218, 39, 46))!important;
 }
 .inner_contant_container {
   background: white;
@@ -21,7 +21,7 @@ ion-icon.active {
 }
 .extra_red_section_div {
   height: 200px;
-  background: #ec0606!important;
+  background: var(--theme-color,rgb(218, 39, 46))!important;
   position: absolute;
   top: 0px;
   left: 0px;
@@ -72,7 +72,7 @@ button.check_out_video_button {
   padding-top: 7px;
 }
 .check_out_button_icon svg{
-  fill: #ec0606!important;
+  fill: var(--theme-color,rgb(218, 39, 46))!important;
   width: 22px;
 }
 .bottom_logo_container {

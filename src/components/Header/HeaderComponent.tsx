@@ -24,7 +24,7 @@ const HeaderComponent: React.FC<ContainerProps> = () => {
           <IonCol>
           <div className="header_section">
             <div onClick={(e)=>openMenu()} className={'user_avatar_image_icon'}>
-              <img src={userInfo.avatar}/>
+              <img src={userInfo.profileImgUrl}/>
               <div className="menu_drawer_icon_section">
                 <svg viewBox="0 0 512 512"><path d="M501.333 96H10.667C4.779 96 0 100.779 0 106.667s4.779 10.667 10.667 10.667h490.667c5.888 0 10.667-4.779 10.667-10.667S507.221 96 501.333 96zm0 149.333H10.667C4.779 245.333 0 250.112 0 256s4.779 10.667 10.667 10.667h490.667c5.888 0 10.667-4.779 10.667-10.667s-4.78-10.667-10.668-10.667zm0 149.334H10.667C4.779 394.667 0 399.445 0 405.333S4.779 416 10.667 416h490.667c5.888 0 10.667-4.779 10.667-10.667s-4.78-10.666-10.668-10.666z"/></svg>
               </div>

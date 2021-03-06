@@ -18,7 +18,7 @@ const AdminHeaderComponent: React.FC= () => {
           <IonCol>
           <div className="header_section">
             <div className={'user_avatar_image_icon'}>
-              <img src={userInfo.avatar}/>
+              <img src={userInfo.profileImgUrl}/>
             </div>
           </div>
           </IonCol>
