@@ -1,5 +1,8 @@
 import Axios from 'axios';
 import {
+  ALL_USER_DATA_FAIL,
+  ALL_USER_DATA_REQUEST,
+  ALL_USER_DATA_SUCCESS,
   USER_SIGNIN_FAIL,
   USER_SIGNIN_REQUEST,
   USER_SIGNIN_SUCCESS,
@@ -20,6 +23,30 @@ export const signin = (loginData:any) => async (dispatch:any) => {
       }else{
         dispatch({
           type: USER_SIGNIN_FAIL,
+          payload:'Invalid Login!',
+        });
+      }
+    })
+  } catch (error) {
+    dispatch({
+      type: USER_SIGNIN_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+export const actionToGetAllUserData = () => async (dispatch:any) => {
+  dispatch({ type: ALL_USER_DATA_REQUEST });
+  try {
+    api.get(`/user`).then(user=>{
+      let userData = user.data.users;
+      if(user.data){
+        dispatch({ type: ALL_USER_DATA_SUCCESS, payload: userData });
+      }else{
+        dispatch({
+          type: ALL_USER_DATA_FAIL,
           payload:'Invalid Login!',
         });
       }

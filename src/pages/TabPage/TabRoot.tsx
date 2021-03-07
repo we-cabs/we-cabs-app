@@ -18,6 +18,7 @@ import BookingDetails from '../BookingDetailListPage/BookingDetails';
 import BiddingPage from '../BiddingPage/BiddingPage';
 import AddBooking from '../Admin/AddBooking/AddBooking';
 import SelectBidForBooking from '../Admin/SelectBidForBooking/SelectBidForBooking';
+import UpdateUserData from '../Admin/UpdateUserData/UpdateUserData';
 
 const TabRoot: React.FC = () => {
   const {userInfo} = useSelector((state:RootStateOrAny) => state.userSignin);
@@ -33,7 +34,7 @@ const TabRoot: React.FC = () => {
             
           <Route path={`/tabs/dashboard/add-booking`} component={AddBooking} />
           <Route path={`/tabs/dashboard/select-bid-foe-booking`} component={SelectBidForBooking} />
-          <Route path={`/tabs/dashboard/update-user-data`} component={SelectBidForBooking} />
+          <Route path={`/tabs/dashboard/update-user-data`} component={UpdateUserData} />
 
           <Route path={`/tabs/dashboard/tripbooking/:type`} component={TripBookingPage} />
           <Route path={`/tabs/dashboard/bookingdetail/:type`} component={BookingDetails} />

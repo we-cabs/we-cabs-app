@@ -1,7 +1,7 @@
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { biddingDataReducer, bookingDetailsReducer } from './reducers/BookingReducers';
-import { userSigninReducer } from './reducers/UserReducers';
+import { allUserDataReducer, userSigninReducer } from './reducers/UserReducers';
 
 const initialState = {
     userSignin: {
@@ -9,6 +9,7 @@ const initialState = {
           ? JSON.parse(localStorage.getItem('userInfo') || `{}`)
           : null,
       },
+      allUserData:{},
       bookingDetails: {
         loading:false,
         error:false,
@@ -121,6 +122,7 @@ export const rootReducer = combineReducers({
     userSignin: userSigninReducer,
     bookingDetails:bookingDetailsReducer,
     biddingData:biddingDataReducer,
+    allUserData:allUserDataReducer,
 });
 declare global {
     interface Window {

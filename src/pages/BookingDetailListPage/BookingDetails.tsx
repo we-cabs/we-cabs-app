@@ -69,10 +69,10 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
                         <br/>              
                         <span className="booking_detail_op">{data.booking_date_time}</span>
                       </div>
+                      <div onClick={(e)=>openBiddingPage(e,data)} className="bidding_list_button">BID NOW {'>'}</div>
                     </IonCol>
                   </IonRow>
                 </div> 
-                <IonButton onClick={(e)=>openBiddingPage(e,data)} className="book_or_bid_button">BID NOW or BOOK to BID</IonButton>
                 </div>
               ))}   
               </>  

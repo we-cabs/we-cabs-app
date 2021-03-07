@@ -1,0 +1,34 @@
+.user_data_list_container:last-child {
+    border-bottom: 1px solid #ccc;
+}
+.user_data_list_container {
+    position: relative;
+    border: 1px solid #ccc;
+    border-bottom: unset;
+    margin: 0px 20px;
+}
+.user_profile_pic {
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+.user_profile_pic img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.user_data_list_section{
+    margin-top: 20px;
+}
+button.user_cars_button {
+    border: 1px solid #ccc;
+    padding: 8px 91px;
+    border-radius: 3px;
+    background: white;
+    font-size: 15px;
+    margin-top: 12px;
+}
+.user_cars_button_section {
+    text-align: center;
+    border-top: 1px solid #ccc;
+    margin: 12px 0px;
+}

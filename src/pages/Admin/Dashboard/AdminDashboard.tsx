@@ -1,12 +1,17 @@
 import { IonPage,IonRow,IonCol } from '@ionic/react';
-import React from 'react';
-import { useSelector,RootStateOrAny } from 'react-redux';
+import React,{useEffect} from 'react';
+import { useDispatch,useSelector,RootStateOrAny } from 'react-redux';
 import './AdminDashboard.css';
 import AdminHeaderComponent from '../../../components/Admin/AdminHeader/AdminHeaderComponent';
 import { RouteComponentProps } from 'react-router';
+import { actionToGetAllUserData } from '../../../actions/UserAction';
 
 const AdminDashboard: React.FC<RouteComponentProps> = ({match, history}) => {
 
+    const dispatch = useDispatch();
+    useEffect(()=>{
+        dispatch(actionToGetAllUserData());
+    },[])
     return (
         <IonPage>
          <AdminHeaderComponent/>

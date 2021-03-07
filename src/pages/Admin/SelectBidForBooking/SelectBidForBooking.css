@@ -1,0 +1,13 @@
+.bidding_list_button {
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 6px 1px #e4e4e4;
+    margin: 9px 1px;
+    padding: 6px 1px;
+    background: red;
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    font-family: unset;
+    font-weight: 700;
+}

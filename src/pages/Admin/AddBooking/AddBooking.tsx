@@ -67,7 +67,7 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
                 </IonItem>
                 <IonItem>
                   <IonLabel position="floating">Pick Up Date Time</IonLabel>
-                  <IonDatetime onIonChange={(e)=>setPickUpTime(e.detail.value || '')}  value={pickupTime} displayFormat="DD MMM hh:mm a" displayTimezone="utc"/>
+                  <IonDatetime onIonChange={(e)=>setPickUpTime(e.detail.value || '')}  value={pickupTime} displayFormat="hh:mm a" displayTimezone="utc"/>
                 </IonItem>
                 <IonItem>
                   <IonLabel position="floating">Car Type</IonLabel>
@@ -86,7 +86,7 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
                   <IonTextarea  onIonChange={(e)=>setCustomerDetail(e.detail.value || '')} value={customerDetail} autoGrow rows={2} required/>
                 </IonItem>
                 <IonButton className="ion-margin-top" type="submit" expand="block">
-                  Add Bid
+                  Add Booking
                 </IonButton>
               </form>
              </div>
