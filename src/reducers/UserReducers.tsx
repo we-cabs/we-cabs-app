@@ -2,6 +2,9 @@ import {
   ALL_USER_DATA_FAIL,
   ALL_USER_DATA_REQUEST,
   ALL_USER_DATA_SUCCESS,
+  USER_CAR_FAIL,
+  USER_CAR_REQUEST,
+  USER_CAR_SUCCESS,
     USER_SIGNIN_FAIL,
     USER_SIGNIN_REQUEST,
     USER_SIGNIN_SUCCESS,
@@ -34,4 +37,31 @@ import {
         return state;
     }
   };
+  export const carDataReducer = (state = {}, action:any) => {
+    switch (action.type) {
+      case USER_CAR_REQUEST:
+        return { loading: true };
+      case USER_CAR_SUCCESS:
+        return { loading: false, cars: action.payload };
+      case USER_CAR_FAIL:
+        return { loading: false, error: action.payload };
+      default:
+        return state;
+    }
+  };
+
+  
+  export const indianCityArrayReducer = (state = {}, action:any) => {
+    switch (action.type) {
+      default:
+        return state;
+    }
+  };
+  export const cabTypeReducer = (state = {}, action:any) => {
+    switch (action.type) {
+      default:
+        return state;
+    }
+  };
+  
   

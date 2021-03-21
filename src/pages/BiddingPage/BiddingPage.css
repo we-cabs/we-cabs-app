@@ -1,93 +1,150 @@
 .bidding_page_container{
     height: 824px;
-    padding: 25px;
+    padding: 25px 0px;
     overflow: auto;
     background: white!important;
 }
 .base_price_section {
+    text-align: center;
+    color: #444;
+    font-family: sans-serif;
+    font-weight: 600;
+}
+.bidding_list_section_container {
+    margin-top: 20px;
+}
+.bidding_list_section_container .booking_svg_icon{
+    fill: #4c4c4c;
+    width: 23px;
+}
+.bidding_list_section_container .booking_row_section {
+    border-top: 1px solid #ccc;
+    border-left: unset;
+    border-right: unset;
+    padding: 3px 16px;
+}
+svg.booking_svg_icon_car {
+    fill: #4c4c4c;
+    width: 30px;
+}
+.add_bidding_success_popup_container {
+    position: fixed;
     width: 100%;
+    height: 100%;
+    z-index: 9999999;
+    background: #b7b7b7ba;
+    padding: 0px 38px;
+}
+.request_success_submit_message {
     text-align: center;
-    margin-bottom: 20px;
-    color: red;
-    font-size: 16px;
-    font-weight: 700;
-}
-.clock_section_container {
-    text-align: center;
-    margin: 20px;
-}
-.clock_section_container svg{
-    width: 38%;
-}
-.time_remaining_section{
-    color: #f70101;
-    font-size: 14px;
-  
-}
-.minimun_bid_received_section {
-    margin-top: 38px;
-    border: 2px solid #f70101;
-
-    height: auto;
+    top: 122px;
     position: absolute;
-    right: 25px;
-    border-radius: 4px;
-    padding: 7px;
-    margin-bottom: 20px;
-}
-.minimun_bid_received_section .bid_received_title{
-    font-size: 14px;
-}
-.minimun_bid_received_section .bid_received_value{
-    color: #f70101;
-    font-size: 14px;
-}
-.place_youir_bid_section {
-    border: 20px;
-    padding: 10px;
-    background: red;
-    position: absolute;
-    bottom: 233px;
-    width: 90%;
-    display: inline-flex;
-}
-input.edit_bid_input {
-    width: 60px;
-    border: none;
-    border-radius: 3px;
-    padding: 3px;
-    font-size: 13px;
-    margin-left: 12px;
-    margin-right: 12px;
-}
-.place_your_bid_section {
-    margin-left: 116px;
-    color: white;
-    font-size: 15px;
-    font-weight: 600;
-}
-span.edit_bid_icon {
+    width: 100%;
     font-size: 17px;
-    color: white;
     font-weight: 600;
-    cursor: pointer;
+    color: #675f5f;
 }
-.leave_bid_section {
-    border: 20px;
+button.bidding_success_close_button {
+    width: 37%;
+    padding: 12px;
+    background: #67b54e;
+    color: white;
+    font-size: 14px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+.add_bidding_success_popup_container .add_bidding_check_box {
+    text-align: center;
     padding: 10px;
-    background: red;
     position: absolute;
-    bottom: 128px;
-    width: 32%;
-    left: 34%;
-    display: inline-flex;
-    text-align: -webkit-auto;
+    left: 86px;
+    top: -34px;
+    width: 42%;
+    background: white;
+    border-radius: 50%;
 }
-.edit_your_bid_section {
-    margin-left: 14px;
+
+.add_bidding_success_popup {
+    width: 100%;
+    background: #ffffff;
+    height: 42%;
+    box-shadow: 1px 0px 20px 10px #cccccc2e;
+    border-radius: 4px;
+    margin-top: 200px;
+    text-align: center;
+    position: relative;
 }
-.leave_this_bid_section {
-    color: white;
+.bidding_list_section_container .booking_row_section:last-child {
+    border-bottom: 1px solid #ccc;
+}
+.booking_pickup_point_result select{
+    border: unset;
+}
+
+.bidding_list_section_container .booking_pickup_point {
+    margin-top: 4px;
+    padding: 0px 11px;
+    font-size: 14px;
+    color: #000;
+}
+.bidding_list_section_container .booking_pickup_point_result {
+    margin-top: 3px;
+    color: #c33030;
     font-size: 15px;
-    font-weight: 600;
+}
+.time_watch_div_section_container {
+    text-align: center;
+    margin-top: 20px;
+    padding: 41px 52px;
+}
+.bidding_list_section_container .time_watch_div_section_container {
+    text-align: center;
+    margin-top: 54px;
+    padding: 1px 77px;
+}.stop_timer_watch {
+    width: 85%;
+}
+.stop_timer_watch svg {
+    fill: #585858;
+}
+.stop_timer_running_watch_col {
+    background: #dadada;
+    border-radius: 4px;
+    padding: 14px 16px;
+}
+.stop_timer_running_watch {
+    margin-top: 25%;
+}
+.running.timer_div {
+    background: white;
+    color: #c31d1d;
+    border-radius: 4px;
+    padding: 3px 13px;
+    width: 73px;
+    font-size: 15px;
+}
+.bidding_booking_button_section {
+    text-align: center;
+}
+button.place_your_bidding_button {
+    background: #ce2e2e;
+    color: white;
+    padding: 10px 53px;
+    font-size: 15px;
+    width: 56%;
+}
+button.leave_bidding_button {
+    background: #696868;
+    color: white;
+    padding: 10px 53px;
+    font-size: 15px;
+    width: 56%;
+}
+.type_your_bidding_input input{
+    text-align: center;
+    color: #c34747;
+    border: 1px solid #ccc;
+    padding: 9px 0px;
+    width: 56%;
+    font-size: 15px;
 }

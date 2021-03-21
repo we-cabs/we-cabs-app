@@ -3,6 +3,9 @@ import {
   ALL_USER_DATA_FAIL,
   ALL_USER_DATA_REQUEST,
   ALL_USER_DATA_SUCCESS,
+  USER_CAR_FAIL,
+  USER_CAR_REQUEST,
+  USER_CAR_SUCCESS,
   USER_SIGNIN_FAIL,
   USER_SIGNIN_REQUEST,
   USER_SIGNIN_SUCCESS,
@@ -23,6 +26,30 @@ export const signin = (loginData:any) => async (dispatch:any) => {
       }else{
         dispatch({
           type: USER_SIGNIN_FAIL,
+          payload:'Invalid Login!',
+        });
+      }
+    })
+  } catch (error) {
+    dispatch({
+      type: USER_SIGNIN_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+export const actionToGetUserCar = (id:any) => async (dispatch:any) => {
+  dispatch({ type: USER_CAR_REQUEST });
+  try {
+    api.get(`/car`).then(car=>{
+      let carData = car.data.cars;
+      if(car.data){
+        dispatch({ type: USER_CAR_SUCCESS, payload: carData });
+      }else{
+        dispatch({
+          type: USER_CAR_FAIL,
           payload:'Invalid Login!',
         });
       }

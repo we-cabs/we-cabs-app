@@ -1,4 +1,4 @@
-import { BIDING_DETAIL_SUCCESS, BOOKING_DETAIL_FAIL, BOOKING_DETAIL_REQUEST, BOOKING_DETAIL_SUCCESS } from '../constants/BookingConstants';
+import {BOOKING_DETAIL_FAIL, BOOKING_DETAIL_REQUEST, BOOKING_DETAIL_SUCCESS } from '../constants/BookingConstants';
   
 export const bookingDetailsReducer = (state = {}, action:any) => {
   switch (action.type) {
@@ -8,15 +8,6 @@ export const bookingDetailsReducer = (state = {}, action:any) => {
       return { loading: false, booking: action.payload };
     case BOOKING_DETAIL_FAIL:
       return { loading: false, error: action.payload };
-    default:
-      return state;
-  }
-};
-
-export const biddingDataReducer = (state = {}, action:any) => {
-  switch (action.type) {
-    case BIDING_DETAIL_SUCCESS:
-      return action.payload;
     default:
       return state;
   }

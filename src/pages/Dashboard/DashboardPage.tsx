@@ -1,15 +1,26 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonRow,IonCol, IonButton } from '@ionic/react'
 import { Link, RouteComponentProps } from 'react-router-dom';
+import { useDispatch,useSelector,RootStateOrAny} from 'react-redux';
 import HeaderComponent from '../../components/Header/HeaderComponent';
 import './DashboardPage.css';
 import VideoAndLogoFooter from '../../components/Footers/VideoAndLogoFooter';
+import { actionToGetBookingData } from '../../actions/BookingAction';
+import { actionToGetUserCar } from '../../actions/UserAction';
 
 const DashboardPage: React.FC<RouteComponentProps> = ({history}) => {
+  const dispatch = useDispatch();
   const openTripBookingPage = (e:any,type:string) =>{
     e.preventDefault();
     history.push(`/tabs/dashboard/tripbooking/${type}`);
   }
+  const {userInfo} = useSelector((state:RootStateOrAny) => state.userSignin);
+
+  useEffect(()=>{
+    dispatch(actionToGetBookingData({}));
+    dispatch(actionToGetUserCar(userInfo.id));
+  },[])
+  
   return (
     <IonPage>
       <HeaderComponent/>
