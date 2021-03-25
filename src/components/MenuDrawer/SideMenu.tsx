@@ -3,12 +3,16 @@ import { IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem,
 import { eventBus } from '../../hooks/EventBus';
 import './SideMenu.css';
 import { useDispatch,useSelector,RootStateOrAny} from 'react-redux';
+import { RouteComponentProps } from 'react-router';
+import { useHistory } from "react-router-dom";
+import { menuController } from '@ionic/core';
 
 export const SideMenu: React.FC = () => {
   const logoutThisSession =(e:any)=>{
     e.preventDefault();
     eventBus.dispatch("open-logout-popup", { message: "" });
   }
+  const history = useHistory();
   const {userInfo} = useSelector((state:RootStateOrAny) => state.userSignin);
 
   return (
@@ -27,7 +31,7 @@ export const SideMenu: React.FC = () => {
           </div>
         </IonHeader>
         <IonContent>
-           <IonRow className="menu_drawer_list_options_link_row">
+           <IonRow onClick={()=>{menuController.close(); history.push(`/tabs/dashboard/my-profile`)}} className="menu_drawer_list_options_link_row">
             <IonCol size="3" className="menu_drawer_list_svg_icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="-42 0 512 512.002"><path d="M210.352 246.633c33.883 0 63.223-12.152 87.195-36.129s36.125-53.305 36.125-87.191c0-33.875-12.152-63.211-36.129-87.191C273.566 12.152 244.23 0 210.352 0c-33.887 0-63.219 12.152-87.191 36.125s-36.129 53.309-36.129 87.188c0 33.887 12.156 63.223 36.133 87.195s53.313 36.125 87.188 36.125zm215.777 147.07c-.691-9.977-2.09-20.859-4.148-32.352-2.078-11.578-4.754-22.523-7.957-32.527-3.309-10.34-7.809-20.551-13.371-30.336-5.773-10.156-12.555-19-20.164-26.277-7.957-7.613-17.699-13.734-28.965-18.199-11.227-4.441-23.668-6.691-36.977-6.691-5.227 0-10.281 2.145-20.043 8.5l-20.879 13.461c-6.707 4.273-15.793 8.277-27.016 11.902-10.949 3.543-22.066 5.34-33.039 5.34s-22.086-1.797-33.047-5.34c-11.211-3.621-20.297-7.625-26.996-11.898l-20.898-13.469c-9.75-6.355-14.809-8.5-20.035-8.5-13.312 0-25.75 2.254-36.973 6.699-11.258 4.457-21.004 10.578-28.969 18.199-7.605 7.281-14.391 16.121-20.156 26.273-5.559 9.785-10.059 19.992-13.371 30.34-3.199 10.004-5.875 20.945-7.953 32.523-2.059 11.477-3.457 22.363-4.148 32.363C.344 403.512 0 413.68 0 423.949c0 26.727 8.496 48.363 25.25 64.32 16.547 15.746 38.441 23.734 65.066 23.734h246.531c26.625 0 48.512-7.984 65.063-23.734 16.758-15.945 25.254-37.586 25.254-64.324-.004-10.316-.352-20.492-1.035-30.242zm0 0"/><defs/></svg>
             </IonCol>

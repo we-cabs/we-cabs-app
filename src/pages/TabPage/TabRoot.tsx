@@ -23,6 +23,7 @@ import SelectBidForBooking from '../Admin/SelectBidForBooking/SelectBidForBookin
 import UpdateUserData from '../Admin/UpdateUserData/UpdateUserData';
 import './TabRoot.css';
 import BiddingListPage from '../BiddingListPage/BiddingListPage';
+import ProfilePage from '../ProfilePage/ProfilePage';
 
 const TabRoot: React.FC = () => {
   const {userInfo} = useSelector((state:RootStateOrAny) => state.userSignin);
@@ -43,6 +44,7 @@ const TabRoot: React.FC = () => {
 
           <Route path="/tabs/bidding-list" component={BiddingListPage} exact={true} /> 
           <Route path={`/tabs/dashboard/tripbooking/:type`} component={TripBookingPage} />
+          <Route path={`/tabs/dashboard/my-profile`} component={ProfilePage} />
           <Route path={`/tabs/dashboard/bookingdetail/:type`} component={BookingDetails} />
           <Route path={`/tabs/dashboard/bidding`} component={BiddingPage} />
           <Route path="/tabs" render={() => <Redirect to="/tabs/dashboard" />} exact={true} />
