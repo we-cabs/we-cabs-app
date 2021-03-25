@@ -1,0 +1,14 @@
+.tab_svg_icon{
+    text-align: center;
+}
+.tab_svg_icon svg{
+    width: 28px;
+    fill:#757575
+}
+.tab-selected .tab_svg_icon svg{
+    fill:var(--theme-color,rgb(218, 39, 46))!important;
+  }
+
+ .tab_label{
+    color:#1d1d1d!important;
+  }

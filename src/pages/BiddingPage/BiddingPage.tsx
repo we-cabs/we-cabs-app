@@ -25,7 +25,6 @@ const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
         linkedUserRating:0.2,
       };
 
-      console.log(payload);
       setBiddingSuccessPopup(true);
       dispatch(actionToAddBiddingData(payload));
     }
@@ -158,7 +157,7 @@ const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
               <IonCol size="6" className="stop_timer_running_watch_col">
                 <div className="stop_timer_running_watch">
                   <span className="running timer_div">
-                    30:15
+                    {_convertUnixToDateTimeFormat(biddingData.expiryTime,'mm')}
                   </span>
                   <br></br>
                   <br></br>

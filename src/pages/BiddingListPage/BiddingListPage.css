@@ -1,0 +1,111 @@
+.main_body_bidding_page_content_container {
+    height: 1000px;
+    position: relative;
+    background: white;
+}
+.top_balance_header_section {
+    padding: 10px 15px;
+    background: var(--theme-color,rgb(218, 39, 46))!important;
+}
+.top_bidding_header_section {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+}
+.top_balance_header_section .top_balance_header_section_col{
+    font-size: 24px;
+    color: #ffffff;
+}
+.top_balance_header_section .top_balance_header_section_col .rupee_sign svg{
+    width: 17px;
+    fill: #ffffff;
+    margin-right: 10px;
+}
+.top_balance_header_section .avialable_balance_title_section {
+    color: #fff9;
+    font-size: 16px;
+    margin-top: 8px;
+    font-family: inherit;
+    font-weight: 600;
+}
+.top_avatar_header_section_col{
+   text-align: right;
+}
+.top_avatar_header_section_col .user_avatar img {
+    border-radius: 50%;
+    border: 3px solid #ffffff;
+    width: 44px;
+}
+.top_avatar_header_section_col .user_avatar svg {
+    width: 14px;
+    fill: #ffffff;
+    margin: 15px;
+}
+.top_sub_header_section {
+    padding-top: 19px;
+    padding-bottom: 5px;
+}
+.top_sub_header_menu_text {
+    color: #808080;
+    font-weight: 600;
+    font-size: 12px;
+    text-align: center;
+    border-right: 2px solid #ccc;
+}
+.top_sub_header_menu_text_last {
+    color: #808080;
+    font-weight: 600;
+    font-size: 12px;
+    text-align: center;
+    border-right: unset!important;
+}
+ion-col.top_sub_header_col {
+    text-align: center;
+}
+.top_sub_header_menu_text.active {
+    color: var(--theme-color,rgb(218, 39, 46))!important;
+}
+.bidding_list_inner_container_section {
+    padding: 0px 18px;
+    margin-top: 144px;
+    background: #ffffff;
+    height: 547px;
+    overflow: auto;
+}
+.bidding_list_inner_loop {
+    border-radius: 7px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+ion-col.bidding_list_inner_col_icon {
+    background: #e6e6e694;
+    text-align: center;
+    padding: 20px;
+}
+ion-col.bidding_list_inner_col_icon svg{
+    width: 34px;
+    fill: #a5a5a5;
+}
+
+ion-col.bidding_list_inner_col_icon span{
+    font-size: 11px;
+    color: #ea0202;
+}
+ion-col.bidding_list_pick_point_col {
+    padding: 25px 16px;
+}
+.bidding_list_pick_point_col .bidding_list_pick_point_text {
+    font-size: 13px;
+    font-weight: 600;
+    color: #5d5d5d;
+}
+.bidding_list_pick_point_col .bidding_list_pick_point_time {
+    font-size: 12px;
+    color: #a7a7a7;
+}
+ion-col.bidding_list_icon_col {
+    padding: 30px 0px;
+}
+ion-col.bidding_list_icon_col svg{
+    width: 18px;
+}

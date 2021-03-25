@@ -23,7 +23,7 @@ const DashboardPage: React.FC<RouteComponentProps> = ({history}) => {
   
   return (
     <IonPage>
-      <HeaderComponent/>
+      <HeaderComponent title="Home"/>
       <div className="main_body_content_container">
         <div className="inner_contant_container">
         <div className="extra_red_section_div"></div>
