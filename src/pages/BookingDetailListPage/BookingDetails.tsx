@@ -8,17 +8,22 @@ import { useDispatch, useSelector,RootStateOrAny } from 'react-redux';
 import Select from 'react-select';
 import { _convertUnixToDateTimeFormat } from '../../hooks/DateTimeConverter';
 import { addBiddingBookingData } from '../../actions/BiddingAction';
+import Loader from '../../components/Loader/Loader';
+import cloneDeep from 'lodash/cloneDeep';
 
 interface BookingDetailsProps extends RouteComponentProps<{
   type: string;
 }> {}
 
 const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
-
   const dispatch = useDispatch();
   const [pickUpPoint, setPickUpPoint] = useState<any>(null);
   const [dropDownPoint, setDropDownPoint] = useState<any>(null);
   const [cabTypeOption, setCabTypeOption] = useState<any>(null);
+
+  const {booking,loading} = useSelector((state:RootStateOrAny) => state.bookingDetails);
+  const [bookingClone,setBookingClone] = useState<any>(booking);
+  const {pickupCity,dropCity,cabType} = useSelector((state:RootStateOrAny) => state.bookingFilterValues);
  
   const openBiddingPage = (e:any,data:any) =>{
     e.preventDefault();
@@ -29,21 +34,23 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
   const hrederTitle = () =>{
     return 'Available Bookings';
   }
-  useEffect(()=>{
 
-  },[])
-  
-  const {booking,loading} = useSelector((state:RootStateOrAny) => state.bookingDetails);
-  const indianCityArray = useSelector((state:RootStateOrAny) => state.indianCityArray);
-  const cabType = useSelector((state:RootStateOrAny) => state.cabType);
-
-  const searchList = indianCityArray.map((val:any) => {
+  const searchListPickupCity = pickupCity.map((val:any) => {
     return{ 
      value: val, 
      label: val 
     }
    }
   );
+
+  const searchListDropCity = dropCity.map((val:any) => {
+    return{ 
+     value: val, 
+     label: val 
+    }
+   }
+  );
+
   const searchCabList = cabType.map((val:any) => {
     return{ 
      value: val, 
@@ -51,6 +58,69 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
     }
    }
   );
+
+  const applyFilterInBookingList = (type:string,value:any) =>{
+    let newBooking:any[] = [];
+    if(type == 'pickupPoint'){
+      setPickUpPoint(value);
+    }
+    if(type == 'dropPoint'){
+      setDropDownPoint(value);
+    }
+    if(type == 'carType'){
+      setCabTypeOption(value);
+    }
+    let bookingId:string[] = [];
+
+    booking.map((newFilterBooking:any)=>{
+      if(pickUpPoint != null){
+        if(newFilterBooking['pickupPoint'] == pickUpPoint.value){
+          if(!bookingId.includes(newFilterBooking.bookingId)){
+            bookingId.push(newFilterBooking.bookingId);
+            newBooking.push(newFilterBooking);
+          }
+        }
+      }
+      if(dropDownPoint != null){
+        if(newFilterBooking['dropPoint'] == dropDownPoint.value){
+          if(!bookingId.includes(newFilterBooking.bookingId)){
+            bookingId.push(newFilterBooking.bookingId);
+            newBooking.push(newFilterBooking);
+          }
+        }
+      }
+      if(cabTypeOption != null){
+        if(newFilterBooking['carType'] == cabTypeOption.value){
+          if(!bookingId.includes(newFilterBooking.bookingId)){
+            bookingId.push(newFilterBooking.bookingId);
+            newBooking.push(newFilterBooking);
+          }
+        }
+      }
+      if(newFilterBooking[type] == value.value){
+        if(!bookingId.includes(newFilterBooking.bookingId)){
+          bookingId.push(newFilterBooking.bookingId);
+          newBooking.push(newFilterBooking);
+        }
+      }
+    })
+    setBookingClone(newBooking);
+    console.log(pickUpPoint,dropDownPoint,cabTypeOption);
+  }
+
+  const clearAllFilterValue = () =>{
+     setPickUpPoint(null);
+     setDropDownPoint(null);
+     setCabTypeOption(null);
+     setBookingClone(booking);
+  }
+
+  useEffect(()=>{
+   if(booking != undefined && booking.length){
+    setBookingClone(cloneDeep(booking));
+   }
+  },[]);
+
   return (
     <IonPage>
       <SubPageHeaderComponent title={hrederTitle()}/>
@@ -62,9 +132,9 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
               <IonCol size="6">
               <Select
                 value={pickUpPoint}
-                options={searchList}
+                options={searchListPickupCity}
                 isSearchable
-                onChange={(e)=>setPickUpPoint(e)}
+                onChange={(e)=>applyFilterInBookingList('pickupPoint',e)}
                 placeholder= "Pickup Point"
                 openMenuOnClick={false}
               />
@@ -72,8 +142,8 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
               <IonCol size="6">
               <Select
                 value={dropDownPoint}
-                options={searchList}
-                onChange={(e)=>setDropDownPoint(e)}
+                options={searchListDropCity}
+                onChange={(e)=>applyFilterInBookingList('dropPoint',e)}
                 isSearchable
                 placeholder= "Drop Point"
                 openMenuOnClick={false}
@@ -85,7 +155,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
               <Select
                 value={cabTypeOption}
                 options={searchCabList}
-                onChange={(e)=>setCabTypeOption(e)}
+                onChange={(e)=>applyFilterInBookingList('carType',e)}
                 isSearchable
                 placeholder= "Cab Type"
                 openMenuOnClick={false}
@@ -100,22 +170,26 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
               </IonCol>
             </IonRow>
             <IonRow>
-              <IonCol className="filter_search_button_col">
-                <button className="filter_search_button">
-                  SEARCH YOUR BOOKING
+               <IonCol className="filter_search_button_col">
+                <button onClick={()=>clearAllFilterValue()}
+                 disabled={(pickUpPoint != null || dropDownPoint != null || cabTypeOption != null) ? false : true}
+                 className="filter_search_button">
+                  CLEAR
                 </button>
               </IonCol>
             </IonRow>
-          </div>  
+            </div>  
       </div> 
        <div className="booking_detail_list_scroll">
            <IonRow>
              <IonCol>
-             {(loading || booking == undefined) ? 'Loading' : 
+             {(loading) ? <div className="graer_box_loader"><Loader/></div> : 
              <>
-             {booking.map((data:any,i:number)=>(
-               <div className="booking_detail_container">
-                  <div key={i} className="booking_detail_box loop">
+             {(bookingClone.length) ? 
+             <>
+             {bookingClone.map((data:any,i:number)=>(
+               <div key={i} className="booking_detail_container loop">
+                  <div className="booking_detail_box">
                   <IonRow>
                   <IonCol size="5">
                     <div className="booking_title_left">
@@ -149,8 +223,13 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
                   </IonRow>
                 </div> 
                 </div>
-              ))}   
+              ))} 
               </>  
+              : 
+              'No Booking Data'
+              }  
+              </>  
+                   
              }      
               </IonCol>
            </IonRow>
