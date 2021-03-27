@@ -4,6 +4,9 @@ ion-label.active {
 ion-icon.active {
     color: var(--theme-color,rgb(218, 39, 46))!important;
 }
+ion-content{
+  background: white!important;
+}
 .inner_contant_container {
   background: white;
 }

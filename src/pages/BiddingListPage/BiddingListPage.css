@@ -1,15 +1,8 @@
-.main_body_bidding_page_content_container {
-    height: 1000px;
-    position: relative;
-    background: white;
-}
 .top_balance_header_section {
     padding: 10px 15px;
     background: var(--theme-color,rgb(218, 39, 46))!important;
 }
 .top_bidding_header_section {
-    position: absolute;
-    top: 0px;
     width: 100%;
 }
 .top_balance_header_section .top_balance_header_section_col{
@@ -67,9 +60,8 @@ ion-col.top_sub_header_col {
 }
 .bidding_list_inner_container_section {
     padding: 0px 18px;
-    margin-top: 144px;
     background: #ffffff;
-    height: 547px;
+    height: calc(84vh - 142px);
     overflow: auto;
 }
 .bidding_list_inner_loop {

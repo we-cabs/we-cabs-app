@@ -1,6 +1,6 @@
 
 import React,{useEffect,useState} from 'react';
-import { IonPage, IonRow,IonCol, IonButton, IonInput, IonDatetime } from '@ionic/react'
+import { IonPage, IonRow,IonCol, IonButton, IonInput, IonDatetime, IonContent } from '@ionic/react'
 import { RouteComponentProps } from 'react-router-dom';
 import './BookingDetails.css';
 import SubPageHeaderComponent from '../../components/Header/SubPageHeaderComponent';
@@ -54,6 +54,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
   return (
     <IonPage>
       <SubPageHeaderComponent title={hrederTitle()}/>
+      <IonContent className="hide_overflow">
       <div className="booking_filter_class">
           <div className="find_booking_section"><span>Find your Booking</span><span className="booking_hr"></span></div>
           <div className="filter_section_input">
@@ -153,7 +154,8 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
              }      
               </IonCol>
            </IonRow>
-       </div>
+           </div>
+       </IonContent>
     </IonPage>
   );
 };

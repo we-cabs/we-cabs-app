@@ -23,7 +23,7 @@ const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
   return (
     <IonPage>
       <HeaderComponent title="My Bid List"/>
-      <div className="main_body_bidding_page_content_container">
+      <IonContent className="hide_overflow">
         <div className="inner_contant_container">
         <div className="top_bidding_header_section">
             <div className="top_balance_header_section">
@@ -303,7 +303,7 @@ const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
                </div>
            </div>
         </div>
-      </div>
+      </IonContent>
     </IonPage>
   );
 };

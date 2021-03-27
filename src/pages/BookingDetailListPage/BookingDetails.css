@@ -1,5 +1,5 @@
 .booking_detail_list_scroll{
-    height: 824px;
+    height: calc(85vh - 222px)!important;
     padding: 25px;
     overflow: auto;
     background: white!important;
@@ -13,6 +13,13 @@
 }
 .css-1uccc91-singleValue {
     color: hsl(0, 0%, 50%)!important;
+}
+.hide_overflow{
+    --overflow:hidden!important;
+    overflow:hidden!important;
+}
+.graer_box_loader {
+    margin-top: -122px;
 }
 .calender_filter {
     width: 16px;
@@ -47,6 +54,7 @@
 .booking_detail_container:last-child {
     border-bottom: 1px solid #ccc;
 }
+
 .booking_detail_box {
     width: 100%;
     height: auto;
@@ -81,7 +89,7 @@
 }
 span.booking_hr {
     background: #dcdcdc;
-    width: 63%;
+    width: 60%;
     height: 2px;
     margin-left: 9px;
     display: inline-flex;

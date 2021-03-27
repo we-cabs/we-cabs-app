@@ -38,7 +38,8 @@ const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
   return (
     <IonPage>
       <SubPageHeaderComponent title={"Bidding"}/>
-      <div className="bidding_page_container" >
+      <IonContent>
+        <br></br>
           <div className="base_price_section">
               <span>Base Price - {biddingData.maxAmount}</span>
           </div>
@@ -185,7 +186,7 @@ const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
               </IonCol>
             </IonRow>
           </div>
-      </div>
+     </IonContent>
       {(biddingSuccessPopup) ? 
       <div className="add_bidding_success_popup_container">
          <div className="add_bidding_success_popup">

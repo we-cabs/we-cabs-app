@@ -24,7 +24,7 @@ const DashboardPage: React.FC<RouteComponentProps> = ({history}) => {
   return (
     <IonPage>
       <HeaderComponent title="Home"/>
-      <div className="main_body_content_container">
+      <IonContent>
         <div className="inner_contant_container">
         <div className="extra_red_section_div"></div>
         <div className="trip_button_container">
@@ -61,7 +61,7 @@ const DashboardPage: React.FC<RouteComponentProps> = ({history}) => {
          <VideoAndLogoFooter/>
         
         </div>
-      </div>
+        </IonContent>
     </IonPage>
   );
 };

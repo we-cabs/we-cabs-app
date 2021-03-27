@@ -24,7 +24,7 @@ const TripBookingPage: React.FC<TripBookingPageProps> = ({match, history}) => {
   return (
     <IonPage>
       <SubPageHeaderComponent title={hrederTitle()}/>
-      <div className="main_body_content_container">
+      <IonContent>
         <div className="inner_contant_container">
         <div className="extra_red_section_div"></div>
         <div className="trip_button_container">
@@ -53,7 +53,7 @@ const TripBookingPage: React.FC<TripBookingPageProps> = ({match, history}) => {
         </div>
         <VideoAndLogoFooter/>
         </div>
-      </div>
+        </IonContent>
     </IonPage>
   );
 };

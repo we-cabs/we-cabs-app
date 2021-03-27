@@ -46,16 +46,19 @@
     font-weight: 600;
     color: #c73636!important;
 }
-.profile_page_registered_cars {
-    padding: 20px;
-}
+
 .profile_page_registered_cars_loop_section.active {
     background: #FFFFFD;
+}
+.profile_page_registered_cars {
+    overflow: auto;
+    height: calc(85vh - 229px);
 }
 .profile_page_registered_cars_loop_section{
     padding: 9px;
     background: #e0e0e0;
     font-size: 12px;
+    margin: 0px 20px;
 }
 .profile_page_registered_cars_loop_section.active .car_card_header {
     color: #ffffff;
