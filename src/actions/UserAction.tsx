@@ -43,7 +43,7 @@ export const signin = (loginData:any) => async (dispatch:any) => {
 export const actionToGetUserCar = (id:any) => async (dispatch:any) => {
   dispatch({ type: USER_CAR_REQUEST });
   try {
-    api.get(`/car`).then(car=>{
+    api.get(`/car/userId/${id}`).then(car=>{
       let carData = car.data.cars;
       if(car.data){
         dispatch({ type: USER_CAR_SUCCESS, payload: carData });

@@ -1,0 +1,8 @@
+.car_uploaded_image img{
+    max-width: 200px;
+    max-height: 200px;
+}
+.car_uploaded_image{
+    text-align: center;
+    width: 100%;
+}

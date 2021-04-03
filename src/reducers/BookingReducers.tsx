@@ -20,3 +20,9 @@ export const bookingDataFilterReducer = (state = {}, action:any) => {
       return state;
   }
 };
+export const cabTypeReducer = (state = {}, action:any) => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};

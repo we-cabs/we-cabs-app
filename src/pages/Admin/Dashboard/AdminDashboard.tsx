@@ -1,4 +1,4 @@
-import { IonPage,IonRow,IonCol } from '@ionic/react';
+import { IonPage,IonRow,IonCol, IonContent } from '@ionic/react';
 import React,{useEffect} from 'react';
 import { useDispatch,useSelector,RootStateOrAny } from 'react-redux';
 import './AdminDashboard.css';
@@ -15,7 +15,7 @@ const AdminDashboard: React.FC<RouteComponentProps> = ({match, history}) => {
     return (
         <IonPage>
          <AdminHeaderComponent/>
-          <div className="main_body_content_container">
+        <IonContent>
           <div className="add_select_button_container">
                 <IonRow>
                     <IonCol>
@@ -49,7 +49,7 @@ const AdminDashboard: React.FC<RouteComponentProps> = ({match, history}) => {
                     </IonCol>
                 </IonRow>
            </div>
-        </div>
+           </IonContent>
         </IonPage>
     );
   }

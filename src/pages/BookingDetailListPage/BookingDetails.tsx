@@ -15,11 +15,19 @@ interface BookingDetailsProps extends RouteComponentProps<{
   type: string;
 }> {}
 
+let filter:any  = {
+  carType:'',
+  pickupPoint:'',
+  dropPoint:'',
+  data:'',
+};
+
 const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
   const dispatch = useDispatch();
-  const [pickUpPoint, setPickUpPoint] = useState<any>(null);
-  const [dropDownPoint, setDropDownPoint] = useState<any>(null);
-  const [cabTypeOption, setCabTypeOption] = useState<any>(null);
+  const [_pickUpPoint, setPickUpPoint] = useState<any>(null);
+  const [_dropDownPoint, setDropDownPoint] = useState<any>(null);
+  const [_cabTypeOption, setCabTypeOption] = useState<any>(null);
+ 
 
   const {booking,loading} = useSelector((state:RootStateOrAny) => state.bookingDetails);
   const [bookingClone,setBookingClone] = useState<any>(booking);
@@ -60,59 +68,43 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
   );
 
   const applyFilterInBookingList = (type:string,value:any) =>{
-    let newBooking:any[] = [];
+
     if(type == 'pickupPoint'){
+      filter.pickupPoint = value.value;
       setPickUpPoint(value);
     }
     if(type == 'dropPoint'){
+      filter.dropPoint = value.value;
       setDropDownPoint(value);
     }
     if(type == 'carType'){
+      filter.carType = value.value;
       setCabTypeOption(value);
     }
-    let bookingId:string[] = [];
-
-    booking.map((newFilterBooking:any)=>{
-      if(pickUpPoint != null){
-        if(newFilterBooking['pickupPoint'] == pickUpPoint.value){
-          if(!bookingId.includes(newFilterBooking.bookingId)){
-            bookingId.push(newFilterBooking.bookingId);
-            newBooking.push(newFilterBooking);
-          }
+      let newBooking:any[] = [];
+      booking.map(function(item:any) {
+        for (var key in filter) {
+          if (item[key] === undefined || item[key] != filter[key])
+          {}
+          else
+            newBooking.push(item);
         }
-      }
-      if(dropDownPoint != null){
-        if(newFilterBooking['dropPoint'] == dropDownPoint.value){
-          if(!bookingId.includes(newFilterBooking.bookingId)){
-            bookingId.push(newFilterBooking.bookingId);
-            newBooking.push(newFilterBooking);
-          }
-        }
-      }
-      if(cabTypeOption != null){
-        if(newFilterBooking['carType'] == cabTypeOption.value){
-          if(!bookingId.includes(newFilterBooking.bookingId)){
-            bookingId.push(newFilterBooking.bookingId);
-            newBooking.push(newFilterBooking);
-          }
-        }
-      }
-      if(newFilterBooking[type] == value.value){
-        if(!bookingId.includes(newFilterBooking.bookingId)){
-          bookingId.push(newFilterBooking.bookingId);
-          newBooking.push(newFilterBooking);
-        }
-      }
-    })
-    setBookingClone(newBooking);
-    console.log(pickUpPoint,dropDownPoint,cabTypeOption);
+      });
+      console.log(newBooking);
+      setBookingClone(newBooking);
   }
 
   const clearAllFilterValue = () =>{
-     setPickUpPoint(null);
-     setDropDownPoint(null);
-     setCabTypeOption(null);
-     setBookingClone(booking);
+    filter = {
+      carType:'',
+      pickupPoint:'',
+      dropPoint:'',
+      data:'',
+    };
+    setPickUpPoint(null);
+    setDropDownPoint(null);
+    setCabTypeOption(null);
+    setBookingClone(booking);
   }
 
   useEffect(()=>{
@@ -131,7 +123,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
             <IonRow>
               <IonCol size="6">
               <Select
-                value={pickUpPoint}
+                value={_pickUpPoint}
                 options={searchListPickupCity}
                 isSearchable
                 onChange={(e)=>applyFilterInBookingList('pickupPoint',e)}
@@ -141,7 +133,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
             </IonCol>
               <IonCol size="6">
               <Select
-                value={dropDownPoint}
+                value={_dropDownPoint}
                 options={searchListDropCity}
                 onChange={(e)=>applyFilterInBookingList('dropPoint',e)}
                 isSearchable
@@ -153,7 +145,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
             <IonRow>
               <IonCol size="6">
               <Select
-                value={cabTypeOption}
+                value={_cabTypeOption}
                 options={searchCabList}
                 onChange={(e)=>applyFilterInBookingList('carType',e)}
                 isSearchable
@@ -172,7 +164,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
             <IonRow>
                <IonCol className="filter_search_button_col">
                 <button onClick={()=>clearAllFilterValue()}
-                 disabled={(pickUpPoint != null || dropDownPoint != null || cabTypeOption != null) ? false : true}
+                 disabled={(_pickUpPoint != null || _dropDownPoint != null || _cabTypeOption != null) ? false : true}
                  className="filter_search_button">
                   CLEAR
                 </button>

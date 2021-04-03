@@ -17,3 +17,6 @@ ion-header.admin_sub_header_class ion-toolbar.admin_sub_header_toolbar {
     font-family: revert;
     letter-spacing: 1px;
 }
+.header_title_col_add_car svg{
+    width: 95%;
+}

@@ -8,7 +8,7 @@ import { signin } from '../../actions/UserAction';
 import './Login.css'
 
 function validatePhone(phoneNumber: string) {
-    if(phoneNumber.length == 10 && !isNaN(Number(phoneNumber))){
+    if(!isNaN(Number(phoneNumber))){
       return true;
     }
     return false;

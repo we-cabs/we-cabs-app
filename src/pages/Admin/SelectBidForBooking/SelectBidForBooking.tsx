@@ -16,7 +16,7 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
   return (
     <IonPage>
       <AdminSubHeader title={"Bookings"}/>
-       <div className="booking_detail_list_scroll">
+      <IonContent>
            <IonRow>
              <IonCol>
              {(loading || booking == undefined) ? 'Loading' : 
@@ -64,7 +64,7 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
              }      
               </IonCol>
            </IonRow>
-       </div>
+      </IonContent>
     </IonPage>
   );
 };

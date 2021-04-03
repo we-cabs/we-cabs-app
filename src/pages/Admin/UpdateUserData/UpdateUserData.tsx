@@ -1,18 +1,23 @@
-import { IonPage,IonRow,IonCol, IonGrid } from '@ionic/react';
+import { IonPage,IonRow,IonCol, IonGrid, IonContent } from '@ionic/react';
 import React from 'react';
-import { useSelector,RootStateOrAny } from 'react-redux';
+import { useSelector,RootStateOrAny,useDispatch } from 'react-redux';
 import './UpdateUserData.css';
-import AdminHeaderComponent from '../../../components/Admin/AdminHeader/AdminHeaderComponent';
 import { RouteComponentProps } from 'react-router';
 import AdminSubHeader from '../../../components/Admin/AdminHeader/AdminSubHeader';
 import Loader from '../../../components/Loader/Loader';
+import { actionToGerSelectedUserCarData } from '../../../actions/AdminAction';
 
 const UpdateUserData: React.FC<RouteComponentProps> = ({match, history}) => {
   const {userData} = useSelector((state:RootStateOrAny) => state.allUserData);
+  const dispatch = useDispatch();
+    const getUserCarsData = (id:any) =>{
+      history.push('/tabs/dashboard/user-cars');
+      dispatch(actionToGerSelectedUserCarData(id));
+    }
     return (
         <IonPage>
          <AdminSubHeader title={"User List"}/>
-          <div className="main_body_content_container">
+         <IonContent>
           <div className="user_data_list_section">
                {(userData != undefined && userData.length) ?
                <>
@@ -100,7 +105,7 @@ const UpdateUserData: React.FC<RouteComponentProps> = ({match, history}) => {
                           <div className="user_data_grid">
                           <IonRow>
                             <IonCol className="user_cars_button_section">
-                              <button className="user_cars_button">Cars</button>
+                              <button onClick={()=>getUserCarsData(user.userId)} className="user_cars_button">Cars</button>
                             </IonCol>                        
                           </IonRow>                   
                         </div>          
@@ -112,7 +117,7 @@ const UpdateUserData: React.FC<RouteComponentProps> = ({match, history}) => {
                :<Loader/>
                }
           </div>
-          </div>
+        </IonContent>
         </IonPage>
     );
   }

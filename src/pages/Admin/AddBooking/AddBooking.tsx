@@ -1,4 +1,4 @@
-import { IonPage,IonRow,IonCol,IonItem,IonLabel,IonInput,IonButton, IonTextarea, IonDatetime, IonAlert, IonSelect, IonSelectOption } from '@ionic/react';
+import { IonPage,IonRow,IonCol,IonItem,IonLabel,IonInput,IonButton, IonTextarea, IonDatetime, IonAlert, IonSelect, IonSelectOption, IonContent } from '@ionic/react';
 import React,{useState} from 'react';
 import { useSelector,RootStateOrAny } from 'react-redux';
 import './AddBooking.css';
@@ -55,7 +55,7 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
     return (
         <IonPage>
          <AdminSubHeader title={"Add Booking"}/>
-          <div className="main_body_content_container">
+         <IonContent>
              <div className="add_bidding_inner_coontainer">
              <form id={"add_booking_form"} className="ion-padding" onSubmit={(e)=>formSubmitHandler(e)}>
              <IonAlert
@@ -104,7 +104,7 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
                 </IonButton>
               </form>
              </div>
-          </div>
+       </IonContent>
         </IonPage>
     );
   }

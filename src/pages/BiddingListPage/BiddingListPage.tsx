@@ -17,7 +17,7 @@ const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
 
   useEffect(()=>{
     dispatch(actionToGetBookingData({}));
-    dispatch(actionToGetUserCar(userInfo.id));
+    dispatch(actionToGetUserCar(userInfo.phone));
   },[])
   
   return (
