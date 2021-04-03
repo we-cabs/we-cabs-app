@@ -30,8 +30,9 @@ export const actionToAddCarData = (payload:any) => async (dispatch:any) => {
                 "chasis": payload.chasisNo,
                 "vichelAddress": payload.vichelAddress,
                 "licenseNo": payload.licenseNo,
+                "images":[url],
             },
-            carPlate: url
+            carPlate: payload.rcNo
        }
        try {
          api.post('/car',insertData).then((res=>{

@@ -1,0 +1,15 @@
+.notification_detail_list_scroll{
+    height: calc(100vh - 144px)!important;
+    padding: 25px;
+    overflow: auto;
+    background: white!important;
+}
+.notification_top_tab {
+    text-align: center;
+    padding: 18px;
+    border: 1px solid #ccc;
+}
+.notification_top_tab.active {
+    color: var(--theme-color,rgb(218, 39, 46))!important;
+    font-size: 18px;
+}

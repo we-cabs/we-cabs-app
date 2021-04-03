@@ -49,7 +49,11 @@ const UserCars: React.FC<RouteComponentProps> = ({match, history}) => {
                         </div>
                         <div  className="car_section_title_div">
                             <span className="car_section_title_text">VICHEL ORIGINAL PHOTO</span><br></br><br></br>
-                            <img src={cars.carPlate}></img>
+                            {(cars.carDetails.images != undefined) ? 
+                                <img src={cars.carDetails.images[0]}></img>
+                                :
+                                <img src={cars.carPlate}></img>
+                            }
                         </div>
                      </div>
                  </div>

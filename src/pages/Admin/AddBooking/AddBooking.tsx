@@ -6,7 +6,7 @@ import AdminHeaderComponent from '../../../components/Admin/AdminHeader/AdminHea
 import { RouteComponentProps } from 'react-router';
 import AdminSubHeader from '../../../components/Admin/AdminHeader/AdminSubHeader';
 import { useDispatch } from 'react-redux';
-import { addBookingData } from '../../../actions/BookingAction';
+import { actionToSendPushNotification, addBookingData } from '../../../actions/BookingAction';
 import moment from 'moment';
 import $ from 'jquery';
 
@@ -52,9 +52,13 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
       maxPrice:maxAmount,
       tripType
     }
-console.log('bookingData',bookingData)
+    console.log('bookingData',bookingData);
     dispatch(addBookingData(bookingData));
     resetForm();
+  }
+  const callActionToSendPushNotification = () =>{
+    let notifications:any = [{ id: 'id', title: "Test Push", body: "This is my first push notification" }];
+    dispatch(actionToSendPushNotification(notifications));
   }
     return (
         <IonPage>
@@ -89,7 +93,8 @@ console.log('bookingData',bookingData)
                           <IonSelectOption key={key}>{car}</IonSelectOption>
                        ))}
                      </IonSelect>
-                     :''}
+                     :''
+                  }
                 </IonItem>
                 <IonItem>
                   <IonLabel position="floating">Bid Expiry Time</IonLabel>
@@ -116,6 +121,10 @@ console.log('bookingData',bookingData)
                 </IonItem>
                 <IonButton className="ion-margin-top" type="submit" expand="block">
                   Add Booking
+                </IonButton>
+                <IonButton onClick={(e)=>callActionToSendPushNotification()} className="ion-margin-top" type="button" expand="block">
+
+                  Send Notification
                 </IonButton>
               </form>
              </div>

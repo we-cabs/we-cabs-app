@@ -1,8 +1,11 @@
 import Axios from 'axios';
 import { BOOKING_DATA_FILTER, BOOKING_DETAIL_FAIL, BOOKING_DETAIL_REQUEST, BOOKING_DETAIL_SUCCESS } from '../constants/BookingConstants';
+import { pushNotification } from './PushNotificationHelper';
 const api = Axios.create({
   baseURL: `https://a46jrcmngi.execute-api.us-west-2.amazonaws.com/dev`
 })
+
+
 export const actionToGetBookingData = (payload:any) => async (dispatch:any) => {
   dispatch({ type: BOOKING_DETAIL_REQUEST });
   try {
@@ -19,6 +22,7 @@ export const actionToSetAllBookingFilters = (bookingData:any) => async (dispatch
    let pickupCity:string[] = [];
    let dropCity:string[] = [];
    let cabType:string[] = [];
+
    if(bookingData && bookingData.length){
     bookingData.map((booking:any)=>{
       if(!pickupCity.includes(booking.pickupPoint)){
@@ -32,7 +36,8 @@ export const actionToSetAllBookingFilters = (bookingData:any) => async (dispatch
       }
     })
    }
-   dispatch({ type: BOOKING_DATA_FILTER, payload: {pickupCity,dropCity,cabType} });
+
+  dispatch({ type: BOOKING_DATA_FILTER, payload: {pickupCity,dropCity,cabType} });
 }
 export const addBookingData = (payload:any) => async (dispatch:any) => {
   try {
@@ -41,4 +46,7 @@ export const addBookingData = (payload:any) => async (dispatch:any) => {
   } catch (error) {
      console.log(error);
   }
+};
+export const actionToSendPushNotification = (payload:any) => async (dispatch:any) => {
+  pushNotification(payload);
 };

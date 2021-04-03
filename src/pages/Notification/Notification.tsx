@@ -35,7 +35,18 @@ const Notification: React.FC<NotificationProps> = ({match,history}) => {
   return (
     <IonPage>
       <SubPageHeaderComponent title={hrederTitle()}/>
-      <IonContent fullscreen className="ion-padding">
+      <IonContent fullscreen className="hide_overflow">
+      <IonRow>
+          <IonCol className="notification_top_tab active">
+             <div>
+                Type
+             </div>
+          </IonCol>
+          <IonCol className="notification_top_tab">
+                Info
+          </IonCol>
+        </IonRow>
+        <div className="notification_detail_list_scroll">
            <IonRow>
              <IonCol>
              {(loading || booking == undefined) ? <div className="graer_box_loader"><Loader/></div> : 
@@ -88,6 +99,7 @@ const Notification: React.FC<NotificationProps> = ({match,history}) => {
              }      
               </IonCol>
            </IonRow>
+              </div>
        </IonContent>
     </IonPage>
   );

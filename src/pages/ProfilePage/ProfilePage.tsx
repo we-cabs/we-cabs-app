@@ -80,7 +80,11 @@ const ProfilePage: React.FC<RouteComponentProps> = ({match,history}) => {
                      </div>
                      <div  className="car_section_title_div">
                          <span className="car_section_title_text">VICHEL ORIGINAL PHOTO</span><br></br><br></br>
-                         <img src={car.carPlate}></img>
+                         {(car.carDetails.images != undefined) ? 
+                            <img src={car.carDetails.images[0]}></img>
+                            :
+                            <img src={car.carPlate}></img>
+                         }
                      </div>
                   </div>
               </div>
