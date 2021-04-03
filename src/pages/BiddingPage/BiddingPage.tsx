@@ -6,11 +6,18 @@ import './BiddingPage.css';
 import { RouteComponentProps } from 'react-router';
 import { _convertUnixToDateTimeFormat } from '../../hooks/DateTimeConverter';
 import { actionToAddBiddingData } from '../../actions/BiddingAction';
+import moment from 'moment';
 
+let interValFunc:any = null;
 const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
     const biddingData = useSelector((state:RootStateOrAny) => state.biddingData);
     const [bidValue,setBidValue] = useState(0);
     const [biddingSuccessPopup,setBiddingSuccessPopup] = useState(false);
+
+    const [bidDate,setBidDate] = useState(0);
+    const [bidHour,setBidHour] = useState(0);
+    const [bidMin,setBidMin] = useState(0);
+    const [bidSec,setBidSec] = useState(0);
     
     const [carPlate,setCarPlate] = useState('');
     const {cars} = useSelector((state:RootStateOrAny) => state.carData);
@@ -30,10 +37,46 @@ const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
     }
 
     useEffect(()=>{
-      if(biddingData.maxAmount){
-        setBidValue(biddingData.maxAmount);
+      if(biddingData.basePrice){
+        setBidValue(biddingData.basePrice);
+      }
+      if(biddingData.expiryTime){
+        var countDownDate = new Date(moment(new Date(biddingData.expiryTime)).utc().format("YYYY-MM-DD HH:mm")).getTime();
+  
+
+        interValFunc = setInterval(function() {
+       
+          var now = new Date().getTime();
+          var timeleft = countDownDate - now;
+
+          var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
+          var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+
+          setBidDate(days);
+          setBidHour(hours);
+          setBidMin(minutes);
+          setBidSec(seconds);
+
+          if (timeleft < 0) {
+            clearInterval(interValFunc);
+            setBidDate(0);
+            setBidHour(0);
+            setBidMin(0);
+            setBidSec(0);
+          }
+
+        
+       }, 1000)
       }
     },[biddingData])
+
+    const setBiddingValue = (val:any) =>{
+      if(!isNaN(Number(val))){
+        setBidValue(Number(val));
+      }
+    }
 
   return (
     <IonPage>
@@ -41,7 +84,7 @@ const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
       <IonContent>
         <br></br>
           <div className="base_price_section">
-              <span>Base Price - {biddingData.maxAmount}</span>
+              <span>Base Price - {biddingData.basePrice}</span>
           </div>
           <div className="bidding_list_section_container">
              <IonRow className="booking_row_section">
@@ -140,7 +183,7 @@ const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
                      {(cars != undefined && cars.length) ? 
                      <select onChange={(e)=>setCarPlate(e.target.value)}>
                        {cars.map((car:any,key:number)=>(
-                          <option key={key}>{car.carPlate}</option>
+                          <option key={key}>{car.carDetails.rcno}</option>
                        ))}
                      </select>
                      :''}
@@ -158,12 +201,15 @@ const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
               <IonCol size="6" className="stop_timer_running_watch_col">
                 <div className="stop_timer_running_watch">
                   <span className="running timer_div">
-                    {_convertUnixToDateTimeFormat(biddingData.expiryTime,'mm')}
+                  {(bidDate ? bidDate+':' : '')}
+                  {(bidHour ? bidHour+':' : '')}
+                  {(bidMin ? bidMin+':' : '')}
+                  {(bidSec)}
                   </span>
                   <br></br>
                   <br></br>
                   <span className="min_renaining_text">
-                    Mins Remaining
+                    Time Remaining
                   </span>
                 </div>
               </IonCol>
@@ -172,7 +218,7 @@ const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
           <div className="bidding_booking_button_section">
             <IonRow>
               <IonCol className="type_your_bidding_input">
-                 <input type="number" value={bidValue} onChange={(e)=>setBidValue(Number(e.target.value))}/>
+                 <input type="text" pattern="[0-9]*" value={bidValue} onChange={(e)=>setBiddingValue(e.target.value)}/>
               </IonCol>
             </IonRow>
             <IonRow>

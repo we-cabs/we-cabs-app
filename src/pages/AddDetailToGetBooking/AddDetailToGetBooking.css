@@ -1,0 +1,5 @@
+.enter_detail_button{
+    --background: var(--theme-color,rgb(218, 39, 46))!important;
+    --border-radius: unset;
+    width: 100%;
+}

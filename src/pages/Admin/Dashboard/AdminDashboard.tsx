@@ -5,11 +5,13 @@ import './AdminDashboard.css';
 import AdminHeaderComponent from '../../../components/Admin/AdminHeader/AdminHeaderComponent';
 import { RouteComponentProps } from 'react-router';
 import { actionToGetAllUserData } from '../../../actions/UserAction';
+import { actionToGetBookingData } from '../../../actions/BookingAction';
 
 const AdminDashboard: React.FC<RouteComponentProps> = ({match, history}) => {
 
     const dispatch = useDispatch();
     useEffect(()=>{
+        dispatch(actionToGetBookingData({}));
         dispatch(actionToGetAllUserData());
     },[])
     return (

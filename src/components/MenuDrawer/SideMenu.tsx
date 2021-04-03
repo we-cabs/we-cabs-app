@@ -37,19 +37,19 @@ export const SideMenu: React.FC = () => {
             </IonCol>
             <IonCol className="menu_drawer_list_title">My Profile</IonCol>
            </IonRow>
-           <IonRow className="menu_drawer_list_options_link_row">
+           <IonRow onClick={()=>{menuController.close(); history.push(`/tabs/dashboard/bookingdetail/oneway`)}} className="menu_drawer_list_options_link_row">
             <IonCol size="3" className="menu_drawer_list_svg_icon">
               <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 512 512"><path d="M406.713 15.5H105.288C47.232 15.5 0 62.732 0 120.788c0 58.337 47.723 105.288 104.66 105.288h47.29v-82.494c0-36.944 30.055-67 66.998-67h.146c36.865.079 66.856 30.135 66.856 67v82.494h120.763c58.056 0 105.287-47.232 105.287-105.288S464.769 15.5 406.713 15.5zm29.794 90.606l-60 60c-5.857 5.858-15.355 5.859-21.213 0l-30-30c-5.858-5.858-5.858-15.355 0-21.213s15.355-5.858 21.213 0l19.394 19.393 49.394-49.393c5.857-5.858 15.355-5.858 21.213 0s5.857 15.356-.001 21.213zM352.514 268.29l-96.563-10.037V143.581c0-20.404-16.517-36.956-36.921-37-20.465-.044-37.079 16.534-37.079 37V335.5h-.336L145.092 305c-15.405-12.864-38.393-10.452-50.793 5.329-11.891 15.134-9.595 36.979 5.182 49.31l74.133 61.861H391.95V312.944c0-22.702-16.909-41.848-39.436-44.654zM181.95 481.5c0 8.284 6.716 15 15 15h180c8.284 0 15-6.716 15-15v-30h-210z"/><defs/></svg>
             </IonCol>
             <IonCol className="menu_drawer_list_title">Booking</IonCol>
            </IonRow>
-           <IonRow className="menu_drawer_list_options_link_row">
+           <IonRow onClick={()=>{menuController.close(); history.push(`/tabs/bidding-list`)}}  className="menu_drawer_list_options_link_row">
             <IonCol size="3" className="menu_drawer_list_svg_icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96"><path d="M0 88h56v8H0zm48-8.065a4 4 0 0 0-4-4H12a4 4 0 0 0-4 4V84h40zm6.426-32.704a27.906 27.906 0 0 0-4.639 6.674l32.924 32.924a4 4 0 0 0 5.656 0l5.657-5.657a4 4 0 0 0 0-5.657L61.1 42.6a27.263 27.263 0 0 0-6.674 4.631zM34.627 27.432a34.686 34.686 0 0 1-10.34 6.629l20.674 20.674A35.253 35.253 0 0 1 51.6 44.4a34.715 34.715 0 0 1 10.34-6.63L41.265 17.1a35.282 35.282 0 0 1-6.638 10.332z"></path><rect height="40" rx="4" transform="matrix(.707 -.707 .707 .707 4.201 48.034)" width="16" x="52.083" y="-1.054"></rect><rect height="40" rx="4" transform="matrix(.707 -.707 .707 .707 -29.74 33.976)" width="16" x="18.142" y="32.887"></rect></svg>
             </IonCol>
             <IonCol className="menu_drawer_list_title">Bidding</IonCol>
            </IonRow>
-           <IonRow className="menu_drawer_list_options_link_row">
+           <IonRow onClick={()=>{menuController.close();  history.push('/tabs/dashboard/notification')}} className="menu_drawer_list_options_link_row">
             <IonCol size="3" className="menu_drawer_list_svg_icon">
             <svg viewBox="0 0 512 512"><path d="M467.812 431.851l-36.629-61.056c-16.917-28.181-25.856-60.459-25.856-93.312V224c0-67.52-45.056-124.629-106.667-143.04V42.667C298.66 19.136 279.524 0 255.993 0s-42.667 19.136-42.667 42.667V80.96C151.716 99.371 106.66 156.48 106.66 224v53.483c0 32.853-8.939 65.109-25.835 93.291L44.196 431.83c-1.984 3.307-2.027 7.403-.128 10.752s5.419 5.419 9.259 5.419H458.66c3.84 0 7.381-2.069 9.28-5.397s1.835-7.468-.128-10.753zm-278.997 37.482C200.847 494.464 226.319 512 255.993 512s55.147-17.536 67.179-42.667H188.815z"></path></svg>
             </IonCol>

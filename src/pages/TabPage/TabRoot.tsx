@@ -26,6 +26,8 @@ import BiddingListPage from '../BiddingListPage/BiddingListPage';
 import ProfilePage from '../ProfilePage/ProfilePage';
 import UserCars from '../Admin/UserCars/UserCars';
 import AddUserCar from '../Admin/AddUserCar/AddUserCar';
+import Notification from '../Notification/Notification';
+import AddDetailToGetBooking from '../AddDetailToGetBooking/AddDetailToGetBooking';
 
 const TabRoot: React.FC = () => {
   const {userInfo} = useSelector((state:RootStateOrAny) => state.userSignin);
@@ -48,6 +50,8 @@ const TabRoot: React.FC = () => {
 
           <Route path="/tabs/bidding-list" component={BiddingListPage} exact={true} /> 
           <Route path={`/tabs/dashboard/tripbooking/:type`} component={TripBookingPage} />
+          <Route path={`/tabs/dashboard/notification`} component={Notification} />
+          <Route path={`/tabs/dashboard/enter-to-get-booking`} component={AddDetailToGetBooking} />
           <Route path={`/tabs/dashboard/my-profile`} component={ProfilePage} />
           <Route path={`/tabs/dashboard/bookingdetail/:type`} component={BookingDetails} />
           <Route path={`/tabs/dashboard/bidding`} component={BiddingPage} />

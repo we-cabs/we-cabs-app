@@ -1,16 +1,13 @@
 import { IonPage,IonRow,IonCol,IonItem,IonLabel,IonInput,IonButton, IonTextarea, IonDatetime, IonAlert, IonSelect, IonSelectOption, IonContent } from '@ionic/react';
 import React,{useState} from 'react';
 import { useSelector,RootStateOrAny } from 'react-redux';
-import './AddBooking.css';
-import AdminHeaderComponent from '../../../components/Admin/AdminHeader/AdminHeaderComponent';
+import './AddDetailToGetBooking.css';
 import { RouteComponentProps } from 'react-router';
-import AdminSubHeader from '../../../components/Admin/AdminHeader/AdminSubHeader';
+import SubPageHeaderComponent from '../../components/Header/SubPageHeaderComponent';
 import { useDispatch } from 'react-redux';
-import { addBookingData } from '../../../actions/BookingAction';
 import moment from 'moment';
-import $ from 'jquery';
 
-const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
+const AddDetailToGetBooking: React.FC<RouteComponentProps> = ({match, history}) => {
   const dispatch = useDispatch();
 
   const [pickupPoint, setPickUpPoint] = useState<string>("");
@@ -34,8 +31,8 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
     setDistance(0);
     setMaxAmount(0);
     setExpiryTime('');
-    setTripType('');
     setCustomerDetail('');
+    setTripType('');
   }
   const formSubmitHandler =(e:any)=>{
     e.preventDefault();
@@ -44,21 +41,15 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
       dropPoint,
       pickupTime:moment(pickupTime).valueOf(),
       carType,
-      distance,
-      expiryTime:moment(expiryTime).valueOf(),
-      customerDetail,
-      basePrice:maxAmount,
-      maxAmount:maxAmount,
-      maxPrice:maxAmount,
-      tripType
+      tripType,
     }
-console.log('bookingData',bookingData)
-    dispatch(addBookingData(bookingData));
-    resetForm();
+// console.log('bookingData',bookingData)
+//     dispatch(addBookingData(bookingData));
+     resetForm();
   }
     return (
         <IonPage>
-         <AdminSubHeader title={"Add Booking"}/>
+         <SubPageHeaderComponent title={"Get Booking"}/>
          <IonContent>
              <div className="add_bidding_inner_coontainer">
              <form id={"add_booking_form"} className="ion-padding" onSubmit={(e)=>formSubmitHandler(e)}>
@@ -70,18 +61,6 @@ console.log('bookingData',bookingData)
                 message={"Successfully added booking."}
                 buttons={["Dismiss"]}/>
                 <IonItem>
-                  <IonLabel position="floating">Pick Up Point</IonLabel>
-                  <IonInput onIonChange={(e)=>setPickUpPoint(e.detail.value || '')} value={pickupPoint} type="text" required/>
-                </IonItem>
-                <IonItem>
-                  <IonLabel position="floating">Drop Point</IonLabel>
-                  <IonInput  onIonChange={(e)=>setDropPoint(e.detail.value || '')} value={dropPoint} type="text" required/>
-                </IonItem>
-                <IonItem>
-                  <IonLabel position="floating">Pick Up Date Time</IonLabel>
-                  <IonDatetime onIonChange={(e)=>setPickUpTime(e.detail.value || '')}  value={pickupTime} displayFormat="DD MMM hh:mm a"  displayTimezone="utc"/>
-                </IonItem>
-                <IonItem>
                   <IonLabel position="floating">Car Type</IonLabel>
                   {(cabType != undefined && cabType.length) ? 
                      <IonSelect onIonChange={(e)=>setCarType(e.detail.value)}>
@@ -92,18 +71,6 @@ console.log('bookingData',bookingData)
                      :''}
                 </IonItem>
                 <IonItem>
-                  <IonLabel position="floating">Bid Expiry Time</IonLabel>
-                  <IonDatetime onIonChange={(e)=>setExpiryTime(e.detail.value || '')} value={expiryTime} displayFormat="DD MMM hh:mm a" displayTimezone="utc"/>
-                </IonItem>
-                <IonItem>
-                  <IonLabel position="floating">Distance(in kelometers)</IonLabel>
-                  <IonInput  onIonChange={(e)=>setDistance(Number(e.detail.value) || 0)} value={distance} type="number" required/>
-                </IonItem>
-                <IonItem>
-                  <IonLabel position="floating">Max Price</IonLabel>
-                  <IonInput  onIonChange={(e)=>setMaxAmount(Number(e.detail.value) || 0)} value={maxAmount} type="number" required/>
-                </IonItem>
-                <IonItem>
                   <IonLabel position="floating">Trip Type</IonLabel>
                   <IonSelect onIonChange={(e)=>setTripType(e.detail.value)}>
                     <IonSelectOption value="oneWay">One Way</IonSelectOption>
@@ -111,10 +78,17 @@ console.log('bookingData',bookingData)
                   </IonSelect>
                 </IonItem>
                 <IonItem>
-                  <IonLabel position="floating">Customer Details</IonLabel>
-                  <IonTextarea  onIonChange={(e)=>setCustomerDetail(e.detail.value || '')} value={customerDetail} autoGrow rows={2} required/>
+                  <IonLabel position="floating">Pick Up Point</IonLabel>
+                  <IonInput onIonChange={(e)=>setPickUpPoint(e.detail.value || '')} value={pickupPoint} type="text" required/>
                 </IonItem>
-                <IonButton className="ion-margin-top" type="submit" expand="block">
+               
+                <IonItem>
+                  <IonLabel position="floating">Date Time</IonLabel>
+                  <IonDatetime onIonChange={(e)=>setPickUpTime(e.detail.value || '')}  value={pickupTime} displayFormat="DD MMM hh:mm a"  displayTimezone="utc"/>
+                </IonItem>
+            
+               
+                <IonButton className="ion-margin-top enter_detail_button" type="submit" expand="block">
                   Add Booking
                 </IonButton>
               </form>
@@ -124,4 +98,4 @@ console.log('bookingData',bookingData)
     );
   }
 
-export default AddBooking;
+export default AddDetailToGetBooking;

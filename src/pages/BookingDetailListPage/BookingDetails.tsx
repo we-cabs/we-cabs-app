@@ -10,6 +10,7 @@ import { _convertUnixToDateTimeFormat } from '../../hooks/DateTimeConverter';
 import { addBiddingBookingData } from '../../actions/BiddingAction';
 import Loader from '../../components/Loader/Loader';
 import cloneDeep from 'lodash/cloneDeep';
+import moment from 'moment';
 
 interface BookingDetailsProps extends RouteComponentProps<{
   type: string;
@@ -175,9 +176,9 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
        <div className="booking_detail_list_scroll">
            <IonRow>
              <IonCol>
-             {(loading) ? <div className="graer_box_loader"><Loader/></div> : 
+             {(loading || bookingClone == undefined) ? <div className="graer_box_loader"><Loader/></div> : 
              <>
-             {(bookingClone.length) ? 
+             {(bookingClone != undefined && bookingClone.length) ? 
              <>
              {bookingClone.map((data:any,i:number)=>(
                <div key={i} className="booking_detail_container loop">
@@ -209,7 +210,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
                         <span className="booking_detail_op">{data.carType}</span>
                       </div>
                       <div className="booking_title_left">
-                        <span className="booking_detail_op">{_convertUnixToDateTimeFormat(data.pickupTime,"MMM DD")}</span>
+                        <span className="booking_detail_op">{moment(new Date(data.pickupTime)).utc().format("DD MMM")}</span>
                       </div>
                     </IonCol>
                   </IonRow>
