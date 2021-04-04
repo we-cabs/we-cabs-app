@@ -19,7 +19,7 @@ export const Logout: React.FC = () => {
           onDidDismiss={() => setShowAlert(false)}
           cssClass='my-custom-class'
           header={'Logout Me'}
-          subHeader={'Subtitle'}
+
           message={'Are you sure? You want to logout from app.'}
           buttons={[
             {
