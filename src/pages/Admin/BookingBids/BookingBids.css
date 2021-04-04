@@ -14,3 +14,27 @@
     font-size: 16px!important;
     font-weight: 600!important;
 }
+.bidding_list_inner_container_section .alot_bid_button{
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #007eff;
+    color: #ffffff;
+    padding: 8px;
+    margin-top: 6px;
+}
+.booking_bidding_list_pick_point_col {
+    padding: 20px 3px;
+    font-size: 16px;
+}
+.booking_bidding_list_pick_point_col .booking_bidding_list_pick_point_result{
+    color:var(--theme-color,rgb(218, 39, 46));
+}
+.booking_bidding_list_pick_point_col .booking_bidding_list_pick_point_result.pending{
+    color:#d89707!important;
+}
+.booking_bidding_list_pick_point_col .booking_bidding_list_pick_point_result.approved{
+    color:#018e19!important;
+}
+.booking_bidding_list_pick_point_col .booking_bidding_list_pick_point_result.notApproved{
+    color:var(--theme-color,rgb(218, 39, 46))!important;
+}

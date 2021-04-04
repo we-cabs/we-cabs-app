@@ -91,26 +91,26 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
               </IonCol>
            </IonRow>
            <IonAlert
-          isOpen={showAlert}
-          onDidDismiss={() => setShowAlert(false)}
-          cssClass='my-custom-class'
-          header={'Are you sure?'}
-          message={'You want to cancel this booking.'}
-          buttons={[
-            {
-              text: 'Cancel',
-              role: 'cancel',
-              cssClass: 'secondary',
-              handler: blah => {
-             
+            isOpen={showAlert}
+            onDidDismiss={() => setShowAlert(false)}
+            cssClass='my-custom-class'
+            header={'Are you sure?'}
+            message={'You want to cancel this booking.'}
+            buttons={[
+              {
+                text: 'Cancel',
+                role: 'cancel',
+                cssClass: 'secondary',
+                handler: blah => {
+              
+                }
+              },
+              {
+                text: 'Okay',
+                handler: () => {
+                  callActionToCancelBooking(actionBooking);
+                }
               }
-            },
-            {
-              text: 'Okay',
-              handler: () => {
-                callActionToCancelBooking(actionBooking);
-              }
-            }
           ]}
         />
       </IonContent>

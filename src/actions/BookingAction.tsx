@@ -57,6 +57,21 @@ export const actionToUpdateBooking = (payload:any) => async (dispatch:any) => {
     dispatch(actionToGetBookingData(0));
   })
 };
+export const actionToUpdateBidding = (payload:any) => async (dispatch:any,useState:any) => {
+  api.post('/bid',payload);
+  let bidData = useState().biddingDetailByBookingId.bidData;
+  let newBidData:any = [];
+  bidData.map((bid:any)=>{
+    if(bid.bidId != payload.bidId){
+      bid.status = 'notApproved';
+      api.post('/bid',bid);
+    }else{
+      bid.status = 'approved';
+    }
+    newBidData.push(bid);
+  })
+  dispatch({ type: BIDDING_DETAIL_BY_BOOKING_ID_SUCCESS, payload:newBidData });
+};
 
 export const actionToGetBidingDataByBooking = (bookingData:any) => async (dispatch:any) => {
     dispatch({ type: BIDDING_DETAIL_BY_BOOKING_ID_REQUEST });
