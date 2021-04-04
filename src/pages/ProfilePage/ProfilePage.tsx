@@ -6,6 +6,7 @@ import './ProfilePage.css';
 import SubPageHeaderComponent from '../../components/Header/SubPageHeaderComponent';
 import { useSelector,RootStateOrAny } from 'react-redux';
 import Loader from '../../components/Loader/Loader';
+import NoDataFound from '../../components/NoDatFound/NoDataFound';
 
 const ProfilePage: React.FC<RouteComponentProps> = ({match,history}) => {
 
@@ -95,9 +96,9 @@ const ProfilePage: React.FC<RouteComponentProps> = ({match,history}) => {
               <br></br>
               </>
                 :
-                 <div className="no_car_data_found_div_section">
-                 No Car Data Found
-                 </div>
+                <div className="no_car_data_found_div_section">
+                 <NoDataFound/>
+                </div>
               }
               </>
           </div>            

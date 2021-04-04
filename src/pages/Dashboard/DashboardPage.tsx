@@ -18,7 +18,7 @@ const DashboardPage: React.FC<RouteComponentProps> = ({history}) => {
   const {userInfo} = useSelector((state:RootStateOrAny) => state.userSignin);
 
   useEffect(()=>{
-    dispatch(actionToGetBookingData({}));
+    dispatch(actionToGetBookingData());
     dispatch(actionToGetUserCar(userInfo.phone));
     dispatch(actionToGetBidByUserId(userInfo.phone));
   },[])

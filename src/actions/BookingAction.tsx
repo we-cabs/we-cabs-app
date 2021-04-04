@@ -6,8 +6,9 @@ const api = Axios.create({
 })
 
 
-export const actionToGetBookingData = (payload:any) => async (dispatch:any) => {
-  dispatch({ type: BOOKING_DETAIL_REQUEST });
+export const actionToGetBookingData = (isLoad = 1) => async (dispatch:any) => {
+  if(isLoad)
+    dispatch({ type: BOOKING_DETAIL_REQUEST });
   try {
     const response = await api.get('/booking');
     dispatch({ type: BOOKING_DETAIL_SUCCESS, payload: response.data.bookings });
@@ -49,4 +50,9 @@ export const addBookingData = (payload:any) => async (dispatch:any) => {
 };
 export const actionToSendPushNotification = (payload:any) => async (dispatch:any) => {
   pushNotification(payload);
+};
+export const actionToUpdateBooking = (payload:any) => async (dispatch:any) => {
+  api.post('/booking',payload).then((res)=>{
+    dispatch(actionToGetBookingData(0));
+  })
 };

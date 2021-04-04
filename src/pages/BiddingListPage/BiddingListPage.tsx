@@ -9,6 +9,7 @@ import { actionToGetUserCar } from '../../actions/UserAction';
 import Loader from '../../components/Loader/Loader';
 import cloneDeep from 'lodash/cloneDeep';
 import { _convertUnixToDateTimeFormat } from '../../hooks/DateTimeConverter';
+import NoDataFound from '../../components/NoDatFound/NoDataFound';
 
 const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
     let data:any = [];
     if(type != 'all'){
       filterBidData.map((bid:any)=>{
-        if(bid.status == type){
+        if(bid.bidStatus == type){
           data.push(bid);
         }
       })
@@ -45,6 +46,11 @@ const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
         setBidDataClone(cloneDeep(bidData));
     } 
   },[bidData])
+  useEffect(()=>{
+    if(bidData != undefined && bidData.length){
+        setBidDataClone(cloneDeep(bidData));
+    } 
+  },[])
   
   return (
     <IonPage>
@@ -92,8 +98,8 @@ const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
                         </div>
                     </IonCol>
                     <IonCol  size="3"  className="top_sub_header_col">
-                        <div onClick={()=>filterAllBidDataByStatus('')} 
-                         className={"top_sub_header_menu_text "+(filterType == '' ? 'active' : '')}>
+                        <div onClick={()=>filterAllBidDataByStatus('pending')} 
+                         className={"top_sub_header_menu_text "+(filterType == 'pending' ? 'active' : '')}>
                          PENDING                 
                         </div>
                     </IonCol>
@@ -104,6 +110,8 @@ const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
            {(loading) ? <Loader/> : (bidDataClone != undefined && bidDataClone.length) ?
            <div className="bidding_list_inner_container_section">
                 {bidDataClone.map((bids:any,key)=>(
+                  <>
+                  {(bids.status != 'cancel') ? 
                   <div key={key} className="bidding_list_inner_loop">
                   <IonRow>
                        <IonCol size="4" className="bidding_list_inner_col_icon">
@@ -125,7 +133,7 @@ const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
                            <span className="bidding_list_pick_point_time">{_convertUnixToDateTimeFormat(bids.pickupTime,'HH:mm a')}</span>      
                        </IonCol>
                        <IonCol size="1" className="bidding_list_icon_col">
-                         {(bids.status == "" || bids == "pending") ? 
+                         {(bids.bidStatus == "pending") ? 
                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 122.88"><path d="M61.44 0c33.93 0 61.44 27.51 61.44 61.44s-27.51 61.44-61.44 61.44S0 95.37 0 61.44 27.51 0 61.44 0h0zm-7.22 37.65c0-9.43 14.37-9.44 14.37.02v25.75l16.23 8.59c.08.04.16.09.23.15l.14.1c7.54 4.94.53 16.81-7.53 12.15l-.03-.02-19.64-10.52c-2.3-1.23-3.79-3.67-3.79-6.29h.01l.01-29.93z" fill-rule="evenodd" fill="#ff7900"/></svg>
                           
                            :(bids == "approved") ?
@@ -139,9 +147,15 @@ const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
                            </IonCol>
                   </IonRow>
               </div>
+              :''}
+              </>
                 ))}
            </div>
-           :'No Data Found'}
+           :
+            <div className="no_data_found">
+              <NoDataFound/>
+            </div>
+           }
         </div>
       </IonContent>
     </IonPage>

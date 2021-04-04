@@ -11,6 +11,7 @@ import { addBiddingBookingData } from '../../actions/BiddingAction';
 import Loader from '../../components/Loader/Loader';
 import cloneDeep from 'lodash/cloneDeep';
 import moment from 'moment';
+import NoDataFound from '../../components/NoDatFound/NoDataFound';
 
 interface BookingDetailsProps extends RouteComponentProps<{
   type: string;
@@ -219,7 +220,9 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
               ))} 
               </>  
               : 
-              'No Booking Data'
+              <div className="no_data_found">
+                <NoDataFound/>
+              </div>
               }  
               </>  
                    

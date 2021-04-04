@@ -11,6 +11,7 @@ import { addBiddingBookingData } from '../../actions/BiddingAction';
 import Loader from '../../components/Loader/Loader';
 import cloneDeep from 'lodash/cloneDeep';
 import moment from 'moment';
+import NoDataFound from '../../components/NoDatFound/NoDataFound';
 
 interface NotificationProps extends RouteComponentProps<{
   type: string;
@@ -92,7 +93,9 @@ const Notification: React.FC<NotificationProps> = ({match,history}) => {
               ))} 
               </>  
               : 
-              'No Notification Data'
+                  <div className="no_car_data_found_div_section">
+                       <NoDataFound/>
+                  </div>
               }  
               </>  
                    

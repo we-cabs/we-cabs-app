@@ -7,6 +7,7 @@ import { RouteComponentProps } from 'react-router';
 import AdminSubHeader from '../../../components/Admin/AdminHeader/AdminSubHeader';
 import Loader from '../../../components/Loader/Loader';
 import car from '../../../img/2021-03-25_22h59_05.png';
+import NoDataFound from '../../../components/NoDatFound/NoDataFound';
 
 
 const UserCars: React.FC<RouteComponentProps> = ({match, history}) => {
@@ -62,7 +63,7 @@ const UserCars: React.FC<RouteComponentProps> = ({match, history}) => {
                  </>
                    :
                     <div className="no_car_data_found_div_section">
-                    No Car Data Found
+                       <NoDataFound/>
                     </div>
                  }
                  </>

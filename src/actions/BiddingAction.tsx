@@ -24,8 +24,9 @@ export const actionToGetBidByUserId = (id:any) => async (dispatch:any) => {
     if(bidData.length){
       bidData.map((bid:any)=>{
         api.get(`/booking/${bid.linkedBookingId}`).then(res=>{
-          bookingData.status = bid.status;
-          newaddedBidData.push(res.data);
+          bookingData = res.data;
+          bookingData.bidStatus = bid.status;
+          newaddedBidData.push(bookingData);
         })
       })
       dispatch({ type: BIDDING_DETAIL_BY_USER_ID_SUCCESS, payload: newaddedBidData });

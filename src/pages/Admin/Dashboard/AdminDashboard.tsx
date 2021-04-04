@@ -11,7 +11,7 @@ const AdminDashboard: React.FC<RouteComponentProps> = ({match, history}) => {
 
     const dispatch = useDispatch();
     useEffect(()=>{
-        dispatch(actionToGetBookingData({}));
+        dispatch(actionToGetBookingData());
         dispatch(actionToGetAllUserData());
     },[])
     return (

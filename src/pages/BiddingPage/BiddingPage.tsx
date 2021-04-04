@@ -30,7 +30,7 @@ const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
         amount:bidValue,
         carPlate:carPlate,
         linkedUserRating:0.2,
-        status:'panding'
+        status:'pending'
       };
 
       setBiddingSuccessPopup(true);
