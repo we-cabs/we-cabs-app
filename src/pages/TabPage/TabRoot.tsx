@@ -28,6 +28,7 @@ import UserCars from '../Admin/UserCars/UserCars';
 import AddUserCar from '../Admin/AddUserCar/AddUserCar';
 import Notification from '../Notification/Notification';
 import AddDetailToGetBooking from '../AddDetailToGetBooking/AddDetailToGetBooking';
+import BookingBids from '../Admin/BookingBids/BookingBids';
 
 const TabRoot: React.FC = () => {
   const {userInfo} = useSelector((state:RootStateOrAny) => state.userSignin);
@@ -46,6 +47,7 @@ const TabRoot: React.FC = () => {
           <Route path={`/tabs/dashboard/update-user-data`} component={UpdateUserData} />
           <Route path={`/tabs/dashboard/user-cars`} component={UserCars} />
           <Route path={`/tabs/dashboard/add-user-cars`} component={AddUserCar} />
+          <Route path={`/tabs/dashboard/booking-bids/:bookingData`} component={BookingBids} />
 
 
           <Route path="/tabs/bidding-list" component={BiddingListPage} exact={true} /> 

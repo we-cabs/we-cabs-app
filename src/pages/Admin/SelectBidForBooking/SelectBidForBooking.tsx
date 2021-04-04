@@ -5,7 +5,7 @@ import './SelectBidForBooking.css';
 import { useDispatch, useSelector,RootStateOrAny } from 'react-redux';
 import AdminSubHeader from '../../../components/Admin/AdminHeader/AdminSubHeader';
 import moment from 'moment';
-import { actionToUpdateBooking } from '../../../actions/BookingAction';
+import { actionToGetBidingDataByBooking, actionToUpdateBooking } from '../../../actions/BookingAction';
 import Loader from '../../../components/Loader/Loader';
 import { cloneDeep } from 'lodash';
 
@@ -27,6 +27,11 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
     dispatch(actionToUpdateBooking(payload));
   }
 
+  const callActionToGetBidingDataByBooking = (bookingData:any) =>{
+    dispatch(actionToGetBidingDataByBooking(bookingData));
+    history.push(`/tabs/dashboard/booking-bids/${JSON.stringify(bookingData)}`);
+  }
+
   return (
     <IonPage>
       <AdminSubHeader title={"Bookings"}/>
@@ -38,7 +43,7 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
              {booking.map((data:any,i:number)=>(
                <>
                {(data.status != "cancel") ? 
-              <div key={i} className="booking_detail_container loop">
+              <div key={i} className="booking_detail_container_select loop">
               <div className="booking_detail_box">
               <IonRow>
               <IonCol size="6">
@@ -72,7 +77,7 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
                     <span className="booking_detail_op">{moment(new Date(data.pickupTime)).utc().format("DD MMM YYYY")}</span>
                   </div>
                   <div className="booking_title_left">
-                    <div className="bidding_list_q_button">Bidding List {'>'}</div>
+                    <div onClick={()=>callActionToGetBidingDataByBooking(data)} className="bidding_list_q_button">Bidding List {'>'}</div>
                   </div>
                 </IonCol>
               </IonRow>

@@ -1,0 +1,16 @@
+.bidding_list_inner_loop .booking_bidding_list_inner_col_icon {
+    background: #f1f1f1;
+    padding: 18px;
+    font-size: 22px;
+    color:var(--theme-color,rgb(218, 39, 46))!important;
+    text-align:center;
+}
+.bidding_list_inner_loop .booking_bidding_list_inner_col_icon svg{
+    width: 16px;
+    fill:var(--theme-color,rgb(218, 39, 46))!important
+}
+.bidding_list_inner_loop .booking_bidding_list_inner_col_icon .avialable_balance_title_section{
+    color: #e06b6b!important;
+    font-size: 16px!important;
+    font-weight: 600!important;
+}

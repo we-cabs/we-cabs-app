@@ -124,13 +124,13 @@ const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
                            <span className="bidding_list_pick_point_text">{bids.pickupPoint}</span>
                            <br>
                            </br>
-                           <span className="bidding_list_pick_point_time">{_convertUnixToDateTimeFormat(bids.pickupTime,'DD MMM YYYY')}</span>                    
+                           <span className="bidding_list_pick_point_time">{_convertUnixToDateTimeFormat(bids.pickupTime,'DD MMM YY')}</span>                    
                        </IonCol>
                        <IonCol className="bidding_list_pick_point_col">
                        <span className="bidding_list_pick_point_text">{bids.dropPoint}</span>
                            <br>
                            </br>
-                           <span className="bidding_list_pick_point_time">{_convertUnixToDateTimeFormat(bids.pickupTime,'HH:mm a')}</span>      
+                           <span className="bidding_list_pick_point_time">{_convertUnixToDateTimeFormat(bids.pickupTime,'HH:mm')}</span>      
                        </IonCol>
                        <IonCol size="1" className="bidding_list_icon_col">
                          {(bids.bidStatus == "pending") ? 
