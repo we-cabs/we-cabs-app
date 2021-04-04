@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { BIDING_DETAIL_SUCCESS } from '../constants/BiddingConstants';
+import { BIDDING_DETAIL_BY_USER_ID_FAIL, BIDDING_DETAIL_BY_USER_ID_REQUEST, BIDDING_DETAIL_BY_USER_ID_SUCCESS, BIDING_DETAIL_SUCCESS } from '../constants/BiddingConstants';
 const api = Axios.create({
   baseURL: `https://a46jrcmngi.execute-api.us-west-2.amazonaws.com/dev`
 })
@@ -11,6 +11,27 @@ export const actionToAddBiddingData = (payload:any) => async (dispatch:any) => {
     const response = await api.post('/bid',payload);
     return response;
   } catch (error) {
+     console.log(error);
+  }
+};
+export const actionToGetBidByUserId = (id:any) => async (dispatch:any) => {
+  dispatch({ type: BIDDING_DETAIL_BY_USER_ID_REQUEST });
+  try {
+    const response = await api.get(`/bid/userId/${id}`);
+    let bidData = response.data.bids;
+    let newaddedBidData:any = [];
+    let bookingData:any = {};
+    if(bidData.length){
+      bidData.map((bid:any)=>{
+        api.get(`/booking/${bid.linkedBookingId}`).then(res=>{
+          bookingData.status = bid.status;
+          newaddedBidData.push(res.data);
+        })
+      })
+      dispatch({ type: BIDDING_DETAIL_BY_USER_ID_SUCCESS, payload: newaddedBidData });
+    }
+  } catch (error) {
+    dispatch({ type: BIDDING_DETAIL_BY_USER_ID_FAIL, payload: error });
      console.log(error);
   }
 };

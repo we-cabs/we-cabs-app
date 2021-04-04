@@ -5,7 +5,6 @@ import { RouteComponentProps } from 'react-router-dom';
 import './ProfilePage.css';
 import SubPageHeaderComponent from '../../components/Header/SubPageHeaderComponent';
 import { useSelector,RootStateOrAny } from 'react-redux';
-import car from '../../img/2021-03-25_22h59_05.png';
 import Loader from '../../components/Loader/Loader';
 
 const ProfilePage: React.FC<RouteComponentProps> = ({match,history}) => {
@@ -16,9 +15,6 @@ const ProfilePage: React.FC<RouteComponentProps> = ({match,history}) => {
   const hrederTitle = () =>{
     return 'My Profile';
   }
-  useEffect(()=>{
-
-  },[])
   
   return (
     <IonPage>
@@ -27,19 +23,24 @@ const ProfilePage: React.FC<RouteComponentProps> = ({match,history}) => {
          <div className="profle_page_contailer_section">
             <IonRow>
                 <IonCol className="profile_page_img_section_col">
-                   <img src={userInfo.profileImgUrl}/><br></br><br></br>
+                   <img src={userInfo.profileImgUrl}/>
+                   <br></br>
+                   <br></br>
                    <span>{userInfo.name}</span>
                 </IonCol>
                 <IonCol className="profle_page_second_section_col">
                     <span className="total_bid_and_booking">
                        My Total Booking
-                    </span><br></br>
+                    </span>
+                    <br></br>
                     <span className="total_bid_and_booking_value">
                         15
-                    </span><br></br>
+                    </span>
+                    <br></br>
                     <span className="total_bid_and_booking">
                        My Bids
-                    </span><br></br>
+                    </span>
+                    <br></br>
                     <span className="total_bid_and_booking_value">
                          5
                     </span>
@@ -79,7 +80,9 @@ const ProfilePage: React.FC<RouteComponentProps> = ({match,history}) => {
                          <span className="car_section_title_text_value_address">{car.carDetails.vichelAddress}</span>
                      </div>
                      <div  className="car_section_title_div">
-                         <span className="car_section_title_text">VICHEL ORIGINAL PHOTO</span><br></br><br></br>
+                         <span className="car_section_title_text">VICHEL ORIGINAL PHOTO</span>
+                         <br></br>
+                         <br></br>
                          {(car.carDetails.images != undefined) ? 
                             <img src={car.carDetails.images[0]}></img>
                             :
@@ -97,8 +100,7 @@ const ProfilePage: React.FC<RouteComponentProps> = ({match,history}) => {
                  </div>
               }
               </>
-          </div>
-            
+          </div>            
          </div>
        </IonContent>    
     </IonPage>

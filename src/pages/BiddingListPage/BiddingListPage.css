@@ -43,6 +43,8 @@
     font-weight: 600;
     font-size: 12px;
     text-align: center;
+}
+.top_sub_header_menu_text.border{
     border-right: 2px solid #ccc;
 }
 .top_sub_header_menu_text_last {
