@@ -1,6 +1,7 @@
 import Axios from 'axios';
+import { cloneDeep } from 'lodash';
 import { BIDDING_DETAIL_BY_BOOKING_ID_FAIL, BIDDING_DETAIL_BY_BOOKING_ID_REQUEST, BIDDING_DETAIL_BY_BOOKING_ID_SUCCESS } from '../constants/BiddingConstants';
-import { BOOKING_DATA_FILTER, BOOKING_DETAIL_FAIL, BOOKING_DETAIL_REQUEST, BOOKING_DETAIL_SUCCESS } from '../constants/BookingConstants';
+import { BOOKING_DATA_FILTER, BOOKING_DETAIL_FAIL, BOOKING_DETAIL_REQUEST, BOOKING_DETAIL_SUCCESS, UPDATE_CAR_DATA } from '../constants/BookingConstants';
 import { pushNotification } from './PushNotificationHelper';
 const api = Axios.create({
   baseURL: `https://a46jrcmngi.execute-api.us-west-2.amazonaws.com/dev`
@@ -66,7 +67,7 @@ export const actionToUpdateBidding = (payload:any) => async (dispatch:any,useSta
       bid.status = 'notApproved';
       api.post('/bid',bid);
     }else{
-      bid.status = 'approved';
+      bid.status = payload.status;
     }
     newBidData.push(bid);
   })
@@ -74,12 +75,27 @@ export const actionToUpdateBidding = (payload:any) => async (dispatch:any,useSta
 };
 
 export const actionToGetBidingDataByBooking = (bookingData:any) => async (dispatch:any) => {
-    dispatch({ type: BIDDING_DETAIL_BY_BOOKING_ID_REQUEST });
-  try {
-    const response = await api.get(`/bid/bookingId/${bookingData.bookingId}`);
-    dispatch({ type: BIDDING_DETAIL_BY_BOOKING_ID_SUCCESS, payload: response.data.bids });
-  } catch (error) {
-     dispatch({ type: BIDDING_DETAIL_BY_BOOKING_ID_FAIL, payload: error });
-     console.log(error);
-  }
+  dispatch({ type: BIDDING_DETAIL_BY_BOOKING_ID_REQUEST });
+try {
+  const response = await api.get(`/bid/bookingId/${bookingData.bookingId}`);
+  dispatch(actionToSortByBidData(response.data.bids,'amount','asc'));
+} catch (error) {
+   dispatch({ type: BIDDING_DETAIL_BY_BOOKING_ID_FAIL, payload: error });
+   console.log(error);
+}
+};
+export const actionToSortByBidData = (biddingData:any,sortBy:any,direction:any) => async (dispatch:any) => {
+  let sortBiddingData = cloneDeep(biddingData);
+  sortBiddingData.sort(function (a:any, b:any) {
+    console.log(a[sortBy],b[sortBy])
+    if(direction == 'asc')
+      return a[sortBy] - b[sortBy];
+    if(direction == 'desc')
+      return b[sortBy] - a[sortBy];
+  });
+  console.log(sortBiddingData,sortBy,direction);
+  dispatch({ type: BIDDING_DETAIL_BY_BOOKING_ID_SUCCESS, payload: {data:sortBiddingData,sortBy:'amount',direction:'asc'}});
+}
+export const actionToSetCarDataToEdit = (carData:any) => async (dispatch:any) => {
+  dispatch({ type: UPDATE_CAR_DATA,payload:carData });
 };

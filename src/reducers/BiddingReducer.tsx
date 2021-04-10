@@ -25,7 +25,7 @@ export const biddingDataReducer = (state = {}, action:any) => {
       case BIDDING_DETAIL_BY_BOOKING_ID_REQUEST:
         return { loading: true };
       case BIDDING_DETAIL_BY_BOOKING_ID_SUCCESS:
-        return { loading: false, bidData: action.payload };
+        return { loading: false, bidData: action.payload.data,sortBy:action.payload.sortBy,direction:action.payload.direction };
       case BIDDING_DETAIL_BY_BOOKING_ID_FAIL:
         return { loading: false, error: action.payload };
       default:

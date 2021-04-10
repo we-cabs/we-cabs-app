@@ -8,47 +8,43 @@ import AdminSubHeader from '../../../components/Admin/AdminHeader/AdminSubHeader
 import { addBookingData } from '../../../actions/BookingAction';
 import moment from 'moment';
 import $ from 'jquery';
-import { actionToAddCarData, actionToAddCarImage, actionToRemoveCarImage } from '../../../actions/AdminAction';
+import { actionToAddCarData, actionToAddCarImage, actionToRemoveCarImage, actionToAddNewUpdatedImageUrl } from '../../../actions/AdminAction';
 import Loader from '../../../components/Loader/Loader';
 import { cloneDeep } from 'lodash';
 
-const AddUserCar: React.FC<RouteComponentProps> = ({match, history}) => {
+const UpdateUserCarData: React.FC<RouteComponentProps> = ({match, history}) => {
   const dispatch = useDispatch();
-  const selectedUserDataid = useSelector((state:RootStateOrAny) => state.selectedUserDataid);
-  const [rcNo, setRcNo] = useState<string>("");
-  const [carName, setCarName] = useState<string>("");
-  const [carType, setCarType] = useState<string>("");
-  const [chasisNo, setChasisNo] = useState<string>('');
-  const [licenseNo, setLicenseNo] = useState<string>("");
+
+  const updateCarData = useSelector((state:RootStateOrAny) => state.updateCarData);
+  const [rcNo, setRcNo] = useState<string>(updateCarData.carDetails.rcno);
+  const [carName, setCarName] = useState<string>(updateCarData.carDetails.name);
+  const [carType, setCarType] = useState<string>(updateCarData.carDetails.type);
+  const [chasisNo, setChasisNo] = useState<string>(updateCarData.carDetails.chasis);
+  const [licenseNo, setLicenseNo] = useState<string>(updateCarData.carDetails.licenseNo);
   const [imageLoading, setImageLoading] = useState<boolean>(false);
-  const [manufacturingYear, setManufacturingYear] = useState<string>("");
-  const [vichelAddress, setVichelAddress] = useState<string>("");
+  const [manufacturingYear, setManufacturingYear] = useState<string>(updateCarData.carManufactureYear);
+  const [vichelAddress, setVichelAddress] = useState<string>(updateCarData.carDetails.vichelAddress);
   
   const [onSubmit, setOnSubmit] = useState<boolean>(false);
-  const [image, setImage] = useState<any>([]);
+  const [image, setImage] = useState<any>(updateCarData.carDetails.images);
 
   const cabType = useSelector((state:RootStateOrAny) => state.cabType);
 
+  dispatch(actionToAddNewUpdatedImageUrl(updateCarData.carDetails.images));
   const resetForm = () =>{
-    setCarName('');
-    setCarType('');
-    setManufacturingYear('');
-    setRcNo('');
-    setChasisNo('');
-    setLicenseNo('');
-    setVichelAddress('');
-    setImage([]);
+    history.goBack();
   }
   const formSubmitHandler =(e:any)=>{
     e.preventDefault();
     const carData = {
-        userId:selectedUserDataid,
+        userId:updateCarData.linkedUserId,
         carType,
         carName,
         rcNo,
         chasisNo,
         licenseNo,
         vichelAddress,
+        carPlate:updateCarData.rcNo,
         manufacturingYear:moment(manufacturingYear).format("YYYY"),
         image
     }
@@ -56,14 +52,15 @@ const AddUserCar: React.FC<RouteComponentProps> = ({match, history}) => {
     setOnSubmit(true);
     resetForm();
   }
-
+ 
   const onFileChange = (e:any) => {
     let files = e.target.files || e.dataTransfer.files
     if (!files.length) return
     setImage([]);
     setTimeout(function(){
-      createImage(files);
+        createImage(files);
     },1000)
+
   }
   function createImage(files:any){
     let images:any = [];
@@ -85,6 +82,7 @@ const AddUserCar: React.FC<RouteComponentProps> = ({match, history}) => {
     }
   }
   const removeImage = (images:any,key:any) =>{
+    dispatch(actionToRemoveCarImage(key));
     images.splice(key,1);
     setImage([]);
     setImageLoading(true);
@@ -92,14 +90,11 @@ const AddUserCar: React.FC<RouteComponentProps> = ({match, history}) => {
       setImage([...images]);
       setImageLoading(false);
     },500)
-
-    dispatch(actionToRemoveCarImage(key));
-
   }
 
     return (
         <IonPage>
-         <AdminSubHeader title={"Add Car"}/>
+         <AdminSubHeader title={"Update Car"}/>
          <IonContent>
              <div className="add_bidding_inner_coontainer">
              <form id={"add_booking_form"} className="ion-padding" onSubmit={(e)=>formSubmitHandler(e)}>
@@ -108,7 +103,7 @@ const AddUserCar: React.FC<RouteComponentProps> = ({match, history}) => {
                 onDidDismiss={() => setOnSubmit(false)}
                 cssClass="my-custom-class"
                 header={"Success!"}
-                message={"Successfully added car."}
+                message={"Successfully update car."}
                 buttons={["Dismiss"]}/>
                 <IonItem>
                     {(!image.length && !imageLoading) ? 
@@ -165,7 +160,7 @@ const AddUserCar: React.FC<RouteComponentProps> = ({match, history}) => {
                   <IonTextarea  onIonChange={(e)=>setVichelAddress(e.detail.value || '')} value={vichelAddress} autoGrow rows={2} required/>
                 </IonItem>
                 <IonButton className="ion-margin-top" type="submit" expand="block">
-                  Add Car
+                  Update Car
                 </IonButton>
               </form>
              </div>
@@ -174,4 +169,4 @@ const AddUserCar: React.FC<RouteComponentProps> = ({match, history}) => {
     );
   }
 
-export default AddUserCar;
+export default UpdateUserCarData;

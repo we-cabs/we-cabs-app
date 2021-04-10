@@ -22,7 +22,7 @@ export const signin = (loginData:any) => async (dispatch:any) => {
       if(user.data){
         dispatch({ type: USER_SIGNIN_SUCCESS, payload: userData });
         localStorage.setItem('userInfo',JSON.stringify(userData));
-        document.location.href = '/tabs';
+        document.location.href = '/';
       }else{
         dispatch({
           type: USER_SIGNIN_FAIL,
@@ -90,7 +90,7 @@ export const actionToGetAllUserData = () => async (dispatch:any) => {
 };
 
 export const signout = () => (dispatch:any) => {
-  document.location.href = '/login';
+  document.location.href = '/';
   localStorage.removeItem('userInfo');
   setTimeout(function(){
     dispatch({ type: USER_SIGNOUT });

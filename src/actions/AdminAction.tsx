@@ -17,37 +17,58 @@ export const actionToGerSelectedUserCarData = (id:any) => async (dispatch:any) =
      console.log(error);
   }
 };
-
+let imagesUrl:any = [];
+export const actionToAddNewUpdatedImageUrl = (payload:any) => async (dispatch:any) => {
+  imagesUrl = payload;
+}
 export const actionToAddCarData = (payload:any) => async (dispatch:any) => {
-    dispatch(actionToAddCarImage(payload.image)).then((url:any)=>{
-        let insertData = {
-            linkedUserId: payload.userId,
-            carManufactureYear: Number(payload.manufacturingYear),
-            carDetails: {
-                "name": payload.carName,
-                "type": payload.carType,
-                "rcno": payload.rcNo,
-                "chasis": payload.chasisNo,
-                "vichelAddress": payload.vichelAddress,
-                "licenseNo": payload.licenseNo,
-                "images":[url],
-            },
-            carPlate: payload.rcNo
-       }
-       try {
-         api.post('/car',insertData).then((res=>{
-           dispatch(actionToGerSelectedUserCarData(payload.userId));
-         }));
-      } catch (error) {
-         console.log(error);
-      }
-    });
+  let insertData = {
+    linkedUserId: payload.userId,
+    carManufactureYear: Number(payload.manufacturingYear),
+    carDetails: {
+        "name": payload.carName,
+        "type": payload.carType,
+        "rcno": payload.rcNo,
+        "chasis": payload.chasisNo,
+        "vichelAddress": payload.vichelAddress,
+        "licenseNo": payload.licenseNo,
+        "images":imagesUrl,
+    },
+    carPlate: payload.rcNo
+}
+console.log(insertData);
+dispatch(actionToGeUpdateCarDataLocally(insertData));
+try {
+ api.post('/car',insertData).then((res=>{
+  
+ }));
+} catch (error) {
+ console.log(error);
+}
 };
+export const actionToGeUpdateCarDataLocally = (insertData:any) => async (dispatch:any,useState:any) => {
+  let selectedUserCarData = useState().selectedUserCarData.carData;
+   if(selectedUserCarData != null && selectedUserCarData != undefined){
+     let flag = false;
+     selectedUserCarData.map((car:any,key:any)=>{
+        if(car.carPlate == insertData.carPlate){
+          selectedUserCarData[key] = insertData;
+          flag = true;
+        }
+     })
+     if(!flag){
+      selectedUserCarData.unshift(insertData);
+     }
+   }else{
+    selectedUserCarData = [insertData];
+   }
+  dispatch({ type: SELECTED_USER_CAR_SUCCESS, payload: selectedUserCarData });
+}
 export const actionToAddCarImage = (image:any) => async (dispatch:any) => {
     // Get the presigned URL
     const {data} = await Axios({
       method: 'GET',
-      url: API_ENDPOINT+'?wecab'+Math.round(Math.random())+'.jpg'
+      url: API_ENDPOINT+'?wecab'+Math.random()+'.jpg'
     })
     let binary = atob(image.split(',')[1])
     let array = []
@@ -55,9 +76,21 @@ export const actionToAddCarImage = (image:any) => async (dispatch:any) => {
       array.push(binary.charCodeAt(i))
     }
     let blobData = new Blob([new Uint8Array(array)], {type: 'image/jpeg'})
-    const result = await fetch(data.uploadURL, {
+    await fetch(data.uploadURL, {
       method: 'PUT',
       body: blobData
     })
-    return data.uploadURL.split('?')[0]; 
+    imagesUrl.push(data.uploadURL.split('?')[0]);
 };
+export const actionToRemoveCarImage = (key:any,url = '') => async (dispatch:any) => {
+  if(url){
+    fetch(url, {
+      method: 'DELETE',
+    })
+  }else if(imagesUrl[key] != undefined){
+    fetch(imagesUrl[key], {
+      method: 'DELETE',
+    })
+  }
+  imagesUrl.splice(key,1);
+}

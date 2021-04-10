@@ -1,3 +1,6 @@
 .border.profile_page_registered_cars_loop_section{
  border: 1px solid #ccc;;
 }
+.car_card_header span.edit_section{
+    margin-left: 94px;
+}

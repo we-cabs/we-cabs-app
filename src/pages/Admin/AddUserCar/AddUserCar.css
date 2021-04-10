@@ -6,3 +6,24 @@
     text-align: center;
     width: 100%;
 }
+#add_booking_form .loader_section{
+    text-align: center!important;
+    width: 100%!important;
+    margin-top: 5%!important;
+}
+.swiper-slide img {
+    width: auto;
+    max-width: 100%;
+    min-height: 20px;
+    height: auto;
+    max-height: 157px;
+}
+.image-slider .remove_image_class {
+    border: 3px solid #7b7b7b;
+    padding: 5px;
+    border-radius: 20px;
+    font-size: 12px;
+    background: #ffffff;
+    position: absolute;
+    bottom: 3px;
+}

@@ -1,7 +1,7 @@
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { biddingDataReducer,biddingDetailByUserIdReducer,biddingDetailByBookingIdReducer } from './reducers/BiddingReducer';
-import { bookingDetailsReducer,bookingDataFilterReducer,cabTypeReducer } from './reducers/BookingReducers';
+import { bookingDetailsReducer,bookingDataFilterReducer,cabTypeReducer,updateCarDataReducer } from './reducers/BookingReducers';
 import { allUserDataReducer, userSigninReducer,carDataReducer } from './reducers/UserReducers';
 import { selectedUserCarDataReducer, selectedUserDataReducer } from './reducers/AdminReducer';
 
@@ -37,6 +37,7 @@ const initialState = {
       selectedUserDataid:'',
       biddingDetailByUserId:{},
       biddingDetailByBookingId:{},
+      updateCarData:{},
 };
 export const rootReducer = combineReducers({
     userSignin: userSigninReducer,
@@ -50,6 +51,7 @@ export const rootReducer = combineReducers({
     selectedUserDataid:selectedUserDataReducer,
     biddingDetailByUserId:biddingDetailByUserIdReducer,
     biddingDetailByBookingId:biddingDetailByBookingIdReducer,
+    updateCarData:updateCarDataReducer,
 });
 declare global {
     interface Window {

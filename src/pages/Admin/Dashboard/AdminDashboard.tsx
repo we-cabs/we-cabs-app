@@ -32,7 +32,7 @@ const AdminDashboard: React.FC<RouteComponentProps> = ({match, history}) => {
                 <IonRow>
                     <IonCol>
                     <button onClick={(e) => {
-                        history.push(`/tabs/dashboard/select-bid-foe-booking`);
+                        history.push(`/tabs/dashboard/select-bid-for-booking`);
                     }} className="bid_booing_button">
                         Select Bid for Booking
                     </button>

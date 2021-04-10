@@ -8,7 +8,7 @@ import AdminSubHeader from '../../../components/Admin/AdminHeader/AdminSubHeader
 import { _convertUnixToDateTimeFormat } from '../../../hooks/DateTimeConverter';
 import Loader from '../../../components/Loader/Loader';
 import NoDataFound from '../../../components/NoDatFound/NoDataFound';
-import { actionToUpdateBooking,actionToUpdateBidding } from '../../../actions/BookingAction';
+import { actionToUpdateBooking,actionToUpdateBidding, actionToSortByBidData } from '../../../actions/BookingAction';
 
 interface BookingBidsProps extends RouteComponentProps<{
     bookingData: string;
@@ -19,11 +19,12 @@ const BookingBids: React.FC<BookingBidsProps> = ({match,history}) => {
   const dispatch = useDispatch();
 
   const {userInfo} = useSelector((state:RootStateOrAny) => state.userSignin);
-  const {loading,bidData} = useSelector((state:RootStateOrAny) => state.biddingDetailByBookingId);
+  const {loading,bidData,sortBy,direction} = useSelector((state:RootStateOrAny) => state.biddingDetailByBookingId);
   const bookingData:any = JSON.parse(match.params.bookingData);
   const [filterType,setFilterType] = useState('all');
   const [selectedBid,setSelectedBid] = useState({});
   const [showAlert,setShowAlert] = useState(false);
+  const [showRemoveAlert,setShowRemoveAlert] = useState(false);
   
  
   const callActionToAlotBookingBooking = (bidData:any) =>{
@@ -35,14 +36,52 @@ const BookingBids: React.FC<BookingBidsProps> = ({match,history}) => {
     bidPayload.status = 'approved';
     dispatch(actionToUpdateBidding(bidPayload));
   }
-
+  const callActionToRemoveBookingBooking = (bidData:any) =>{
+    setShowAlert(false);
+    let payload:any = cloneDeep(bookingData);
+    payload.allottedBidId = '';
+    dispatch(actionToUpdateBooking(payload));
+    let bidPayload = cloneDeep(bidData);
+    bidPayload.status = 'notApproved';
+    dispatch(actionToUpdateBidding(bidPayload));
+  }
+  const applySortingInBidList = (value:any) =>{
+    dispatch(actionToSortByBidData(bidData,value,direction));
+  }
+  const applyRangeInBidList = (value:any) =>{
+    dispatch(actionToSortByBidData(bidData,sortBy,value));
+  }
   return (
     <IonPage>
      <AdminSubHeader title={"Bidding"}/>
-      <IonContent className="ion-padding">
+      <IonContent className="hide_overflow">
         <div className="inner_contant_container">
            {(loading) ? <Loader/> : (bidData != undefined && bidData.length) ?
-           <div className="bidding_list_inner_container_section">
+ 
+           <>
+             <IonRow className="sorting_filter_section">
+                <IonCol>
+                  <div className="sort_booking_biding_section">
+                    <span>Sort:</span>
+                    <select onChange={(e)=>applySortingInBidList(e.target.value)}>         
+                      <option value="amount">By Amount</option>
+                      <option value="linkedUserRating">By Rating</option>
+                    </select>
+                  </div>
+                 </IonCol>
+                 <IonCol>
+                 <div className="sort_booking_biding_section">
+                    <span>Range:</span>
+                    <select onChange={(e)=>applyRangeInBidList(e.target.value)}>   
+                      <option value="asc">Low to high</option>      
+                      <option value="desc">High to low</option>
+                    </select>
+                  </div>
+               </IonCol>
+             </IonRow>
+             <hr className="hr_section_dist"></hr>
+
+             <div className="bidding_list_inner_container_section">
                 {bidData.map((bids:any,key:any)=>(
                   <>
                   <div key={key} className="bidding_list_inner_loop">
@@ -55,7 +94,11 @@ const BookingBids: React.FC<BookingBidsProps> = ({match,history}) => {
                         <div className="avialable_balance_title_section">
                             Amount
                         </div>
-                        <button onClick={()=>{setSelectedBid(bids); setShowAlert(true)}} className="alot_bid_button">Alot Bid</button>
+                        {(bids.status == 'approved') ? 
+                          <button onClick={()=>{setSelectedBid(bids); setShowRemoveAlert(true)}} className="remove alot_bid_button">Remove Selection</button>
+                        :
+                          <button onClick={()=>{setSelectedBid(bids); setShowAlert(true)}} className="alot_bid_button">Alot Bid</button>
+                        }
                        </IonCol> 
                        <IonCol className="booking_bidding_list_pick_point_col">
                        <span>User Id</span>
@@ -83,6 +126,10 @@ const BookingBids: React.FC<BookingBidsProps> = ({match,history}) => {
               </>
                 ))}
            </div>
+       
+           </>   
+
+           
            :
             <div className="no_data_found">
               <NoDataFound/>
@@ -108,6 +155,29 @@ const BookingBids: React.FC<BookingBidsProps> = ({match,history}) => {
                 text: 'Okay',
                 handler: () => {
                   callActionToAlotBookingBooking(selectedBid);
+                }
+              }
+          ]}
+        />
+        <IonAlert
+            isOpen={showRemoveAlert}
+            onDidDismiss={() => setShowRemoveAlert(false)}
+            cssClass='my-custom-class'
+            header={'Are you sure?'}
+            message={'You want to remove this bidding allotment.'}
+            buttons={[
+              {
+                text: 'Cancel',
+                role: 'cancel',
+                cssClass: 'secondary',
+                handler: blah => {
+              
+                }
+              },
+              {
+                text: 'Okay',
+                handler: () => {
+                  callActionToRemoveBookingBooking(selectedBid);
                 }
               }
           ]}
