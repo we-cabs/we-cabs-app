@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { SELECTED_USER_CAR_FAIL, SELECTED_USER_CAR_REQUEST, SELECTED_USER_CAR_SUCCESS, SELECTED_USER_DATA } from '../constants/AdminConstants';
+import { SELECTED_USER_CAR_FAIL, SELECTED_USER_CAR_REQUEST, SELECTED_USER_CAR_SUCCESS, SELECTED_USER_DATA,EDIT_USER_DATA } from '../constants/AdminConstants';
 
 const api = Axios.create({
   baseURL: `https://a46jrcmngi.execute-api.us-west-2.amazonaws.com/dev`
@@ -18,9 +18,18 @@ export const actionToGerSelectedUserCarData = (id:any) => async (dispatch:any) =
   }
 };
 let imagesUrl:any = [];
+let userDocImages:any = [];
+let userImagesUrl:any = '';
 export const actionToAddNewUpdatedImageUrl = (payload:any) => async (dispatch:any) => {
   imagesUrl = payload;
 }
+export const actionToUpdatedUserImageUrl = (payload:any) => async (dispatch:any) => {
+  userImagesUrl = payload;
+}
+export const actionToUpdatedUserDocImageUrl = (payload:any) => async (dispatch:any) => {
+  userDocImages = payload;
+}
+
 export const actionToAddCarData = (payload:any) => async (dispatch:any) => {
   let insertData = {
     linkedUserId: payload.userId,
@@ -64,23 +73,24 @@ export const actionToGeUpdateCarDataLocally = (insertData:any) => async (dispatc
    }
   dispatch({ type: SELECTED_USER_CAR_SUCCESS, payload: selectedUserCarData });
 }
-export const actionToAddCarImage = (image:any) => async (dispatch:any) => {
+export const actionToAddCarImage = (image:any) => (dispatch:any) => {
     // Get the presigned URL
-    const {data} = await Axios({
+    Axios({
       method: 'GET',
       url: API_ENDPOINT+'?wecab'+Math.random()+'.jpg'
+    }).then((res)=>{
+      imagesUrl.push(res.data.uploadURL.split('?')[0]);
+      let binary = atob(image.split(',')[1])
+      let array = [];
+      for (var i = 0; i < binary.length; i++) {
+        array.push(binary.charCodeAt(i))
+      }
+      let blobData = new Blob([new Uint8Array(array)], {type: 'image/jpeg'})
+      fetch(res.data.uploadURL, {
+        method: 'PUT',
+        body: blobData
+      })
     })
-    let binary = atob(image.split(',')[1])
-    let array = []
-    for (var i = 0; i < binary.length; i++) {
-      array.push(binary.charCodeAt(i))
-    }
-    let blobData = new Blob([new Uint8Array(array)], {type: 'image/jpeg'})
-    await fetch(data.uploadURL, {
-      method: 'PUT',
-      body: blobData
-    })
-    imagesUrl.push(data.uploadURL.split('?')[0]);
 };
 export const actionToRemoveCarImage = (key:any,url = '') => async (dispatch:any) => {
   if(url){
@@ -93,4 +103,106 @@ export const actionToRemoveCarImage = (key:any,url = '') => async (dispatch:any)
     })
   }
   imagesUrl.splice(key,1);
+}
+
+export const actionToRemoveUserDocImage = (key:any,url = '') => async (dispatch:any) => {
+  if(url){
+    fetch(url, {
+      method: 'DELETE',
+    })
+  }else if(userDocImages[key] != undefined){
+    fetch(userDocImages[key], {
+      method: 'DELETE',
+    })
+  }
+  imagesUrl.splice(key,1);
+}
+
+export const actionToSetEditUserData = (user:any) => async (dispatch:any) => {
+  dispatch({ type: EDIT_USER_DATA, payload: user });
+};
+
+export const actionToAddUserImage = (preUrl:any,image:any) => (dispatch:any) => {
+  fetch(preUrl, {
+    method: 'DELETE',
+  })
+  // Get the presigned URL
+  Axios({
+    method: 'GET',
+    url: API_ENDPOINT+'?wecab'+Math.random()+'.jpg'
+  }).then((res)=>{
+    userImagesUrl = res.data.uploadURL.split('?')[0];
+    console.log(userImagesUrl)
+    let binary = atob(image.split(',')[1])
+    let array = []
+    for (var i = 0; i < binary.length; i++) {
+      array.push(binary.charCodeAt(i))
+    }
+    let blobData = new Blob([new Uint8Array(array)], {type: 'image/jpeg'})
+    fetch(res.data.uploadURL, {
+      method: 'PUT',
+      body: blobData
+    })
+  })
+};
+
+export const actionToAddUserDocImage = (image:any) => (dispatch:any) => {
+  // Get the presigned URL
+  Axios({
+    method: 'GET',
+    url: API_ENDPOINT+'?wecab'+Math.random()+'.jpg'
+  }).then((res)=>{
+    userDocImages.push(res.data.uploadURL.split('?')[0]);
+    let binary = atob(image.split(',')[1])
+    let array = [];
+    for (var i = 0; i < binary.length; i++) {
+      array.push(binary.charCodeAt(i))
+    }
+    let blobData = new Blob([new Uint8Array(array)], {type: 'image/jpeg'})
+    fetch(res.data.uploadURL, {
+      method: 'PUT',
+      body: blobData
+    })
+  })
+};
+
+export const actionToUpdateCarData = (payload:any) => async (dispatch:any) => {
+  let insertData = {
+        "userId": payload.phone,
+        "phone": payload.phone,
+        "profileImgUrl": userImagesUrl,
+        "approvalStatus": payload.approvalStatus,
+        "email": payload.email,
+        "name": payload.name,
+        "location":payload.location,
+        "password":payload.password,
+        "role":payload.role,
+        "images":{doc:userDocImages},
+}
+console.log(insertData);
+  dispatch(actionToGeUpdateUserDataLocally(insertData));
+  try {
+    api.post('/user',insertData);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const actionToGeUpdateUserDataLocally = (insertData:any) => async (dispatch:any,useState:any) => {
+  let selectedUserUserData = useState().allUserData.userData;
+   if(selectedUserUserData != null && selectedUserUserData != undefined){
+     let flag = false;
+     selectedUserUserData.map((car:any,key:any)=>{
+        if(car.userId == insertData.userId){ 
+          selectedUserUserData[key] = insertData;
+          flag = true;
+        }
+     })
+     if(!flag){
+      selectedUserUserData.unshift(insertData);
+     }
+   }else{
+    selectedUserUserData = [insertData];
+   }
+  dispatch({ type: SELECTED_USER_CAR_SUCCESS, payload: selectedUserUserData });
 }

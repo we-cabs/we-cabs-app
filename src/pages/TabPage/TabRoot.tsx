@@ -20,7 +20,6 @@ import BookingDetails from '../BookingDetailListPage/BookingDetails';
 import BiddingPage from '../BiddingPage/BiddingPage';
 import AddBooking from '../Admin/AddBooking/AddBooking';
 import SelectBidForBooking from '../Admin/SelectBidForBooking/SelectBidForBooking';
-import UpdateUserData from '../Admin/UpdateUserData/UpdateUserData';
 import './TabRoot.css';
 import BiddingListPage from '../BiddingListPage/BiddingListPage';
 import ProfilePage from '../ProfilePage/ProfilePage';
@@ -30,6 +29,9 @@ import Notification from '../Notification/Notification';
 import AddDetailToGetBooking from '../AddDetailToGetBooking/AddDetailToGetBooking';
 import BookingBids from '../Admin/BookingBids/BookingBids';
 import UpdateUserCarData from '../Admin/AddUserCar/UpdateUserCarData';
+import UserDataList from '../Admin/UserDataList/UserDataList';
+import UpdateUserData from '../Admin/UpdateUserData/UpdateUserData';
+import AddUser from '../Admin/UpdateUserData/AddUser';
 
 const TabRoot: React.FC = () => {
   const {userInfo} = useSelector((state:RootStateOrAny) => state.userSignin);
@@ -45,11 +47,13 @@ const TabRoot: React.FC = () => {
             
           <Route path={`/tabs/dashboard/add-booking`} component={AddBooking} />
           <Route path={`/tabs/dashboard/select-bid-for-booking`} component={SelectBidForBooking} />
-          <Route path={`/tabs/dashboard/update-user-data`} component={UpdateUserData} />
+          <Route path={`/tabs/dashboard/user-data-list`} component={UserDataList} />
           <Route path={`/tabs/dashboard/user-cars`} component={UserCars} />
           <Route path={`/tabs/dashboard/add-user-cars`} component={AddUserCar} />
+          <Route path={`/tabs/dashboard/add-user`} component={AddUser} />
           <Route path={`/tabs/dashboard/booking-bids/:bookingData`} component={BookingBids} />
           <Route path={`/tabs/dashboard/update-car-data`} component={UpdateUserCarData} />
+          <Route path={`/tabs/dashboard/update-user-data`} component={UpdateUserData} />
 
 
           <Route path="/tabs/bidding-list" component={BiddingListPage} exact={true} /> 

@@ -12,32 +12,29 @@ import { actionToUpdatedUserImageUrl, actionToAddUserImage, actionToUpdateCarDat
 import Loader from '../../../components/Loader/Loader';
 import { cloneDeep } from 'lodash';
 
-const UpdateUserData: React.FC<RouteComponentProps> = ({match, history}) => {
+const AddUser: React.FC<RouteComponentProps> = ({match, history}) => {
   const dispatch = useDispatch();
 
-  const editUserData = useSelector((state:RootStateOrAny) => state.editUserData);
-
-  const [location, setLocation] = useState<string>(editUserData.location.trim());
-  const [approvalStatus, setApprovalStatus] = useState<string>(editUserData.approvalStatus);
-  const [email, setEmail] = useState<string>(editUserData.email);
-  const [name, setName] = useState<string>(editUserData.name);
-  const [password, setPassword] = useState<string>(editUserData.password);
+  const [location, setLocation] = useState<string>('');
+  const [approvalStatus, setApprovalStatus] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [phone, setPhone] = useState<string>('');
   const [image, setImage] = useState<any>([]);
-  const [role, setRole] = useState<string>(editUserData.role);
+  const [role, setRole] = useState<string>('');
   const [imageLoading, setImageLoading] = useState<boolean>(false);
-
-  
   const [onSubmit, setOnSubmit] = useState<boolean>(false);
-  const [profileImgUrl, setProfileImgUrl] = useState<string>(editUserData.profileImgUrl);
+  const [profileImgUrl, setProfileImgUrl] = useState<string>('');
 
   const resetForm = () =>{
-    history.goBack();
+    //history.goBack();
   }
   const formSubmitHandler =(e:any)=>{
     e.preventDefault(); 
     const userData = {
-        userId:editUserData.userId,
-        phone:editUserData.phone,
+        userId:phone,
+        phone,
         location,
         approvalStatus,
         email,
@@ -64,7 +61,7 @@ const UpdateUserData: React.FC<RouteComponentProps> = ({match, history}) => {
         if (!e.target.result.includes('data:image/')) {
           return alert('Wrong file type - IMAGE only.')
         }
-        if (e.target.result.length > 100000) {
+        if (e.target.result.length > 100000000) {
           return alert('Image is loo large.')
         } 
         dispatch(actionToAddUserImage(profileImgUrl,e.target.result));
@@ -122,17 +119,13 @@ const UpdateUserData: React.FC<RouteComponentProps> = ({match, history}) => {
 
 
     useEffect(()=>{
-        dispatch(actionToUpdatedUserImageUrl(editUserData.profileImgUrl));
-        let newDocImages = [];
-        if(editUserData.images.doc != undefined)
-            newDocImages = editUserData.images.doc;
-            setImage(newDocImages);
-        dispatch(actionToUpdatedUserDocImageUrl(newDocImages));
+        dispatch(actionToUpdatedUserImageUrl('https://reqres.in/img/faces/4-image.jpg'));
+        dispatch(actionToUpdatedUserDocImageUrl([]));
     },[])
 
     return (
         <IonPage>
-         <AdminSubHeader title={"Update User"}/>
+         <AdminSubHeader title={"Add User"}/>
          <IonContent>
              <div className="add_bidding_inner_coontainer">
              <form id={"add_booking_form"} className="ion-padding" onSubmit={(e)=>formSubmitHandler(e)}>
@@ -141,9 +134,10 @@ const UpdateUserData: React.FC<RouteComponentProps> = ({match, history}) => {
                 onDidDismiss={() => setOnSubmit(false)}
                 cssClass="my-custom-class"
                 header={"Success!"}
-                message={"Successfully update user."}
+                message={"Successfully added user."}
                 buttons={["Dismiss"]}/>
                    <IonItem>
+                       {(profileImgUrl) ? 
                         <div className="user_profile_pic_update_user">
                             <div onClick={()=>openImageUploadPopup('#edit_image_input')} className="user_profile_image">
                                 <img src={profileImgUrl}/>
@@ -151,10 +145,17 @@ const UpdateUserData: React.FC<RouteComponentProps> = ({match, history}) => {
                                 <input type="file" id="edit_image_input" onChange={(e)=>onFileChange(e)} accept="image"></input>
                             </div>                         
                         </div>
+                        :
+                        <input type="file" onChange={(e)=>onFileChange(e)} accept="image"></input>
+                       }
                   </IonItem>
                   <IonItem>
                   <IonLabel position="floating">NAME</IonLabel>
                   <IonInput onIonChange={(e)=>setName(e.detail.value || '')} value={name} type="text" required/>
+                </IonItem>
+                <IonItem>
+                  <IonLabel position="floating">PHONE NUMBER</IonLabel>
+                  <IonInput onIonChange={(e)=>setPhone(e.detail.value || '')} value={phone} type="text" required/>
                 </IonItem>
                 <IonItem>
                   <IonLabel position="floating">EMAIL</IonLabel>
@@ -186,9 +187,9 @@ const UpdateUserData: React.FC<RouteComponentProps> = ({match, history}) => {
                            <IonLabel position="stacked">DOCUMENT IMAGES</IonLabel>
                             <input type="file" accept="image/*" placeholder="Choose Document images" onChange={(e)=>{setImageLoading(true);onDocFileChange(e)}} multiple/>
                         </IonItem>
-                    {(!image.length && !imageLoading) ? 
+                       {(!image.length && !imageLoading) ? 
                 
-               ''
+                        ''
                         : (imageLoading) ? 
                         <>
                         <IonItem>
@@ -206,7 +207,7 @@ const UpdateUserData: React.FC<RouteComponentProps> = ({match, history}) => {
                     </IonSlides>    
                     }
                 <IonButton className="ion-margin-top" type="submit" expand="block">
-                  Update User
+                  Add User
                 </IonButton>
               </form>
              </div>
@@ -215,4 +216,4 @@ const UpdateUserData: React.FC<RouteComponentProps> = ({match, history}) => {
     );
   }
 
-export default UpdateUserData;
+export default AddUser;

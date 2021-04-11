@@ -20,3 +20,7 @@ ion-header.admin_sub_header_class ion-toolbar.admin_sub_header_toolbar {
 .header_title_col_add_car svg{
     width: 95%;
 }
+.header_title_col_add_car svg.add_user_icon{
+    width: 68%!important;
+}
+

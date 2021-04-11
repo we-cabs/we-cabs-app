@@ -1,5 +1,5 @@
 import { IonPage,IonRow,IonCol,IonItem,IonLabel,IonInput,IonButton, IonTextarea, IonDatetime, IonAlert, IonSelect, IonSelectOption, IonContent, IonSlides, IonSlide } from '@ionic/react';
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import { useSelector,RootStateOrAny,useDispatch } from 'react-redux';
 import './AddUserCar.css';
 import AdminHeaderComponent from '../../../components/Admin/AdminHeader/AdminHeaderComponent';
@@ -23,14 +23,13 @@ const UpdateUserCarData: React.FC<RouteComponentProps> = ({match, history}) => {
   const [licenseNo, setLicenseNo] = useState<string>(updateCarData.carDetails.licenseNo);
   const [imageLoading, setImageLoading] = useState<boolean>(false);
   const [manufacturingYear, setManufacturingYear] = useState<string>(updateCarData.carManufactureYear);
-  const [vichelAddress, setVichelAddress] = useState<string>(updateCarData.carDetails.vichelAddress);
+  const [vichelAddress, setVichelAddress] = useState<string>(updateCarData.carDetails.vichelAddress.trim());
   
   const [onSubmit, setOnSubmit] = useState<boolean>(false);
   const [image, setImage] = useState<any>(updateCarData.carDetails.images);
 
   const cabType = useSelector((state:RootStateOrAny) => state.cabType);
 
-  dispatch(actionToAddNewUpdatedImageUrl(updateCarData.carDetails.images));
   const resetForm = () =>{
     history.goBack();
   }
@@ -56,19 +55,20 @@ const UpdateUserCarData: React.FC<RouteComponentProps> = ({match, history}) => {
   const onFileChange = (e:any) => {
     let files = e.target.files || e.dataTransfer.files
     if (!files.length) return
-    setImage([]);
     setTimeout(function(){
         createImage(files);
     },1000)
 
   }
   function createImage(files:any){
-    let images:any = [];
+    let images:any = []
+        if(image != null && image.length)
+            images = cloneDeep(image);
     for (var i = 0, f; f = files[i]; i++) { 
       var reader = new FileReader()
       reader.onload = (e:any) => {
-        if (!e.target.result.includes('data:image/jpeg')) {
-          return alert('Wrong file type - JPG only.')
+        if (!e.target.result.includes('data:image/')) {
+          return alert('Wrong file type - IMAGE only.')
         }
         if (e.target.result.length > 1000000000) {
           return alert('Image is loo large.')
@@ -92,6 +92,10 @@ const UpdateUserCarData: React.FC<RouteComponentProps> = ({match, history}) => {
     },500)
   }
 
+  useEffect(()=>{
+    dispatch(actionToAddNewUpdatedImageUrl(updateCarData.carDetails.images));
+  },[])
+
     return (
         <IonPage>
          <AdminSubHeader title={"Update Car"}/>
@@ -105,28 +109,32 @@ const UpdateUserCarData: React.FC<RouteComponentProps> = ({match, history}) => {
                 header={"Success!"}
                 message={"Successfully update car."}
                 buttons={["Dismiss"]}/>
-                <IonItem>
-                    {(!image.length && !imageLoading) ? 
-                        <input type="file" accept="image/*" onChange={(e)=>{setImageLoading(true);onFileChange(e)}} multiple/>
-                        : (imageLoading) ? 
-                        <>
-                          <Loader/>
-                        </>
-                        :
-                        <> 
-                          <IonSlides className="image-slider">
-                              {image.map((img:any,key:any)=>(
-                                <IonSlide key={key}>
-                                  <img src={img} className="thumb-img"/>
-                                  <div onClick={()=>removeImage([...image],key)} className="remove_image_class"> Remove </div>
-                                </IonSlide>
-                              ))}
-                          </IonSlides>                       
-                        </>
-                 
-                    }
 
-                  </IonItem>
+                    <IonItem>
+                      <IonLabel position="stacked">CAR IMAGES</IonLabel>
+                      <input type="file" accept="image/*" placeholder="Choose Document images" onChange={(e)=>{setImageLoading(true); onFileChange(e)}} multiple/>
+                    </IonItem>
+
+                 {(!image.length && !imageLoading) ? 
+                 ''
+                 : (imageLoading) ? 
+                 <>
+                 <IonItem>
+                   <Loader/>
+                   </IonItem>
+                 </>
+                 :
+                 <>
+                 <IonSlides className="image-slider">
+                    {image.map((img:any,key:any)=>(
+                      <IonSlide style={{width:"150px",height:"200px"}} key={key}>
+                        <img src={img} className="thumb-img"/>
+                        <div onClick={()=>removeImage([...image],key)} className="remove_image_class"> Remove </div>
+                      </IonSlide>
+                    ))}
+                 </IonSlides>
+                </> 
+             }
                   <IonItem>
                   <IonLabel position="floating">NAME</IonLabel>
                   <IonInput onIonChange={(e)=>setCarName(e.detail.value || '')} value={carName} type="text" required/>
@@ -135,7 +143,7 @@ const UpdateUserCarData: React.FC<RouteComponentProps> = ({match, history}) => {
                   <IonLabel position="floating">TYPE</IonLabel>
                   <IonSelect value={carType} onIonChange={(e)=>setCarType(e.detail.value || '')}>
                       {cabType.map((cab:any,key:any)=>(
-                         <IonSelectOption key={key}>{cab}</IonSelectOption>
+                         <IonSelectOption value={cab} key={key}>{cab}</IonSelectOption>
                       ))}
                   </IonSelect>
                 </IonItem>
