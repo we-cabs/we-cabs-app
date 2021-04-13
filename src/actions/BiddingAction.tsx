@@ -6,9 +6,10 @@ const api = Axios.create({
 export const addBiddingBookingData = (payload:any) => async (dispatch:any) => {
   dispatch({ type: BIDING_DETAIL_SUCCESS, payload: payload });
 };
-export const actionToAddBiddingData = (payload:any) => async (dispatch:any) => {
+export const actionToAddBiddingData = (payload:any) => async (dispatch:any,getState:any) => {
   try {
     const response = await api.post('/bid',payload);
+    dispatch(actionToGetBidByUserId(getState().userSignin.userInfo.phone));
     return response;
   } catch (error) {
      console.log(error);

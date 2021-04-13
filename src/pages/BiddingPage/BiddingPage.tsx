@@ -24,6 +24,8 @@ const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
     const {userInfo} = useSelector((state:RootStateOrAny) => state.userSignin);
     const dispatch = useDispatch();
     const callToPlaceYourBid = () => {
+
+      if(bidValue){
       let payload = {
         linkedUserId:userInfo.phone,
         linkedBookingId:biddingData.bookingId,
@@ -35,6 +37,7 @@ const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
 
       setBiddingSuccessPopup(true);
       dispatch(actionToAddBiddingData(payload));
+    }
     }
 
     useEffect(()=>{

@@ -23,7 +23,7 @@
     margin-top: 6px;
 }
 .bidding_list_inner_container_section{
-    height: calc(100vh - 186px)!important;
+    height: calc(87vh - 160px)!important;
     overflow: auto;
     background: white!important;
 }
