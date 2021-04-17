@@ -29,6 +29,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import Logout from './components/AlertPopup/Logout';
 import TabRoot from './pages/TabPage/TabRoot';
+
 library.add(faSignOutAlt);
 
 const PrivateRoutes = () => {

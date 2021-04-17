@@ -6,6 +6,7 @@ import { IonItem, IonLabel, IonInput, IonButton, IonIcon, IonAlert } from '@ioni
 import { useDispatch,useSelector,RootStateOrAny } from 'react-redux';
 import { signin } from '../../actions/UserAction';
 import './Login.css'
+import { Signup } from '../../components/Signup/Signup';
 
 function validatePhone(phoneNumber: string) {
     if(!isNaN(Number(phoneNumber))){
@@ -19,6 +20,7 @@ const Login: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>('8785443234');
   const [iserror, setIserror] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
+  const [isSignupScreen, setIsSignupScreen] = useState<boolean>(false);
 
   const handleLogin = () => {
     if (!phoneNumber) {
@@ -71,6 +73,8 @@ const Login: React.FC = () => {
             </div>
           </IonCol>
         </IonRow>
+        {(isSignupScreen) ? <Signup/> : 
+        <>
         <IonRow>
           <IonCol>
             <div className="login_welcome_message_container">
@@ -110,15 +114,20 @@ const Login: React.FC = () => {
               <IonButton className="login_button" expand="block" onClick={handleLogin}>Login</IonButton>
             </IonCol>
           </IonRow>
-          <IonRow>
-            <IonCol>
-               <div className="new_user_signin_section">
-                <span className="signin_new_user">New User?</span>
-                <span className="signin_new_user_link"> Sign up for new account</span>
-               </div>
-            </IonCol>
-          </IonRow>
+          </>
+        }
         </IonGrid>
+             {(!isSignupScreen) ? 
+                 <div className="new_user_signin_section">
+                   <span className="signin_new_user">New User?</span>
+                   <span onClick={()=>setIsSignupScreen(true)} className="signin_new_user_link"> Sign up for new account</span>
+                  </div>
+               :
+                  <div className="new_user_signin_section">
+                    <span className="signin_new_user">Already Have Account?</span>
+                    <span onClick={()=>setIsSignupScreen(false)} className="signin_new_user_link"> Login</span>
+                  </div>
+              }
       </IonContent>
     </IonPage>
   );

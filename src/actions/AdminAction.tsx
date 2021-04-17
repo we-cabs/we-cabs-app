@@ -166,7 +166,7 @@ export const actionToAddUserDocImage = (image:any) => (dispatch:any) => {
   })
 };
 
-export const actionToUpdateCarData = (payload:any) => async (dispatch:any) => {
+export const actionToUpdateUserData = (payload:any) => async (dispatch:any) => {
   let insertData = {
         "userId": payload.phone,
         "phone": payload.phone,
@@ -178,8 +178,8 @@ export const actionToUpdateCarData = (payload:any) => async (dispatch:any) => {
         "password":payload.password,
         "role":payload.role,
         "images":{doc:userDocImages},
+        "deviceToken":payload.deviceToken,
 }
-console.log(insertData);
   dispatch(actionToGeUpdateUserDataLocally(insertData));
   try {
     api.post('/user',insertData);

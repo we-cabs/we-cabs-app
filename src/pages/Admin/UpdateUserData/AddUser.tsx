@@ -8,7 +8,7 @@ import AdminSubHeader from '../../../components/Admin/AdminHeader/AdminSubHeader
 import { addBookingData } from '../../../actions/BookingAction';
 import moment from 'moment';
 import $ from 'jquery';
-import { actionToUpdatedUserImageUrl, actionToAddUserImage, actionToUpdateCarData,actionToUpdatedUserDocImageUrl, actionToRemoveUserDocImage, actionToAddUserDocImage } from '../../../actions/AdminAction';
+import { actionToUpdatedUserImageUrl, actionToAddUserImage,actionToUpdatedUserDocImageUrl, actionToRemoveUserDocImage, actionToAddUserDocImage, actionToUpdateUserData } from '../../../actions/AdminAction';
 import Loader from '../../../components/Loader/Loader';
 import { cloneDeep } from 'lodash';
 
@@ -42,7 +42,7 @@ const AddUser: React.FC<RouteComponentProps> = ({match, history}) => {
         password,
         role,
     }
-    dispatch(actionToUpdateCarData(userData));
+    dispatch(actionToUpdateUserData(userData));
     setOnSubmit(true);
     resetForm();
   }

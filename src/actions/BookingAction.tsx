@@ -52,9 +52,7 @@ export const addBookingData = (payload:any) => async (dispatch:any) => {
      console.log(error);
   }
 };
-export const actionToSendPushNotification = (payload:any) => async (dispatch:any) => {
-  pushNotification(payload);
-};
+
 export const actionToUpdateBooking = (payload:any) => async (dispatch:any) => {
   api.post('/booking',payload).then((res)=>{
     dispatch(actionToGetBookingData(0));

@@ -21,24 +21,30 @@ const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
     history.push(`/tabs/dashboard/tripbooking/${type}`);
   }
   const {userInfo} = useSelector((state:RootStateOrAny) => state.userSignin);
-  const {loading,bidData} = useSelector((state:RootStateOrAny) => state.biddingDetailByUserId);
+  const biddingDetailByUserId = useSelector((state:RootStateOrAny) => state.biddingDetailByUserId);
   const [bidDataClone,setBidDataClone] = useState([]);
   const [filterType,setFilterType] = useState('all');
 
   const filterAllBidDataByStatus = (type:any) =>{
     setFilterType(type);
-    let filterBidData = cloneDeep(bidData);
-    console.log('filterBidData',filterBidData)
+    let filterBidData = cloneDeep(biddingDetailByUserId.bidData);
     let data:any = [];
     if(type != 'all'){
       filterBidData.map((bid:any)=>{
-        if(bid.bidStatus == type){
-          data.push(bid);
+        if(bid.status != 'cancel'){
+          if(bid.bidStatus == type){
+            data.push(bid);
+          }
         }
       })
       setBidDataClone(data);
     }else{
-      setBidDataClone(filterBidData);
+      filterBidData.map((bid:any)=>{
+        if(bid.status != 'cancel'){
+          data.push(bid);
+        }
+      })
+      setBidDataClone(data);
     }
   }
 
@@ -49,13 +55,26 @@ const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
     history.push(`/tabs/dashboard/show-bidding`);
   }
   useEffect(()=>{
-    if(bidData != undefined && bidData.length){
-        setBidDataClone(cloneDeep(bidData));
+    if(biddingDetailByUserId.bidData != undefined && biddingDetailByUserId.bidData.length){
+      let data = [];
+      biddingDetailByUserId.bidData.map((bid:any)=>{
+        if(bid.status != 'cancel'){
+          data.push(bid);
+        }
+      })
+      setBidDataClone(cloneDeep(biddingDetailByUserId.bidData));
     } 
-  },[bidData])
+  },[biddingDetailByUserId]);
+  
   useEffect(()=>{
-    if(bidData != undefined && bidData.length){
-        setBidDataClone(cloneDeep(bidData));
+    if(biddingDetailByUserId.bidData != undefined && biddingDetailByUserId.bidData.length){
+      let data = [];
+      biddingDetailByUserId.bidData.map((bid:any)=>{
+        if(bid.status != 'cancel'){
+          data.push(bid);
+        }
+      })
+      setBidDataClone(cloneDeep(biddingDetailByUserId.bidData));
     } 
   },[])
   
@@ -114,11 +133,11 @@ const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
                 </IonRow>
             </div>
            </div>
-           {(loading) ? <Loader/> : (bidDataClone != undefined && bidDataClone.length) ?
+    
+           {(biddingDetailByUserId.loading) ? <Loader/> : (bidDataClone != undefined && bidDataClone.length) ?
            <div className="bidding_list_inner_container_section">
                 {bidDataClone.map((bids:any,key)=>(
                   <>
-                  {(bids.status != 'cancel') ? 
                   <div key={key} onClick={(e)=>openBiddingPage(e,bids)} className="bidding_list_inner_loop">
                   <IonRow>
                        <IonCol size="3" className="bidding_list_inner_col_icon">
@@ -151,7 +170,6 @@ const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
                            </IonCol>
                   </IonRow>
               </div>
-              :''}
               </>
                 ))}
            </div>

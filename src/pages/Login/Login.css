@@ -74,5 +74,7 @@ span.signin_new_user_link {
     color: #1788e8;
 }
 .new_user_signin_section {
-    margin-top: 34px;
+    position: absolute;
+    bottom: 7%;
+    margin-left: 14px;
 }

@@ -11,6 +11,7 @@ import {
   USER_SIGNIN_SUCCESS,
   USER_SIGNOUT,
 } from '../constants/UserConstants';
+import { pushNotification } from './PushNotificationHelper';
 const api = Axios.create({
     baseURL: `https://a46jrcmngi.execute-api.us-west-2.amazonaws.com/dev`
 })
@@ -95,4 +96,7 @@ export const signout = () => (dispatch:any) => {
   setTimeout(function(){
     dispatch({ type: USER_SIGNOUT });
   },1000)
+};
+export const actionToGetUserDeviceToken = () => async (dispatch:any,useState:any) => {
+  pushNotification(dispatch,useState());
 };

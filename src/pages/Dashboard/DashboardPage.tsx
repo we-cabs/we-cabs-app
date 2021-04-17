@@ -6,7 +6,7 @@ import HeaderComponent from '../../components/Header/HeaderComponent';
 import './DashboardPage.css';
 import VideoAndLogoFooter from '../../components/Footers/VideoAndLogoFooter';
 import { actionToGetBookingData } from '../../actions/BookingAction';
-import { actionToGetUserCar } from '../../actions/UserAction';
+import { actionToGetUserCar, actionToGetUserDeviceToken } from '../../actions/UserAction';
 import { actionToGetBidByUserId } from '../../actions/BiddingAction';
 
 const DashboardPage: React.FC<RouteComponentProps> = ({history}) => {
@@ -17,9 +17,15 @@ const DashboardPage: React.FC<RouteComponentProps> = ({history}) => {
   }
   const {userInfo} = useSelector((state:RootStateOrAny) => state.userSignin);
 
+  const callActionToSendPushNotification = () =>{
+    dispatch(actionToGetUserDeviceToken());
+  }
+
   useEffect(()=>{
+    callActionToSendPushNotification();
     dispatch(actionToGetBookingData());
     dispatch(actionToGetUserCar(userInfo.phone));
+    dispatch(actionToGetBidByUserId(userInfo.phone));
     dispatch(actionToGetBidByUserId(userInfo.phone));
   },[])
   
