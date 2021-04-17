@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import { biddingDataReducer,biddingDetailByUserIdReducer,biddingDetailByBookingIdReducer } from './reducers/BiddingReducer';
 import { bookingDetailsReducer,bookingDataFilterReducer,cabTypeReducer,updateCarDataReducer } from './reducers/BookingReducers';
 import { allUserDataReducer, userSigninReducer,carDataReducer } from './reducers/UserReducers';
-import { selectedUserCarDataReducer, selectedUserDataReducer,editUserDataReducer } from './reducers/AdminReducer';
+import { selectedUserCarDataReducer, selectedUserDataReducer,editUserDataReducer, allBookingRequestDataReducer } from './reducers/AdminReducer';
 
 const initialState = {
     userSignin: {
@@ -39,6 +39,7 @@ const initialState = {
       biddingDetailByBookingId:{},
       updateCarData:{},
       editUserData:{},
+      allBookingRequestData:{},
       
 };
 export const rootReducer = combineReducers({
@@ -55,6 +56,7 @@ export const rootReducer = combineReducers({
     biddingDetailByBookingId:biddingDetailByBookingIdReducer,
     updateCarData:updateCarDataReducer,
     editUserData:editUserDataReducer,
+    allBookingRequestData:allBookingRequestDataReducer,
 });
 declare global {
     interface Window {

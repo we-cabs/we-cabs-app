@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { SELECTED_USER_CAR_FAIL, SELECTED_USER_CAR_REQUEST, SELECTED_USER_CAR_SUCCESS, SELECTED_USER_DATA,EDIT_USER_DATA } from '../constants/AdminConstants';
+import { SELECTED_USER_CAR_FAIL, SELECTED_USER_CAR_REQUEST, SELECTED_USER_CAR_SUCCESS, SELECTED_USER_DATA,EDIT_USER_DATA, ALL_BOOKING_REQUEST_DATA_REQUEST, ALL_BOOKING_REQUEST_DATA_SUCCESS, ALL_BOOKING_REQUEST_DATA_FAIL } from '../constants/AdminConstants';
 
 const api = Axios.create({
   baseURL: `https://a46jrcmngi.execute-api.us-west-2.amazonaws.com/dev`
@@ -14,6 +14,16 @@ export const actionToGerSelectedUserCarData = (id:any) => async (dispatch:any) =
     dispatch({ type: SELECTED_USER_CAR_SUCCESS, payload: response.data.cars });
   } catch (error) {
     dispatch({ type: SELECTED_USER_CAR_FAIL, payload: error });
+     console.log(error);
+  }
+};
+export const actionToGetAllBookingDetailData = () => async (dispatch:any) => {
+  dispatch({ type: ALL_BOOKING_REQUEST_DATA_REQUEST });
+  try {
+    const response = await api.get(`/request`);
+    dispatch({ type: ALL_BOOKING_REQUEST_DATA_SUCCESS, payload: response.data.requests });
+  } catch (error) {
+    dispatch({ type: ALL_BOOKING_REQUEST_DATA_FAIL, payload: error });
      console.log(error);
   }
 };

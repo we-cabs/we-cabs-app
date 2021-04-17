@@ -6,20 +6,17 @@ import { RouteComponentProps } from 'react-router';
 import SubPageHeaderComponent from '../../components/Header/SubPageHeaderComponent';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
+import { addDetailToGetBookingData } from '../../actions/BookingAction';
 
 const AddDetailToGetBooking: React.FC<RouteComponentProps> = ({match, history}) => {
   const dispatch = useDispatch();
 
   const [pickupPoint, setPickUpPoint] = useState<string>("");
   const [onSubmit, setOnSubmit] = useState<boolean>(false);
-  const [maxAmount, setMaxAmount] = useState<number>(0);
   const [dropPoint, setDropPoint] = useState<string>("");
   const [pickupTime, setPickUpTime] = useState<string>("");
   const [carType, setCarType] = useState<string>("");
   const [tripType, setTripType] = useState<string>("");
-  const [distance, setDistance] = useState<number>(0);
-  const [expiryTime, setExpiryTime] = useState<string>("");
-  const [customerDetail, setCustomerDetail] = useState<string>("");
 
   const cabType = useSelector((state:RootStateOrAny) => state.cabType);
   const resetForm = () =>{
@@ -28,10 +25,6 @@ const AddDetailToGetBooking: React.FC<RouteComponentProps> = ({match, history}) 
     setDropPoint('');
     setPickUpTime('');
     setCarType('');
-    setDistance(0);
-    setMaxAmount(0);
-    setExpiryTime('');
-    setCustomerDetail('');
     setTripType('');
   }
   const formSubmitHandler =(e:any)=>{
@@ -43,8 +36,8 @@ const AddDetailToGetBooking: React.FC<RouteComponentProps> = ({match, history}) 
       carType,
       tripType,
     }
-// console.log('bookingData',bookingData)
-//     dispatch(addBookingData(bookingData));
+
+     dispatch(addDetailToGetBookingData(bookingData));
      resetForm();
   }
     return (
@@ -58,7 +51,7 @@ const AddDetailToGetBooking: React.FC<RouteComponentProps> = ({match, history}) 
                 onDidDismiss={() => setOnSubmit(false)}
                 cssClass="my-custom-class"
                 header={"Success!"}
-                message={"Successfully added booking."}
+                message={"Successfully added booking request."}
                 buttons={["Dismiss"]}/>
                 <IonItem>
                   <IonLabel position="floating">Car Type</IonLabel>
@@ -81,6 +74,11 @@ const AddDetailToGetBooking: React.FC<RouteComponentProps> = ({match, history}) 
                   <IonLabel position="floating">Pick Up Point</IonLabel>
                   <IonInput onIonChange={(e)=>setPickUpPoint(e.detail.value || '')} value={pickupPoint} type="text" required/>
                 </IonItem>
+                <IonItem>
+                  <IonLabel position="floating">Drop Point</IonLabel>
+                  <IonInput onIonChange={(e)=>setDropPoint(e.detail.value || '')} value={dropPoint} type="text" required/>
+                </IonItem>
+
                
                 <IonItem>
                   <IonLabel position="floating">Date Time</IonLabel>

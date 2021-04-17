@@ -6,6 +6,7 @@ import AdminHeaderComponent from '../../../components/Admin/AdminHeader/AdminHea
 import { RouteComponentProps } from 'react-router';
 import { actionToGetAllUserData } from '../../../actions/UserAction';
 import { actionToGetBookingData } from '../../../actions/BookingAction';
+import { actionToGetAllBookingDetailData } from '../../../actions/AdminAction';
 
 const AdminDashboard: React.FC<RouteComponentProps> = ({match, history}) => {
 
@@ -13,6 +14,7 @@ const AdminDashboard: React.FC<RouteComponentProps> = ({match, history}) => {
     useEffect(()=>{
         dispatch(actionToGetBookingData());
         dispatch(actionToGetAllUserData());
+        dispatch(actionToGetAllBookingDetailData());
     },[])
     return (
         <IonPage>
@@ -50,7 +52,18 @@ const AdminDashboard: React.FC<RouteComponentProps> = ({match, history}) => {
                     </button>
                     </IonCol>
                 </IonRow>
+                <IonRow>
+                    <IonCol>
+                    <button  onClick={(e) => {
+                        history.push(`/tabs/dashboard/booking-request-list`);
+                    }}
+                    className="update_user_data_button">
+                       Booking Request
+                    </button>
+                    </IonCol>
+                </IonRow>
            </div>
+       
            </IonContent>
         </IonPage>
     );

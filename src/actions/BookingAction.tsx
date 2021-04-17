@@ -53,6 +53,15 @@ export const addBookingData = (payload:any) => async (dispatch:any) => {
   }
 };
 
+export const addDetailToGetBookingData = (payload:any) => async (dispatch:any) => {
+  try {
+    const response = await api.post('/request',payload);
+    return response;
+  } catch (error) {
+     console.log(error);
+  }
+};
+
 export const actionToUpdateBooking = (payload:any) => async (dispatch:any) => {
   api.post('/booking',payload).then((res)=>{
     dispatch(actionToGetBookingData(0));
