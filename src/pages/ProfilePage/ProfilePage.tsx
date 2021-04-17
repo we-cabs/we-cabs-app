@@ -12,6 +12,7 @@ const ProfilePage: React.FC<RouteComponentProps> = ({match,history}) => {
 
   const {userInfo} = useSelector((state:RootStateOrAny) => state.userSignin);
   const {loading,cars} = useSelector((state:RootStateOrAny) => state.carData);
+  const biddingDetailByUserId = useSelector((state:RootStateOrAny) => state.biddingDetailByUserId);
 
   const hrederTitle = () =>{
     return 'My Profile';
@@ -29,13 +30,9 @@ const ProfilePage: React.FC<RouteComponentProps> = ({match,history}) => {
                    <br></br>
                    <span>{userInfo.name}</span>
                 </IonCol>
-                <IonCol className="profle_page_second_section_col">
-                    <span className="total_bid_and_booking">
-                       My Total Booking
-                    </span>
-                    <br></br>
-                    <span className="total_bid_and_booking_value">
-                        15
+                <IonCol onClick={()=>history.push('/tabs/bidding-list')}  className="profle_page_second_section_col">
+                    <span className="my_bid_icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96"><path d="M0 88h56v8H0zm48-8.065a4 4 0 0 0-4-4H12a4 4 0 0 0-4 4V84h40zm6.426-32.704a27.906 27.906 0 0 0-4.639 6.674l32.924 32.924a4 4 0 0 0 5.656 0l5.657-5.657a4 4 0 0 0 0-5.657L61.1 42.6a27.263 27.263 0 0 0-6.674 4.631zM34.627 27.432a34.686 34.686 0 0 1-10.34 6.629l20.674 20.674A35.253 35.253 0 0 1 51.6 44.4a34.715 34.715 0 0 1 10.34-6.63L41.265 17.1a35.282 35.282 0 0 1-6.638 10.332z"></path><rect height="40" rx="4" transform="matrix(.707 -.707 .707 .707 4.201 48.034)" width="16" x="52.083" y="-1.054"></rect><rect height="40" rx="4" transform="matrix(.707 -.707 .707 .707 -29.74 33.976)" width="16" x="18.142" y="32.887"></rect></svg>
                     </span>
                     <br></br>
                     <span className="total_bid_and_booking">
@@ -43,7 +40,7 @@ const ProfilePage: React.FC<RouteComponentProps> = ({match,history}) => {
                     </span>
                     <br></br>
                     <span className="total_bid_and_booking_value">
-                         5
+                         {(biddingDetailByUserId.loading) ? '' : biddingDetailByUserId.bidData.length}
                     </span>
                 </IonCol>
             </IonRow>

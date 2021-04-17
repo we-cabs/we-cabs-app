@@ -63,7 +63,7 @@ ion-col.top_sub_header_col {
 .bidding_list_inner_container_section {
     padding: 0px 18px;
     background: #ffffff;
-    height: calc(84vh - 142px);
+    height: calc(100vh - 280px);
     overflow: auto;
 }
 .bidding_list_inner_loop {

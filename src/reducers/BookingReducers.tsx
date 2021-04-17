@@ -1,4 +1,4 @@
-import {BOOKING_DETAIL_FAIL, BOOKING_DETAIL_REQUEST, BOOKING_DETAIL_SUCCESS,BOOKING_DATA_FILTER,UPDATE_CAR_DATA } from '../constants/BookingConstants';
+import {BOOKING_DETAIL_FAIL, BOOKING_DETAIL_REQUEST, BOOKING_DETAIL_SUCCESS,BOOKING_DATA_FILTER,UPDATE_CAR_DATA} from '../constants/BookingConstants';
   
 export const bookingDetailsReducer = (state = {}, action:any) => {
   switch (action.type) {
@@ -12,6 +12,8 @@ export const bookingDetailsReducer = (state = {}, action:any) => {
       return state;
   }
 };
+
+
 export const bookingDataFilterReducer = (state = {}, action:any) => {
   switch (action.type) {
     case BOOKING_DATA_FILTER:

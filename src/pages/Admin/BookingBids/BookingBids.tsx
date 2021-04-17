@@ -36,6 +36,7 @@ const BookingBids: React.FC<BookingBidsProps> = ({match,history}) => {
     bidPayload.status = 'approved';
     dispatch(actionToUpdateBidding(bidPayload));
   }
+  
   const callActionToRemoveBookingBooking = (bidData:any) =>{
     setShowAlert(false);
     let payload:any = cloneDeep(bookingData);

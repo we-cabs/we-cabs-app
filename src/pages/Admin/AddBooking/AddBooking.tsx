@@ -52,7 +52,6 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
       maxPrice:maxAmount,
       tripType
     }
-    console.log('bookingData',bookingData);
     dispatch(addBookingData(bookingData));
     resetForm();
   }

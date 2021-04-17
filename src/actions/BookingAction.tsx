@@ -21,6 +21,7 @@ export const actionToGetBookingData = (isLoad = 1) => async (dispatch:any) => {
      console.log(error);
   }
 };
+
 export const actionToSetAllBookingFilters = (bookingData:any) => async (dispatch:any) => {
    let pickupCity:string[] = [];
    let dropCity:string[] = [];
@@ -45,6 +46,7 @@ export const actionToSetAllBookingFilters = (bookingData:any) => async (dispatch
 export const addBookingData = (payload:any) => async (dispatch:any) => {
   try {
     const response = await api.post('/booking',payload);
+    dispatch(actionToGetBookingData(0));
     return response;
   } catch (error) {
      console.log(error);
@@ -71,7 +73,8 @@ export const actionToUpdateBidding = (payload:any) => async (dispatch:any,useSta
     }
     newBidData.push(bid);
   })
-  dispatch({ type: BIDDING_DETAIL_BY_BOOKING_ID_SUCCESS, payload:newBidData });
+
+  dispatch({ type: BIDDING_DETAIL_BY_BOOKING_ID_SUCCESS, payload: {data:newBidData,sortBy:useState().biddingDetailByBookingId.sortBy,direction:useState().biddingDetailByBookingId.direction}});
 };
 
 export const actionToGetBidingDataByBooking = (bookingData:any) => async (dispatch:any) => {
@@ -93,7 +96,7 @@ export const actionToSortByBidData = (biddingData:any,sortBy:any,direction:any) 
     if(direction == 'desc')
       return b[sortBy] - a[sortBy];
   });
-  console.log(sortBiddingData,sortBy,direction);
+
   dispatch({ type: BIDDING_DETAIL_BY_BOOKING_ID_SUCCESS, payload: {data:sortBiddingData,sortBy:'amount',direction:'asc'}});
 }
 export const actionToSetCarDataToEdit = (carData:any) => async (dispatch:any) => {

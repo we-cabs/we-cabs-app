@@ -20,9 +20,13 @@
     text-align: center;
     padding: 10px;
 }
+.profle_page_second_section_col .my_bid_icon svg {
+    width: 47px;
+    fill: #c73636;
+}
 .profle_page_second_section_col .total_bid_and_booking_value {
     color: #8a8a8a;
-    font-size: 13px;
+    font-size: 19px;
     margin-top: 8px;
     display: block;
 }
