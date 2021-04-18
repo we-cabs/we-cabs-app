@@ -1,27 +1,39 @@
 
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import { IonPage, IonRow,IonCol, IonContent } from '@ionic/react'
 import { RouteComponentProps } from 'react-router-dom';
 import './ProfilePage.css';
 import SubPageHeaderComponent from '../../components/Header/SubPageHeaderComponent';
-import { useSelector,RootStateOrAny } from 'react-redux';
+import { useDispatch,useSelector,RootStateOrAny } from 'react-redux';
 import Loader from '../../components/Loader/Loader';
 import NoDataFound from '../../components/NoDatFound/NoDataFound';
+import { actionToGetBidByUserId } from '../../actions/BiddingAction';
 
 const ProfilePage: React.FC<RouteComponentProps> = ({match,history}) => {
 
   const {userInfo} = useSelector((state:RootStateOrAny) => state.userSignin);
   const {loading,cars} = useSelector((state:RootStateOrAny) => state.carData);
   const biddingDetailByUserId = useSelector((state:RootStateOrAny) => state.biddingDetailByUserId);
+  const [isFixedSubHeader,setIsFixedSubHeader] = useState(false);
+  const dispatch = useDispatch();
 
   const hrederTitle = () =>{
     return 'My Profile';
   }
-  
+  const scrollProfileContent = (e:any) =>{
+     if(e.detail.scrollTop > 175){
+      setIsFixedSubHeader(true);
+     }else{
+      setIsFixedSubHeader(false);
+     }
+  }
+  useEffect(()=>{
+    dispatch(actionToGetBidByUserId(userInfo.phone));
+  },[])
   return (
     <IonPage>
       <SubPageHeaderComponent title={hrederTitle()}/>
-      <IonContent className="hide_overflow">
+      <IonContent  scrollEvents={true} onIonScroll={scrollProfileContent}>
          <div className="profle_page_contailer_section">
             <IonRow>
                 <IonCol className="profile_page_img_section_col">
@@ -40,16 +52,18 @@ const ProfilePage: React.FC<RouteComponentProps> = ({match,history}) => {
                     </span>
                     <br></br>
                     <span className="total_bid_and_booking_value">
-                         {(biddingDetailByUserId.loading) ? '' : biddingDetailByUserId.bidData.length}
+                         {(biddingDetailByUserId.loading) ? '' : (biddingDetailByUserId.bidData != undefined ? biddingDetailByUserId.bidData.length : '')}
                     </span>
                 </IonCol>
             </IonRow>
          </div>
          <div className="profile_page_registered_car_container_section">
-             <div className="register_title"> 
+             <div 
+                 className={isFixedSubHeader ? "register_title fixed" : "register_title"}> 
                 Registered Vechiles with <span>WECABS</span>
              </div>
-             <div className="profile_page_registered_cars">
+             <div 
+              className={isFixedSubHeader ? "profile_page_registered_cars fixed" : "profile_page_registered_cars"}>
              <br></br>
              <>
              {(loading) ? <Loader/> : (cars != undefined && cars.length) ? 

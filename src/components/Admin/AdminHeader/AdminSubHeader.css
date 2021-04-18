@@ -4,6 +4,7 @@ ion-header.admin_sub_header_class ion-toolbar.admin_sub_header_toolbar{
 ion-header.admin_sub_header_class ion-back-button {
     display: block;
     color: #212121!important;
+    font-size:14px;
 }
 ion-header.admin_sub_header_class ion-toolbar.admin_sub_header_toolbar {
     --background: #ffffff!important;
@@ -22,5 +23,10 @@ ion-header.admin_sub_header_class ion-toolbar.admin_sub_header_toolbar {
 }
 .header_title_col_add_car svg.add_user_icon{
     width: 68%!important;
+}
+.header_title_col_user_list{
+    text-align: center;
+    font-size: 15px;
+    margin-top: 5px;
 }
 

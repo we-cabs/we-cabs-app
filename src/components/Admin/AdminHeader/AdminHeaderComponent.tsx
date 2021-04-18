@@ -22,7 +22,7 @@ const AdminHeaderComponent: React.FC= () => {
             </div>
           </div>
           </IonCol>
-          <IonCol className="header_title_col">
+          <IonCol className="header_title_col_dashboard">
             <span className="header_title_text_admin">Admin</span>
           </IonCol>
           <IonCol>             

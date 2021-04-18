@@ -24,10 +24,11 @@ const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
   const biddingDetailByUserId = useSelector((state:RootStateOrAny) => state.biddingDetailByUserId);
   const [bidDataClone,setBidDataClone] = useState([]);
   const [filterType,setFilterType] = useState('all');
+    const [isFixedSubHeader,setIsFixedSubHeader] = useState(false);
 
-  const filterAllBidDataByStatus = (type:any) =>{
+  const filterAllBidDataByStatus = (type:any,bidDataProp:any) =>{
     setFilterType(type);
-    let filterBidData = cloneDeep(biddingDetailByUserId.bidData);
+    let filterBidData = cloneDeep(bidDataProp);
     let data:any = [];
     if(type != 'all'){
       filterBidData.map((bid:any)=>{
@@ -54,34 +55,30 @@ const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
     dispatch(addBiddingBookingData(data));
     history.push(`/tabs/dashboard/show-bidding`);
   }
+
+  const scrollProfileContent = (e:any) =>{
+    if(e.detail.scrollTop > 83){
+     setIsFixedSubHeader(true);
+    }else{
+     setIsFixedSubHeader(false);
+    }
+ }
   useEffect(()=>{
     if(biddingDetailByUserId.bidData != undefined && biddingDetailByUserId.bidData.length){
-      let data = [];
-      biddingDetailByUserId.bidData.map((bid:any)=>{
-        if(bid.status != 'cancel'){
-          data.push(bid);
-        }
-      })
-      setBidDataClone(cloneDeep(biddingDetailByUserId.bidData));
+      filterAllBidDataByStatus('all',biddingDetailByUserId.bidData);
     } 
   },[biddingDetailByUserId]);
   
   useEffect(()=>{
     if(biddingDetailByUserId.bidData != undefined && biddingDetailByUserId.bidData.length){
-      let data = [];
-      biddingDetailByUserId.bidData.map((bid:any)=>{
-        if(bid.status != 'cancel'){
-          data.push(bid);
-        }
-      })
-      setBidDataClone(cloneDeep(biddingDetailByUserId.bidData));
+      filterAllBidDataByStatus('all',biddingDetailByUserId.bidData);
     } 
   },[])
   
   return (
     <IonPage>
       <HeaderComponent title="My Bid List"/>
-      <IonContent className="hide_overflow">
+      <IonContent scrollEvents={true} onIonScroll={scrollProfileContent}>
         <div className="inner_contant_container">
         <div className="top_bidding_header_section">
             <div className="top_balance_header_section">
@@ -97,34 +94,34 @@ const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
                   </IonCol>
                   <IonCol className="top_avatar_header_section_col">
                      <div className="user_avatar">
-                       <svg viewBox="0 0 512 512"><path d="M467.812 431.851l-36.629-61.056c-16.917-28.181-25.856-60.459-25.856-93.312V224c0-67.52-45.056-124.629-106.667-143.04V42.667C298.66 19.136 279.524 0 255.993 0s-42.667 19.136-42.667 42.667V80.96C151.716 99.371 106.66 156.48 106.66 224v53.483c0 32.853-8.939 65.109-25.835 93.291L44.196 431.83c-1.984 3.307-2.027 7.403-.128 10.752s5.419 5.419 9.259 5.419H458.66c3.84 0 7.381-2.069 9.28-5.397s1.835-7.468-.128-10.753zm-278.997 37.482C200.847 494.464 226.319 512 255.993 512s55.147-17.536 67.179-42.667H188.815z"></path></svg>                
-                       <img src={userInfo.profileImgUrl}/>
+                       <svg onClick={()=>history.push('/tabs/dashboard/notification')} viewBox="0 0 512 512"><path d="M467.812 431.851l-36.629-61.056c-16.917-28.181-25.856-60.459-25.856-93.312V224c0-67.52-45.056-124.629-106.667-143.04V42.667C298.66 19.136 279.524 0 255.993 0s-42.667 19.136-42.667 42.667V80.96C151.716 99.371 106.66 156.48 106.66 224v53.483c0 32.853-8.939 65.109-25.835 93.291L44.196 431.83c-1.984 3.307-2.027 7.403-.128 10.752s5.419 5.419 9.259 5.419H458.66c3.84 0 7.381-2.069 9.28-5.397s1.835-7.468-.128-10.753zm-278.997 37.482C200.847 494.464 226.319 512 255.993 512s55.147-17.536 67.179-42.667H188.815z"></path></svg>                
+                       <img onClick={()=>history.push('/tabs/dashboard/my-profile')} src={userInfo.profileImgUrl}/>
                      </div>
                   </IonCol>
                 </IonRow>
             </div>
-            <div className="top_sub_header_section">
+            <div className={isFixedSubHeader ? "top_sub_header_section fixed" : 'top_sub_header_section'}>
                 <IonRow className="top_sub_header_row">
                     <IonCol size="2" className="top_sub_header_col">
-                        <div onClick={()=>filterAllBidDataByStatus('all')}
+                        <div onClick={()=>filterAllBidDataByStatus('all',biddingDetailByUserId.bidData)}
                          className={"top_sub_header_menu_text border "+(filterType == 'all' ? 'active' : '')}>
                           ALL
                         </div>
                     </IonCol>
                     <IonCol  size="4"  className="top_sub_header_col">
-                        <div onClick={()=>filterAllBidDataByStatus('approved')}
+                        <div onClick={()=>filterAllBidDataByStatus('approved',biddingDetailByUserId.bidData)}
                            className={"top_sub_header_menu_text border "+(filterType == 'approved' ? 'active' : '')}>
                           APPROVED
                         </div>
                     </IonCol>
                     <IonCol  size="3"  className="top_sub_header_col">
-                        <div onClick={()=>filterAllBidDataByStatus('notApproved')} 
+                        <div onClick={()=>filterAllBidDataByStatus('notApproved',biddingDetailByUserId.bidData)} 
                           className={"top_sub_header_menu_text border "+(filterType == 'notApproved' ? 'active' : '')}>
                          CANCEL                        
                         </div>
                     </IonCol>
                     <IonCol  size="3"  className="top_sub_header_col">
-                        <div onClick={()=>filterAllBidDataByStatus('pending')} 
+                        <div onClick={()=>filterAllBidDataByStatus('pending',biddingDetailByUserId.bidData)} 
                          className={"top_sub_header_menu_text "+(filterType == 'pending' ? 'active' : '')}>
                          PENDING                 
                         </div>
@@ -133,9 +130,9 @@ const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
                 </IonRow>
             </div>
            </div>
-    
-           {(biddingDetailByUserId.loading) ? <Loader/> : (bidDataClone != undefined && bidDataClone.length) ?
-           <div className="bidding_list_inner_container_section">
+    {console.log('bidDataClone',bidDataClone)}
+           {(biddingDetailByUserId.loading || bidDataClone == undefined) ? <Loader/> : (bidDataClone.length) ?
+                <div className={isFixedSubHeader ? "bidding_list_inner_container_section_bid fixed" : 'bidding_list_inner_container_section_bid'}>
                 {bidDataClone.map((bids:any,key)=>(
                   <>
                   <div key={key} onClick={(e)=>openBiddingPage(e,bids)} className="bidding_list_inner_loop">

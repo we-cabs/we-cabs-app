@@ -2,7 +2,7 @@
     text-align: center;
 }
 .tab_svg_icon svg{
-    width: 28px;
+    width: 20px;
     fill:#757575
 }
 .tab-selected .tab_svg_icon svg{
@@ -11,4 +11,5 @@
 
  .tab_label{
     color:#1d1d1d!important;
+    font-size: 10px;
   }

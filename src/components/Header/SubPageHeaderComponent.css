@@ -4,6 +4,8 @@ ion-header.user_header_class ion-toolbar.user_header_toolbar{
 ion-header.user_header_class ion-back-button {
     display: block;
     color: white!important;
+    margin-top: -5px!important;
+    font-size: 15px!important;
 }
 ion-header.user_header_class ion-toolbar.user_header_toolbar {
     --background: var(--theme-color,rgb(218, 39, 46))!important;

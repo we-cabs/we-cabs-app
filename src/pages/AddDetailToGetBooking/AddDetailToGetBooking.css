@@ -2,4 +2,8 @@
     --background: var(--theme-color,rgb(218, 39, 46))!important;
     --border-radius: unset;
     width: 100%;
+    font-size: 13px;
+}
+.add_bidding_inner_coontainer ion-item.item-label-floating {
+    font-size: 12px;
 }

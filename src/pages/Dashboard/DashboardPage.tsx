@@ -26,7 +26,6 @@ const DashboardPage: React.FC<RouteComponentProps> = ({history}) => {
     dispatch(actionToGetBookingData());
     dispatch(actionToGetUserCar(userInfo.phone));
     dispatch(actionToGetBidByUserId(userInfo.phone));
-    dispatch(actionToGetBidByUserId(userInfo.phone));
   },[])
   
   return (

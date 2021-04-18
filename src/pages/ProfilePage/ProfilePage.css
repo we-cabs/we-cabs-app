@@ -1,5 +1,5 @@
 .profle_page_contailer_section {
-    padding: 23px;
+    padding: 15px;
 }
 .profile_page_img_section_col{
     text-align: center;
@@ -21,12 +21,12 @@
     padding: 10px;
 }
 .profle_page_second_section_col .my_bid_icon svg {
-    width: 47px;
+    width: 35px;
     fill: #c73636;
 }
 .profle_page_second_section_col .total_bid_and_booking_value {
     color: #8a8a8a;
-    font-size: 19px;
+    font-size: 18px;
     margin-top: 8px;
     display: block;
 }
@@ -41,8 +41,8 @@
 }
 .profile_page_registered_car_container_section .register_title {
     text-align: center;
-    padding: 17px;
-    font-size: 13px;
+    padding: 15px;
+    font-size: 11px;
     color: #3e3e3e;
     border-bottom: 1px solid #d8d8d8;
 }
@@ -54,9 +54,15 @@
 .profile_page_registered_cars_loop_section.active {
     background: #FFFFFD;
 }
-.profile_page_registered_cars {
-    overflow: auto;
-    height: calc(85vh - 229px);
+.profile_page_registered_cars.fixed {
+    margin-top: 57px;
+}
+.register_title.fixed{
+    position: fixed;
+    top: 50px;
+    width: 100%;
+    text-align:center;
+    background: #f5f5f5;
 }
 .profile_page_registered_cars_loop_section{
     padding: 9px;

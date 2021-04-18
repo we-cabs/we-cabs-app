@@ -5,7 +5,7 @@ import './SubPageHeaderComponent.css';
 
 const SubPageHeaderComponent = (props:any) => {
   return (
-    <IonHeader className="user_header_class">
+    <IonHeader className="user_header_class fixed_header_class">
        <IonToolbar className="user_header_toolbar">
           <IonButtons className="back_button_group" slot="start">
                 <IonBackButton defaultHref="/"/>

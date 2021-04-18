@@ -42,7 +42,9 @@ const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
 
     useEffect(()=>{
       if(biddingData.basePrice){
-        setBidValue(biddingData.basePrice);
+        if(!isNaN(Number(biddingData.basePrice))){
+          setBidValue(biddingData.basePrice);
+        }
       }
       if(biddingData.expiryTime){
         var countDownDate = new Date(moment(new Date(biddingData.expiryTime)).utc().format("YYYY-MM-DD HH:mm")).getTime();
@@ -78,7 +80,7 @@ const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
 
     const setBiddingValue = (val:any) =>{
       if(!isNaN(Number(val))){
-        setBidValue(Number(val));
+        setBidValue(val);
       }
     }
 
@@ -213,7 +215,7 @@ const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
                   <br></br>
                   <br></br>
                   <span className="min_renaining_text">
-                    Time Remaining
+                    Timer
                   </span>
                 </div>
               </IonCol>
@@ -221,17 +223,15 @@ const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
           </div>
           <div className="bidding_booking_button_section">
             <IonRow>
-              <IonCol className="type_your_bidding_input">
+              <IonCol size="4" className="type_your_bidding_input">
                  <input type="text" pattern="[0-9]*" value={bidValue} onChange={(e)=>setBiddingValue(e.target.value)}/>
               </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
+          
+              <IonCol size="4">
                 <button onClick={(e)=>callToPlaceYourBid()} className="place_your_bidding_button">Place your bid</button>
               </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
+           
+              <IonCol size="4">
               <button onClick={()=>history.goBack()} className="leave_bidding_button">Leave the bid</button>
               </IonCol>
             </IonRow>

@@ -134,7 +134,7 @@ const UpdateUserData: React.FC<RouteComponentProps> = ({match, history}) => {
     return (
         <IonPage>
          <AdminSubHeader title={"Update User"}/>
-         <IonContent>
+         <IonContent className="user_list_contant">
              <div className="add_bidding_inner_coontainer">
              <form id={"add_booking_form"} className="ion-padding" onSubmit={(e)=>formSubmitHandler(e)}>
              <IonAlert

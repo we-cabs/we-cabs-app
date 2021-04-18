@@ -32,3 +32,6 @@ input#edit_image_input {
     position: absolute;
     bottom: 3px;
 }
+.user_list_contant{
+    font-size: 12px;
+}

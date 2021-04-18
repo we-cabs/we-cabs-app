@@ -1,13 +1,10 @@
 .user_avatar_image_icon img {
-    width: 45px;
+    width: 40px;
     border-radius: 50%;
-    height: 45px;
+    height: 40px;
 }
 .user_avatar_image_icon {
     width: 88%;
-}
-ion-header ion-toolbar {
-    height: 65px;
 }
 .header_section {
     display: inline-flex;
@@ -35,7 +32,6 @@ ion-header.user_header_class ion-toolbar.user_header_toolbar {
     height: 21px;
     background: white;
     text-align: center;
-    padding: 2px;
     border-radius: 50%;
     border: 1px solid #000000b5;
     position: absolute;
@@ -48,17 +44,17 @@ ion-header.user_header_class ion-toolbar.user_header_toolbar {
 
 
 .menu_drawer_icon_section_full_icon {
-    width: 40px;
-    height: 32px;
+    width: 35px;
+    height: 26px;
     background: white;
     text-align: center;
-    padding: 5px;
+    padding: 3px;
     border-radius: 3px;
     margin: 8px -8px;
 }
 
 .menu_drawer_icon_section_full_icon svg {
-    width: 23px;
+    width: 21px;
 }
 .header_title_text{
     color: white;
@@ -71,16 +67,18 @@ ion-header.user_header_class ion-toolbar.user_header_toolbar {
 }
 .notification_bell_icon svg{
     fill: white;
-    width: 25px;
-    transform: rotate(
-        13deg
-        );
+    width: 20px;
+    transform: rotate(13deg);
 }
 .header-md::after {
     background-image: none!important;
 }
+.header_title_col_dashboard{
+    text-align: center;
+    font-size: 15px;
+    padding-top: 16px;
+}
 .header_title_col{
     text-align: center;
-    font-size: 20px;
-    padding-top: 16px;
+    font-size: 15px;
 }

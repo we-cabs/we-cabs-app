@@ -21,15 +21,20 @@ export const signin = (loginData:any) => async (dispatch:any) => {
     api.get(`/user/${loginData.phoneNumber}`).then(user=>{
       let userData = user.data;
       if(user.data){
-        if(user.data.approvalStatus == 'approved'){
-          dispatch({ type: USER_SIGNIN_SUCCESS, payload: userData });
-          localStorage.setItem('userInfo',JSON.stringify(userData));
-          document.location.href = '/';
-        }else{
+        if(user.data.approvalStatus != 'approved'){
           dispatch({
             type: USER_SIGNIN_FAIL,
             payload:'User not approved!',
           });
+        }else if(loginData.password != user.data.password){
+          dispatch({
+            type: USER_SIGNIN_FAIL,
+            payload:'Wrong Password!',
+          });
+        }else{
+          dispatch({ type: USER_SIGNIN_SUCCESS, payload: userData });
+          localStorage.setItem('userInfo',JSON.stringify(userData));
+          document.location.href = '/';
         }
       }else{
         dispatch({

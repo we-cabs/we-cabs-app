@@ -42,7 +42,7 @@ const HeaderComponent: React.FC<ContainerProps> = (match) => {
             </div>
           </div>
           </IonCol>
-          <IonCol className="header_title_col">
+          <IonCol className="header_title_col_dashboard">
             <span className="header_title_text">{match.title}</span>
           </IonCol>
           <IonCol>

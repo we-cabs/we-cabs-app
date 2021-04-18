@@ -3,16 +3,16 @@
 }
 button.bid_booing_button {
     text-align: center;
-    width: 93%;
-    padding: 28px;
+    width: 88%;
+    padding: 12px;
     background: white;
     border-radius: 8px;
     border: 1px solid #ccc;
     box-shadow: 0px -1px 20px 3px #cccccc45;
-    font-size: 22px;
+    font-size: 17px;
     letter-spacing: 1px;
     font-family: revert;
-    margin-bottom: 50px;
+    margin-bottom: 9px;
 }
 .add_select_button_container {
     margin-top: 30%;

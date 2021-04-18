@@ -19,7 +19,7 @@ const AdminSubHeader = (props:any) => {
                 <IonBackButton defaultHref="/"/>
           </IonButtons>
         <IonRow>
-          <IonCol size="10" className="header_title_col">
+          <IonCol size="10" className="header_title_col_user_list">
             <span className="header_title_text_admin">{props.title}</span>
           </IonCol>
           <IonCol size="2" className="header_title_col_add_car">   

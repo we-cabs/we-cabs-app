@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector,RootStateOrAny } from 'react-redux';
 import {
   IonCol,
+  IonContent,
   IonIcon,
   IonLabel,
   IonRouterOutlet,

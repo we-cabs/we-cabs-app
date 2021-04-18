@@ -9,19 +9,20 @@
     color: #444;
     font-family: sans-serif;
     font-weight: 600;
+    font-size: 12px;
 }
 .bidding_list_section_container {
     margin-top: 20px;
 }
 .bidding_list_section_container .booking_svg_icon{
     fill: #4c4c4c;
-    width: 23px;
+    width: 18px;
 }
 .bidding_list_section_container .booking_row_section {
     border-top: 1px solid #ccc;
     border-left: unset;
     border-right: unset;
-    padding: 3px 16px;
+    padding: 3px 17px;
 }
 svg.booking_svg_icon_car {
     fill: #4c4c4c;
@@ -37,19 +38,20 @@ svg.booking_svg_icon_car {
 }
 .request_success_submit_message {
     text-align: center;
-    top: 122px;
+    top: 33%;
     position: absolute;
     width: 100%;
-    font-size: 17px;
+    font-size: 13px;
     font-weight: 600;
     color: #675f5f;
 }
 button.bidding_success_close_button {
-    width: 37%;
-    padding: 12px;
+    width: 36%;
+    padding: 9px;
     background: #67b54e;
     color: white;
-    font-size: 14px;
+    font-size: 12px;
+    margin-top: 8px;
     border-radius: 4px;
     font-weight: 600;
 }
@@ -57,9 +59,9 @@ button.bidding_success_close_button {
     text-align: center;
     padding: 10px;
     position: absolute;
-    left: 86px;
+    left: 33%;
     top: -34px;
-    width: 42%;
+    width: 36%;
     background: white;
     border-radius: 50%;
 }
@@ -70,7 +72,7 @@ button.bidding_success_close_button {
     height: 42%;
     box-shadow: 1px 0px 20px 10px #cccccc2e;
     border-radius: 4px;
-    margin-top: 200px;
+    margin-top: 50%;
     text-align: center;
     position: relative;
 }
@@ -84,36 +86,40 @@ button.bidding_success_close_button {
 .bidding_list_section_container .booking_pickup_point {
     margin-top: 4px;
     padding: 0px 11px;
-    font-size: 14px;
+    font-size: 12px;
     color: #000;
 }
 .bidding_list_section_container .booking_pickup_point_result {
     margin-top: 3px;
     color: #c33030;
-    font-size: 15px;
+    font-size: 12px;
 }
 .time_watch_div_section_container {
     text-align: center;
     margin-top: 20px;
-    padding: 41px 52px;
+    padding: 12px 18px;
+    margin-bottom: 80px;
 }
 .bidding_list_section_container .time_watch_div_section_container {
     text-align: center;
     margin-top: 54px;
     padding: 1px 77px;
 }.stop_timer_watch {
-    width: 85%;
+    width: 70%;
 }
 .stop_timer_watch svg {
     fill: #585858;
 }
+span.min_renaining_text {
+    font-size: 15px;
+}
 .stop_timer_running_watch_col {
     background: #dadada;
     border-radius: 4px;
-    padding: 14px 16px;
+    padding: 21px 0px;
 }
 .stop_timer_running_watch {
-    margin-top: 25%;
+    margin-top: 5%;
 }
 .running.timer_div {
     background: white;
@@ -125,26 +131,34 @@ button.bidding_success_close_button {
 }
 .bidding_booking_button_section {
     text-align: center;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background: #ccc;
+    
 }
 button.place_your_bidding_button {
     background: #ce2e2e;
     color: white;
-    padding: 10px 53px;
-    font-size: 15px;
-    width: 56%;
+    font-size: 12px;
+    padding: 13px 8px;
+    width: 100%;
+    border-radius: 23px;
 }
 button.leave_bidding_button {
     background: #696868;
     color: white;
-    padding: 10px 53px;
-    font-size: 15px;
-    width: 56%;
+    font-size: 12px;
+    padding: 13px 8px;
+    width: 100%;
+    border-radius: 23px;
 }
 .type_your_bidding_input input{
     text-align: center;
     color: #c34747;
     border: 1px solid #ccc;
     padding: 9px 0px;
-    width: 56%;
+    width: 100%;
     font-size: 15px;
+    border-radius: 5px;
 }
