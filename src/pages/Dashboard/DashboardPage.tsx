@@ -22,10 +22,10 @@ const DashboardPage: React.FC<RouteComponentProps> = ({history}) => {
   }
 
   useEffect(()=>{
-    callActionToSendPushNotification();
     dispatch(actionToGetBookingData());
     dispatch(actionToGetUserCar(userInfo.phone));
     dispatch(actionToGetBidByUserId(userInfo.phone));
+    callActionToSendPushNotification();
   },[])
   
   return (

@@ -9,7 +9,7 @@ import { actionToUpdatedUserImageUrl, actionToAddUserImage,actionToUpdatedUserDo
 import { cloneDeep } from 'lodash';
 import Loader from '../Loader/Loader';
 
-export const Signup = ()=>{
+export const Signup = (props:any)=>{
   const dispatch = useDispatch();
 
   const [location, setLocation] = useState<string>('');
@@ -40,9 +40,9 @@ export const Signup = ()=>{
         role,
     }
     dispatch(actionToUpdateUserData(userData));
-    document.location.href = '/';
     setOnSubmit(true);
     resetForm();
+    return false;
   }
  
     const onFileChange = (e:any) => {
@@ -51,7 +51,6 @@ export const Signup = ()=>{
         setTimeout(function(){
             createImage(files[0]);
         },1000)
-
     } 
   function createImage(file:any){
     var reader = new FileReader()
@@ -133,10 +132,13 @@ export const Signup = ()=>{
          <IonContent>
          <IonAlert
                 isOpen={onSubmit}
-                onDidDismiss={() => setOnSubmit(false)}
+                onDidDismiss={() => {
+                       setOnSubmit(false)
+                       document.location.href = '/';
+                }}
                 cssClass="my-custom-class"
                 header={"Success!"}
-                message={"Successfully added user."}
+                message={"Signin Success."}
                 buttons={["Dismiss"]}/>
 
               <form id={"add_booking_form"} className="ion-padding" onSubmit={(e)=>formSubmitHandler(e)}>
@@ -145,7 +147,7 @@ export const Signup = ()=>{
                      <div className="signup_token_label">
                        Your Name:
                      </div>
-                     <input className="signup_inout_section" type="text" placeholder="Enter your Name" required></input>
+                     <input className="signup_inout_section" onChange={(e)=>setName(e.target.value || '')} value={name}  type="text" placeholder="Enter your Name" required></input>
                    </IonCol>
                  </IonRow>
                  <IonRow>
@@ -153,7 +155,7 @@ export const Signup = ()=>{
                      <div className="signup_token_label">
                       Email:
                      </div>
-                     <input className="signup_inout_section" type="email" placeholder="Enter your Email" required></input>
+                     <input className="signup_inout_section" type="email" onChange={(e)=>setEmail(e.target.value || '')} value={email}  placeholder="Enter your Email" required></input>
                    </IonCol>
                  </IonRow>
                  <IonRow>
@@ -161,7 +163,7 @@ export const Signup = ()=>{
                      <div className="signup_token_label">
                       Phone Number:
                      </div>
-                     <input className="signup_inout_section" type="text" placeholder="Enter your Phone Number" required></input>
+                     <input className="signup_inout_section" type="text" onChange={(e)=>setPhone(e.target.value || '')} value={phone}  placeholder="Enter your Phone Number" required></input>
                    </IonCol>
                  </IonRow>
                  <IonRow>
@@ -169,7 +171,7 @@ export const Signup = ()=>{
                      <div className="signup_token_label">
                      Password:
                      </div>
-                     <input className="signup_inout_section" type="password" placeholder="Enter Password" required></input>
+                     <input className="signup_inout_section" type="password" onChange={(e)=>setPassword(e.target.value || '')} value={password}  placeholder="Enter Password" required></input>
                    </IonCol>
                  </IonRow>
                  <IonRow>
@@ -177,7 +179,7 @@ export const Signup = ()=>{
                      <div className="signup_token_label">
                      Address:
                      </div>
-                     <textarea className="signup_inout_section" cols={4} placeholder="Enter Your Address" required></textarea>
+                     <textarea className="signup_inout_section" cols={4} onChange={(e)=>setLocation(e.target.value || '')} value={location}  placeholder="Enter Your Address" required></textarea>
                    </IonCol>
                  </IonRow>
                  <IonRow>
@@ -185,7 +187,15 @@ export const Signup = ()=>{
                      <div className="signup_token_label">
                      Profile picture:
                      </div>
-                     <input type="file" className="select_profile_input" onChange={(e)=>onFileChange(e)} accept="image"></input>
+                     <input type="file" className="select_profile_input" onChange={(e)=>onFileChange(e)} accept="image" required></input>
+                   </IonCol>
+                 </IonRow>
+                 <IonRow>
+                   <IonCol>
+                     <div className="signup_token_label">
+                     Document picture (optional):
+                     </div>
+                     <input type="file" accept="image/*" placeholder="Choose Document images" onChange={(e)=>{setImageLoading(true);onDocFileChange(e)}} multiple/>
                    </IonCol>
                  </IonRow>
                  <IonRow>
@@ -195,7 +205,7 @@ export const Signup = ()=>{
                          &nbsp;
                          &nbsp;
                          <span className="signin_new_user">Already Have Account?</span>
-                         <span className="signin_new_user_link"> Login</span>
+                         <span onClick={()=>props.setIsSignupScreen(false)} className="signin_new_user_link"> Login</span>
                       </div>
                    </IonCol>
                  </IonRow>

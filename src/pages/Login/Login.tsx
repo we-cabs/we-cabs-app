@@ -56,7 +56,7 @@ const Login: React.FC = () => {
     <IonPage>
       <IonContent fullscreen className="ion-padding ion-text-center">
         <IonGrid>
-        {(isSignupScreen) ? <Signup/> : 
+        {(isSignupScreen) ? <Signup setIsSignupScreen={setIsSignupScreen}/> : 
         <>
         <IonRow>
           <IonCol>
