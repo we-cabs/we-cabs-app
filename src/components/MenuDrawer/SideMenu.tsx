@@ -55,7 +55,7 @@ export const SideMenu: React.FC = () => {
             </IonCol>
             <IonCol className="menu_drawer_list_title">Notification</IonCol>
            </IonRow>
-           <IonRow className="menu_drawer_list_options_link_row">
+           <IonRow onClick={()=>{menuController.close();  history.push('/tabs/dashboard/contact-us')}}  className="menu_drawer_list_options_link_row">
             <IonCol size="3" className="menu_drawer_list_svg_icon">
             <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 512 512"><path d="M256 0C114.836 0 0 114.836 0 256s114.836 256 256 256 256-114.836 256-256S397.164 0 256 0zm0 405.332c-11.777 0-21.332-9.555-21.332-21.332s9.555-21.332 21.332-21.332 21.332 9.555 21.332 21.332-9.555 21.332-21.332 21.332zm33.77-135.637c-7.551 3.477-12.437 11.094-12.437 19.395v9.578c0 11.773-9.535 21.332-21.332 21.332s-21.332-9.559-21.332-21.332v-9.578c0-24.898 14.633-47.723 37.227-58.156 21.738-10.004 37.438-36.566 37.438-49.602C309.332 151.937 285.418 128 256 128s-53.332 23.938-53.332 53.332c0 11.777-9.539 21.336-21.336 21.336S160 193.109 160 181.332c0-52.926 43.07-96 96-96s96 43.074 96 96c0 28.824-25.004 71.191-62.23 88.363zm0 0"/><defs/></svg>
             </IonCol>

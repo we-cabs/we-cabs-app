@@ -52,7 +52,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
        setShowHideBookingFilter(false);
  }
 
-  const hrederTitle = () =>{
+  const hrederTitle = () =>{ 
     return 'Available Bookings';
   }
 
