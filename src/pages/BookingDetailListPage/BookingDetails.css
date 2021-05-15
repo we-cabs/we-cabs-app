@@ -116,7 +116,7 @@ ion-button.book_or_bid_button {
     letter-spacing: 1px;
 }
 .booking_title_left, .booking_title_right {
-    margin-bottom: 2px;
+    margin-top: 6px;
     height: 18px;
     text-overflow: ellipsis;
     width: 88px;

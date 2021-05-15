@@ -1,8 +1,7 @@
 .notification_detail_list_scroll{
-    height: calc(100vh - 144px)!important;
+    height: calc(100vh - 118px)!important;
     overflow: auto;
     background: white!important;
-    margin-top: 10px;
 }
 .notification_top_tab.active {
     color: var(--theme-color,rgb(218, 39, 46))!important;
@@ -22,6 +21,9 @@
 .notification_detail_container_loop {
     border-bottom: 2px solid #ececec;
     padding: 6px;
+}
+.notification_detail_container_loop:last-child {
+    border-bottom: unset!important;
 }
 .notification_top_tab:last-child {
     border-right: unset!important;

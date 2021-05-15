@@ -38,7 +38,7 @@ const Notification: React.FC<NotificationProps> = ({match,history}) => {
     <IonPage>
       <SubPageHeaderComponent title={hrederTitle()}/>
       <IonContent fullscreen className="hide_overflow">
-      <IonRow>
+      {/* <IonRow>
           <IonCol onClick={()=>setNotificationTab('type')} 
                  className={"notification_top_tab "+(notificationTab == 'type' ? 'active' : '')}>
              <div>
@@ -49,11 +49,9 @@ const Notification: React.FC<NotificationProps> = ({match,history}) => {
                   className={"notification_top_tab "+(notificationTab == 'info' ? 'active' : '')}>
                 Info
           </IonCol>
-        </IonRow>
+        </IonRow> */}
         <div className="notification_detail_list_scroll">
-          {(notificationTab == 'type') ? 
-          <>
-           <IonRow>
+        <IonRow>
              <IonCol>
              {(loading || booking == undefined) ? <div className="graer_box_loader"><Loader/></div> : 
              <>
@@ -78,8 +76,7 @@ const Notification: React.FC<NotificationProps> = ({match,history}) => {
                     <IonCol size="6">
                       <div className="notification_booking_title_left">
                         <span className="notification_booking_date">{_convertUnixToDateTimeFormat(data.pickupTime,'DD MMM - hh:mm A')}</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.846 451.847"><path d="M345.441 248.292L151.154 442.573c-12.359 12.365-32.397 12.365-44.75 0-12.354-12.354-12.354-32.391 0-44.744L278.318 225.92 106.409 54.017c-12.354-12.359-12.354-32.394 0-44.748 12.354-12.359 32.391-12.359 44.75 0l194.287 194.284a31.53 31.53 0 0 1 9.262 22.366c0 8.099-3.091 16.196-9.267 22.373z"></path></svg>
-                      </div>
+                        </div>
                     </IonCol>
                   </IonRow>
                 </div> 
@@ -95,103 +92,7 @@ const Notification: React.FC<NotificationProps> = ({match,history}) => {
              }      
               </IonCol>
            </IonRow>
-           </>
-           : (notificationTab == 'info') ?         
-             <>
-              <IonRow className="notification_list_info_section_row success">
-                  <IonCol size="2">
-                    <div className="info_svg_icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.707 19.121c-.187.188-.442.293-.707.293s-.52-.105-.707-.293l-5.646-5.647a1.5 1.5 0 0 1 0-2.121l.707-.707a1.5 1.5 0 0 1 2.121 0L9 14.171l9.525-9.525a1.5 1.5 0 0 1 2.121 0l.707.707a1.5 1.5 0 0 1 0 2.121z"/></svg>
-                    </div>
-                  </IonCol>
-                  <IonCol size="4">
-                     Bidding succes
-                  </IonCol>
-                  <IonCol size="6">
-                     Dehradun 25 Mar - 10:00 PM
-                  </IonCol>
-              </IonRow>
-              <IonRow className="notification_list_info_section_row success">
-                  <IonCol size="2">
-                    <div className="info_svg_icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.707 19.121c-.187.188-.442.293-.707.293s-.52-.105-.707-.293l-5.646-5.647a1.5 1.5 0 0 1 0-2.121l.707-.707a1.5 1.5 0 0 1 2.121 0L9 14.171l9.525-9.525a1.5 1.5 0 0 1 2.121 0l.707.707a1.5 1.5 0 0 1 0 2.121z"/></svg>
-                    </div>
-                  </IonCol>
-                  <IonCol size="4">
-                     Bidding succes
-                  </IonCol>
-                  <IonCol size="6">
-                     Dehradun 25 Mar - 10:00 PM
-                  </IonCol>
-              </IonRow>
-              <IonRow className="notification_list_info_section_row success">
-                  <IonCol size="2">
-                    <div className="info_svg_icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.707 19.121c-.187.188-.442.293-.707.293s-.52-.105-.707-.293l-5.646-5.647a1.5 1.5 0 0 1 0-2.121l.707-.707a1.5 1.5 0 0 1 2.121 0L9 14.171l9.525-9.525a1.5 1.5 0 0 1 2.121 0l.707.707a1.5 1.5 0 0 1 0 2.121z"/></svg>
-                    </div>
-                  </IonCol>
-                  <IonCol size="4">
-                     Bidding succes
-                  </IonCol>
-                  <IonCol size="6">
-                     Dehradun 25 Mar - 10:00 PM
-                  </IonCol>
-              </IonRow>
-              <IonRow className="notification_list_info_section_row success">
-                  <IonCol size="2">
-                    <div className="info_svg_icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.707 19.121c-.187.188-.442.293-.707.293s-.52-.105-.707-.293l-5.646-5.647a1.5 1.5 0 0 1 0-2.121l.707-.707a1.5 1.5 0 0 1 2.121 0L9 14.171l9.525-9.525a1.5 1.5 0 0 1 2.121 0l.707.707a1.5 1.5 0 0 1 0 2.121z"/></svg>
-                    </div>
-                  </IonCol>
-                  <IonCol size="4">
-                     Bidding succes
-                  </IonCol>
-                  <IonCol size="6">
-                     Dehradun 25 Mar - 10:00 PM
-                  </IonCol>
-              </IonRow>
-              <IonRow className="notification_list_info_section_row success">
-                  <IonCol size="2">
-                    <div className="info_svg_icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.707 19.121c-.187.188-.442.293-.707.293s-.52-.105-.707-.293l-5.646-5.647a1.5 1.5 0 0 1 0-2.121l.707-.707a1.5 1.5 0 0 1 2.121 0L9 14.171l9.525-9.525a1.5 1.5 0 0 1 2.121 0l.707.707a1.5 1.5 0 0 1 0 2.121z"/></svg>
-                    </div>
-                  </IonCol>
-                  <IonCol size="4">
-                     Bidding succes
-                  </IonCol>
-                  <IonCol size="6">
-                     Dehradun 25 Mar - 10:00 PM
-                  </IonCol>
-              </IonRow>
-              <IonRow className="notification_list_info_section_row success">
-                  <IonCol size="2">
-                    <div className="info_svg_icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.707 19.121c-.187.188-.442.293-.707.293s-.52-.105-.707-.293l-5.646-5.647a1.5 1.5 0 0 1 0-2.121l.707-.707a1.5 1.5 0 0 1 2.121 0L9 14.171l9.525-9.525a1.5 1.5 0 0 1 2.121 0l.707.707a1.5 1.5 0 0 1 0 2.121z"/></svg>
-                    </div>
-                  </IonCol>
-                  <IonCol size="4">
-                     Bidding succes
-                  </IonCol> 
-                  <IonCol size="6">
-                     Dehradun 25 Mar - 10:00 PM 
-                  </IonCol>
-              </IonRow>
-              <IonRow className="notification_list_info_section_row success">
-                  <IonCol size="2">
-                    <div className="info_svg_icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.707 19.121c-.187.188-.442.293-.707.293s-.52-.105-.707-.293l-5.646-5.647a1.5 1.5 0 0 1 0-2.121l.707-.707a1.5 1.5 0 0 1 2.121 0L9 14.171l9.525-9.525a1.5 1.5 0 0 1 2.121 0l.707.707a1.5 1.5 0 0 1 0 2.121z"/></svg>
-                    </div>
-                  </IonCol>
-                  <IonCol size="4">
-                     Bidding succes
-                  </IonCol>
-                  <IonCol size="6">
-                     Dehradun 25 Mar - 10:00 PM
-                  </IonCol>
-              </IonRow>
-             </>
-           : ''}
-              </div>
+        </div>
        </IonContent>
     </IonPage>
   );
