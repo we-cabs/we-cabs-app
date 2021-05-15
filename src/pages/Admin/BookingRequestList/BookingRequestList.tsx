@@ -42,7 +42,7 @@ const BookingRequestList: React.FC<RouteComponentProps> = ({match,history}) => {
                   </div>
                
                 </IonCol>
-                <IonCol>
+                <IonCol size="6">
                 <div className="booking_title_left">
                     <span className="booking_detail_op">{data.pickupPoint}</span>
                   </div>

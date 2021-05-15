@@ -1,7 +1,7 @@
 .booking_detail_list_scroll{
-    /* height: calc(100vh - 350px)!important; */
+    height: calc(100vh - 166px)!important;
     padding: 15px;
-    /* overflow: auto; */
+    overflow: auto;
     background: white!important;
 }
 .filter_popup_date {
@@ -62,7 +62,7 @@
     fill: hsl(0, 0%, 50%);
 }
 .booking_detail_container:last-child {
-    border-bottom: 1px solid #ccc;
+    /* border-bottom: 1px solid #ccc; */
 }
 
 .booking_detail_box {
@@ -118,6 +118,10 @@ ion-button.book_or_bid_button {
 .booking_title_left, .booking_title_right {
     margin-bottom: 2px;
     height: 18px;
+    text-overflow: ellipsis;
+    width: 88px;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .find_booking_section {
     color:#6f6e6e;
@@ -126,7 +130,7 @@ ion-button.book_or_bid_button {
  }
 
 .find_booking_section svg {
-    width: 11px;
+    width: 10px;
     margin-left: 60%;
 }
 .booking_filter_class {
@@ -170,8 +174,9 @@ ion-button.book_or_bid_button {
     border: 1px solid var(--theme-color,rgb(218, 39, 46))!important;
     border-radius: 20px;
     color: var(--theme-color,rgb(218, 39, 46))!important;
-    padding: 4px 34px;
     font-size: 12px;
+    width: 93%;
+    height: 24px;
 }
 .bid_action_column_section .bid_ammount_max_price_button svg{
     width:10px;
@@ -182,6 +187,7 @@ ion-button.book_or_bid_button {
     border-radius: 20px;
     border: 1px solid var(--theme-color,rgb(218, 39, 46))!important;
     background: var(--theme-color,rgb(218, 39, 46))!important;
-    padding: 4px 34px;
-    font-size: 13px;
+    font-size: 12px;
+    width: 93%;
+    height: 24px;
 }

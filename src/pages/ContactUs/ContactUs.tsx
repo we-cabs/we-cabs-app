@@ -17,9 +17,9 @@ const ContactUs: React.FC<RouteComponentProps> = ({match,history}) => {
   const [phone, setPhone] = useState<string>('');
   const [description, setDescription] = useState<string>('');
 
-    const hrederTitle = () =>{
-        return 'Contact Us';
-    }
+  const hrederTitle = () =>{
+    return 'Contact Us';
+  }
     
 
     return (

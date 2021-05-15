@@ -184,7 +184,7 @@ const AddUser: React.FC<RouteComponentProps> = ({match, history}) => {
                   </IonSelect>
                 </IonItem>
                         <IonItem>
-                           <IonLabel position="stacked">DOCUMENT IMAGES</IonLabel>
+                           <IonLabel position="stacked">DOCUMENT IMAGES</IonLabel><br/>
                             <input type="file" accept="image/*" placeholder="Choose Document images" onChange={(e)=>{setImageLoading(true);onDocFileChange(e)}} multiple/>
                         </IonItem>
                        {(!image.length && !imageLoading) ? 

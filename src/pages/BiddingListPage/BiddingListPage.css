@@ -84,7 +84,7 @@ ion-col.top_sub_header_col {
 ion-col.bidding_list_inner_col_icon {
     background: #e6e6e694;
     text-align: center;
-    padding: 20px;
+    padding: 16px 0px;
 }
 ion-col.bidding_list_inner_col_icon svg{
     width: 28px;
@@ -92,12 +92,15 @@ ion-col.bidding_list_inner_col_icon svg{
 }
 
 ion-col.bidding_list_inner_col_icon span{
-    font-size: 11px;
+    font-size: 10px;
     color: #ea0202;
 }
 ion-col.bidding_list_pick_point_col {
-    padding: 22px 16px;
+    margin-top: 14px;
     overflow-wrap: normal;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 .bidding_list_pick_point_col .bidding_list_pick_point_text {
     font-size: 11px;

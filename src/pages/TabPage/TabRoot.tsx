@@ -75,14 +75,14 @@ const TabRoot: React.FC = () => {
         </IonRouterOutlet>
         {(userInfo.role === 'admin') ? 
           <IonTabBar slot="bottom">
-          <IonTabButton tab="dashboard" href="/dashboard"> 
+          <IonTabButton tab="dashboard" href="/tabs/dashboard"> 
               <IonIcon className="active" icon={home} />
               <IonLabel className="active">Home</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="about" href="/about">
+          {/* <IonTabButton tab="about" href="">
               <IonIcon icon={informationCircle} />
               <IonLabel >About</IonLabel>
-          </IonTabButton>
+          </IonTabButton> */}
           </IonTabBar>
         :
           <IonTabBar slot="bottom">

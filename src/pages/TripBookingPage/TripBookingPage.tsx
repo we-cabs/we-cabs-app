@@ -33,7 +33,7 @@ const TripBookingPage: React.FC<TripBookingPageProps> = ({match, history}) => {
               <button onClick={(e) => openBookingDetailPage(e,match.params.type)} className="trip_button">
                 <IonRow>
                     <IonCol size="12" className="trip_booking_button_text">
-                      Check Out Available Bookings
+                      Available Bookings
                     </IonCol>
                 </IonRow>
               </button>
@@ -44,7 +44,7 @@ const TripBookingPage: React.FC<TripBookingPageProps> = ({match, history}) => {
               <button onClick={(e) => history.push('/tabs/dashboard/enter-to-get-booking')} className="trip_button">
                 <IonRow>
                     <IonCol size="12" className="trip_booking_button_text">
-                    Enter Details To Get Bookings
+                    Request Bookings
                     </IonCol>
                 </IonRow>
               </button>

@@ -124,13 +124,7 @@ const Login: React.FC = () => {
               </div>
             </IonCol>
           </IonRow>
-          <IonRow>
-            <IonCol>
-               <div className="forget_password_section">
-               
-               </div>
-            </IonCol>
-          </IonRow>
+         
           <IonRow>
             <IonCol>
               <IonButton className="login_button" expand="block" onClick={handleLogin}>Login</IonButton>

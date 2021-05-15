@@ -4,6 +4,6 @@
     width: 100%;
     font-size: 13px;
 }
-.add_bidding_inner_coontainer ion-item.item-label-floating {
+.add_bidding_inner_coontainer ion-item {
     font-size: 12px;
 }

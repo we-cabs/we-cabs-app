@@ -9,7 +9,7 @@ button.bid_booing_button {
     border-radius: 8px;
     border: 1px solid #ccc;
     box-shadow: 0px -1px 20px 3px #cccccc45;
-    font-size: 17px;
+    font-size: 16px;
     letter-spacing: 1px;
     font-family: revert;
     margin-bottom: 9px;
@@ -25,7 +25,7 @@ button.update_user_data_button {
     border-radius: 3px;
     border: 1px solid #ccc;
     box-shadow: 0px -1px 20px 3px #cccccc45;
-    font-size: 15px;
+    font-size: 14px;
     letter-spacing: 1px;
     font-family: revert;
 }

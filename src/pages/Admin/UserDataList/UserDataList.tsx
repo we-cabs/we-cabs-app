@@ -56,7 +56,7 @@ const UserDataList: React.FC<RouteComponentProps> = ({match, history}) => {
                         <div className="user_data_grid">
                           <IonRow>
                             <IonCol size="3">
-                               Phone:
+                               Phone
                             </IonCol>
                             <IonCol size="1">
                               -
@@ -70,7 +70,7 @@ const UserDataList: React.FC<RouteComponentProps> = ({match, history}) => {
                         <div className="user_data_grid">
                         <IonRow>
                             <IonCol size="3">
-                            Email:
+                            Email
                             </IonCol>
                             <IonCol size="1">
                               -
@@ -84,7 +84,7 @@ const UserDataList: React.FC<RouteComponentProps> = ({match, history}) => {
                         <div className="user_data_grid">
                           <IonRow>
                             <IonCol size="3">
-                            Role:
+                            Role
                             </IonCol>
                             <IonCol size="1">
                               -
@@ -97,7 +97,7 @@ const UserDataList: React.FC<RouteComponentProps> = ({match, history}) => {
                         <div className="user_data_grid">
                         <IonRow>
                             <IonCol size="3">
-                            Status:
+                            Status
                             </IonCol>
                             <IonCol size="1">
                               -

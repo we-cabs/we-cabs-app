@@ -6,6 +6,7 @@
     border: 1px solid #ccc;
     border-bottom: unset;
     margin: 0px 20px;
+    font-size: 12px;
 }
 .user_profile_pic {
     text-align: center;
@@ -21,11 +22,12 @@
 }
 button.user_cars_button {
     border: 1px solid #ccc;
-    padding: 8px 91px;
     border-radius: 3px;
     background: white;
     font-size: 15px;
     margin-top: 12px;
+    height: 32px;
+    width: 100%;
 }
 .user_cars_button_section {
     text-align: center;

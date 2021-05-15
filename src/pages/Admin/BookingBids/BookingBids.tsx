@@ -113,6 +113,10 @@ const BookingBids: React.FC<BookingBidsProps> = ({match,history}) => {
                         <span>Car Plate</span>
                         <span> - </span>
                         <span  className="booking_bidding_list_pick_point_result"> {bids.carPlate} </span>       
+                        <br></br>  
+                        <span>Car Type</span>
+                        <span> - </span>
+                        <span  className="booking_bidding_list_pick_point_result"> {bookingData.carType} </span>       
                         <br></br>   
                         <span>Status</span>
                         <span> - </span>

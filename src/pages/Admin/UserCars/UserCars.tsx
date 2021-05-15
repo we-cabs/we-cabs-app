@@ -31,9 +31,14 @@ const UserCars: React.FC<RouteComponentProps> = ({match, history}) => {
                {carData.map((cars:any,key:any)=>(
                  <div key={key} className="border profile_page_registered_cars_loop_section active">
                      <div className="car_card_header">
-                         {cars.carDetails.rcno} <span>{cars.carDetails.name}</span>
+                         <IonRow>
+                            <IonCol size="9">{cars.carDetails.rcno}</IonCol>
+                            <IonCol size="3">
+                              <div className="edit_section" onClick={()=>updateCarDataPage(cars)}>Edit</div>
+                            </IonCol>
+                         </IonRow>
+                    
                        
-                         <span className="edit_section" onClick={()=>updateCarDataPage(cars)}>Edit</span> 
                      </div>
                      <div className="car_detail_section">
                     

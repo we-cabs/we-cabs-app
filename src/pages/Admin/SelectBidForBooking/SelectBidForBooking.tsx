@@ -1,16 +1,15 @@
-
 import React,{useEffect,useState} from 'react';
 import { IonPage, IonRow,IonCol, IonButton, IonInput, IonDatetime, IonContent, IonAlert } from '@ionic/react'
 import { RouteComponentProps } from 'react-router-dom';
 import './SelectBidForBooking.css';
+import AdminSubHeader from '../../../components/Admin/AdminHeader/AdminSubHeader';
 import { useDispatch, useSelector,RootStateOrAny } from 'react-redux';
 import Select from 'react-select';
-import cloneDeep from 'lodash/cloneDeep';
-import moment from 'moment';
-import AdminSubHeader from '../../../components/Admin/AdminHeader/AdminSubHeader';
-import NoDataFound from '../../../components/NoDatFound/NoDataFound';
 import { actionToGetBidingDataByBooking, actionToUpdateBooking } from '../../../actions/BookingAction';
 import Loader from '../../../components/Loader/Loader';
+import cloneDeep from 'lodash/cloneDeep';
+import moment from 'moment';
+import NoDataFound from '../../../components/NoDatFound/NoDataFound';
 
 interface SelectBidForBookingProps extends RouteComponentProps<{
   type: string;
@@ -28,16 +27,28 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
   const [_pickUpPoint, setPickUpPoint] = useState<any>(null);
   const [_dropDownPoint, setDropDownPoint] = useState<any>(null);
   const [_cabTypeOption, setCabTypeOption] = useState<any>(null);
+  const [isFixedSubHeader,setIsFixedSubHeader] = useState(false);
  
   const [showAlert,setShowAlert] = useState(false);
   const {booking,loading} = useSelector((state:RootStateOrAny) => state.bookingDetails);
   const [bookingClone,setBookingClone] = useState<any>(booking);
+  const [showHideBookingFilter,setShowHideBookingFilter] = useState(false);
   const {pickupCity,dropCity,cabType} = useSelector((state:RootStateOrAny) => state.bookingFilterValues);
-  
-  const [actionBooking,setActionBookingId] = useState('');
+    const [actionBooking,setActionBookingId] = useState('');
+ 
 
-  const hrederTitle = () =>{
-    return 'Bookings';
+  const scrollProfileContent = (e:any) =>{
+    if(e.detail.scrollTop > 1){
+      setIsFixedSubHeader(true);
+      }else{
+      setIsFixedSubHeader(false);
+      }
+      if(showHideBookingFilter)
+       setShowHideBookingFilter(false);
+ }
+
+  const hrederTitle = () =>{ 
+    return 'Available Bookings';
   }
 
   const searchListPickupCity = pickupCity.map((val:any) => {
@@ -104,8 +115,7 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
     setBookingClone(booking);
   }
   
-  
-    const callActionToCancelBooking = (bookingId:any) =>{
+  const callActionToCancelBooking = (bookingId:any) =>{
     setShowAlert(false);
     let payload:any = cloneDeep(actionBooking);
     payload.status = 'cancel';
@@ -118,19 +128,36 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
   }
 
   useEffect(()=>{
-   if(booking != undefined && booking.length){
-    setBookingClone(cloneDeep(booking));
-   }
-  },[]);
+    if(booking != undefined && booking.length){
+     setBookingClone(cloneDeep(booking));
+    }
+   },[]);
+   useEffect(()=>{
+    if(booking != undefined && booking.length){
+     setBookingClone(cloneDeep(booking));
+    }
+   },[booking]);
 
   return (
     <IonPage>
-      <AdminSubHeader title={"Bookings"}/>
-      <IonContent className="hide_overflow">
-      <div className="booking_filter_class">
-          <div className="find_booking_section"><span>Find your Booking</span><span className="booking_hr"></span></div>
-          <div className="filter_section_input">
-            <IonRow>
+        <AdminSubHeader title={"Bookings"}/>
+       <IonContent scrollEvents={true} onIonScroll={scrollProfileContent}>
+        <div className={isFixedSubHeader ? "booking_filter_class fixed" : 'booking_filter_class'}>
+          <IonRow onClick={()=>setShowHideBookingFilter(!showHideBookingFilter)} className="find_booking_section">
+          <IonCol size="8"><span>Filter your Booking</span></IonCol>
+          <IonCol size="4">
+          {(!showHideBookingFilter) ? 
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.846 451.847"><path d="M345.441 248.292L151.154 442.573c-12.359 12.365-32.397 12.365-44.75 0-12.354-12.354-12.354-32.391 0-44.744L278.318 225.92 106.409 54.017c-12.354-12.359-12.354-32.394 0-44.748 12.354-12.359 32.391-12.359 44.75 0l194.287 194.284a31.53 31.53 0 0 1 9.262 22.366c0 8.099-3.091 16.196-9.267 22.373z"/></svg>
+            :
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.847 451.847"><path d="M225.923 354.706c-8.098 0-16.195-3.092-22.369-9.263L9.27 151.157c-12.359-12.359-12.359-32.397 0-44.751 12.354-12.354 32.388-12.354 44.748 0l171.905 171.915 171.906-171.909c12.359-12.354 32.391-12.354 44.744 0 12.365 12.354 12.365 32.392 0 44.751L248.292 345.449c-6.177 6.172-14.274 9.257-22.369 9.257z"/></svg>
+            }
+          </IonCol>
+
+           
+            </IonRow>
+            {(showHideBookingFilter) ? 
+           <div className={"filter_section_input"}>
+             <IonRow>
               <IonCol size="6">
               <Select
                 value={_pickUpPoint}
@@ -181,8 +208,9 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
               </IonCol>
             </IonRow>
             </div>  
-      </div> 
-       <div className="booking_detail_list_scroll">
+            :''}
+        </div> 
+        <div className="booking_detail_list_scroll">
            <IonRow>
              <IonCol>
              {(loading || bookingClone == undefined) ? <div className="graer_box_loader"><Loader/></div> : 
@@ -190,44 +218,47 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
              {(bookingClone != undefined && bookingClone.length) ? 
              <>
              {bookingClone.map((data:any,i:number)=>(
-               <div key={i} className="booking_detail_container_select loop">
+               <div key={i} className="booking_detail_container loop">
                   <div className="booking_detail_box">
                   <IonRow>
-              <IonCol size="6">
-                <div className="booking_title_left">
-                    <span className="booking_title_op">Pickup: </span>
-                  </div>
-                  <div className="booking_title_left">
-                    <span className="booking_title_op">Drop: </span>
-                  </div>
-                  <div className="booking_title_left">
-                    <span className="booking_title_op">Cab Type: </span>                   
-                  </div>
-                  <div className="booking_title_left">
-                    <span className="booking_title_op">Date & Time:</span>
-                  </div>
-                  <div className="booking_title_left">
-                    <div onClick={()=>{setActionBookingId(data); setShowAlert(true)}} className="bidding_list_cancel_button">Cancle Booking {'>'}</div>
-                  </div>
-                </IonCol>
-                <IonCol>
-                <div className="booking_title_left">
-                    <span className="booking_detail_op">{data.pickupPoint}</span>
-                  </div>
-                  <div className="booking_title_left">
-                    <span className="booking_detail_op">{data.dropPoint}</span>
-                  </div>
-                  <div className="booking_title_left">
-                    <span className="booking_detail_op">{data.carType}</span>
-                  </div>
-                  <div className="booking_title_left">
-                    <span className="booking_detail_op">{moment(new Date(data.pickupTime)).utc().format("DD MMM YYYY")}</span>
-                  </div>
-                  <div className="booking_title_left">
-                    <div onClick={()=>callActionToGetBidingDataByBooking(data)} className="bidding_list_q_button">Bidding List {'>'}</div>
-                  </div>
-                </IonCol>
-              </IonRow>
+                  <IonCol size="2">
+                      <div className="booking_sudo_profile_div">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45.532 45.532"><path d="M22.766.001A22.77 22.77 0 0 0 0 22.766a22.77 22.77 0 0 0 22.766 22.765c12.574 0 22.766-10.192 22.766-22.765S35.34.001 22.766.001zm0 6.807a7.53 7.53 0 1 1 0 15.06 7.53 7.53 0 1 1 0-15.06zm-.005 32.771c-4.149 0-7.949-1.511-10.88-4.012a3.21 3.21 0 0 1-1.126-2.439c0-4.217 3.413-7.592 7.631-7.592h8.762c4.219 0 7.619 3.375 7.619 7.592a3.2 3.2 0 0 1-1.125 2.438 16.7 16.7 0 0 1-10.881 4.013z"/></svg>
+                      </div>
+                    </IonCol>
+                  <IonCol size="5">
+                    <div className="booking_title_left">
+                        <span className="booking_title_op">Pickup: </span>
+                      </div>
+                      <div className="booking_title_left">
+                        <span className="booking_title_op">Drop: </span>
+                      </div>
+                      <div className="booking_title_left">
+                        <span className="booking_title_op">Date & Time:</span>
+                      </div>
+                    </IonCol>
+                    <IonCol  size="5">
+                    <div className="booking_title_left">
+                        <span className="booking_detail_op">{data.pickupPoint}</span>
+                      </div>
+                      <div className="booking_title_left">
+                        <span className="booking_detail_op">{data.dropPoint}</span>
+                      </div>
+                      <div className="booking_title_left">
+                        <span className="booking_detail_op">{moment(new Date(data.pickupTime)).utc().format("DD MMM")}</span>
+                      </div>
+                    </IonCol>
+                  </IonRow>
+                  <IonRow>
+                     <IonCol className="bid_action_column_section" size="6">
+                       <button onClick={()=>{setActionBookingId(data); setShowAlert(true)}} className="bid_ammount_max_price_button">
+                          Delete
+                       </button>
+                    </IonCol>
+                    <IonCol className="bid_action_column_section" size="6">
+                       <button onClick={()=>callActionToGetBidingDataByBooking(data)} className="make_bid_button">Biddings</button>
+                    </IonCol>
+                  </IonRow>
                 </div> 
                 </div>
               ))} 
@@ -237,12 +268,11 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
                 <NoDataFound/>
               </div>
               }  
-              </>  
-                   
+              </>            
              }      
-              </IonCol>
-           </IonRow>
-           <IonAlert
+            </IonCol>
+          </IonRow>
+		  <IonAlert
             isOpen={showAlert}
             onDidDismiss={() => setShowAlert(false)}
             cssClass='my-custom-class'
@@ -265,7 +295,7 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
               }
           ]}
         />
-           </div>
+         </div>
        </IonContent>
     </IonPage>
   );

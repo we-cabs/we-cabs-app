@@ -77,7 +77,7 @@ const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
   
   return (
     <IonPage>
-      <HeaderComponent title="My Bid List"/>
+      <HeaderComponent title="My Bids"/>
       <IonContent scrollEvents={true} onIonScroll={scrollProfileContent}>
         <div className="inner_contant_container">
         <div className="top_bidding_header_section">
@@ -130,7 +130,6 @@ const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
                 </IonRow>
             </div>
            </div>
-    {console.log('bidDataClone',bidDataClone)}
            {(biddingDetailByUserId.loading || bidDataClone == undefined) ? <Loader/> : (bidDataClone.length) ?
                 <div className={isFixedSubHeader ? "bidding_list_inner_container_section_bid fixed" : 'bidding_list_inner_container_section_bid'}>
                 {bidDataClone.map((bids:any,key)=>(
@@ -141,13 +140,13 @@ const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22.025 19.707" fill="#4b4b4b"><path d="M21.086 6.925a1.14 1.14 0 0 0-.3.042l-1.07.295-1.134-2.754a2.61 2.61 0 0 0-2.233-1.5H15.6V.728A.73.73 0 0 0 14.872 0H7.156a.73.73 0 0 0-.728.728v2.283H5.66a2.61 2.61 0 0 0-2.233 1.5L2.3 7.258l-1.056-.291c-.098-.027-.199-.041-.3-.042-.259-.003-.508.101-.687.289s-.272.441-.257.7v.585c.001.67.543 1.212 1.213 1.213h.078l-.161.393a9.1 9.1 0 0 0-.571 2.894v5.495c.001.67.543 1.212 1.213 1.213H3.23c.67-.001 1.212-.543 1.213-1.213v-1.35h13.124v1.35c.001.67.543 1.212 1.213 1.213h1.458c.67-.001 1.212-.543 1.213-1.213V13a9.1 9.1 0 0 0-.571-2.894l-.161-.393h.093c.67-.001 1.212-.543 1.213-1.213v-.585c.016-.258-.076-.511-.254-.699s-.426-.293-.685-.291zM13.936.97c0-.016.013-.029.029-.029h.561c.016 0 .029.013.029.029v2.018c-.001.009-.005.017-.013.022h-.593c-.008-.005-.012-.013-.013-.022zM9.915.941h.674c.017.001.033.011.04.027l.8 2.01.733-.907c.01-.014.01-.033 0-.047l-.7-1.059c-.009-.013 0-.024.013-.024h.625c.018.001.034.01.044.025l.363.588c.022.01.028.006.03 0L12.9.966c.01-.015.026-.024.044-.025h.623c.016 0 .022.011.013.024l-.7 1.059c-.01.014-.01.033 0 .047l.746.923-.662.016c-.008-.004-.016-.01-.021-.018l-.41-.656c-.022-.01-.028-.006-.031 0l-.409.656c-.005.008-.013.014-.021.018h-1.246a.04.04 0 0 1-.019-.021l-.137-.421c-.006-.016-.021-.027-.038-.028h-.764c-.017.001-.032.011-.039.027l-.148.421c-.004.009-.01.016-.019.021h-.6L9.878.967c.007-.014.021-.024.037-.026zM7.943 2.989v-1.6c0-.016-.013-.029-.029-.029H7.24c-.016 0-.029-.013-.029-.029V.974c0-.016.013-.029.029-.029h2.029c.016 0 .029.013.029.029v.357c0 .016-.013.029-.029.029h-.678c-.016 0-.029.013-.029.029v1.6c-.001.009-.005.017-.013.022h-.593c-.008-.005-.013-.013-.013-.022zM3.155 9.036l1.718-4.185a1.57 1.57 0 0 1 1.339-.9H15.8a1.57 1.57 0 0 1 1.339.9l1.718 4.185c.113.199.105.445-.022.635s-.351.293-.578.265h-14.5c-.228.029-.452-.073-.579-.264s-.136-.437-.023-.636zm3.881 5.39a.49.49 0 0 1-.485.485H3.272a.49.49 0 0 1-.485-.485V12.87a.49.49 0 0 1 .485-.485h3.279a.49.49 0 0 1 .485.485v1.556zm12.155 0a.49.49 0 0 1-.485.485h-3.279a.49.49 0 0 1-.485-.485V12.87a.49.49 0 0 1 .485-.485h3.279a.49.49 0 0 1 .485.485zm-8.695-12.3c.021-.014.022-.021.018-.027l-.242-.558c-.006-.015-.017-.015-.024 0l-.256.559c.004.024.01.027.017.026z"></path></svg>
                          <br>
                          </br>
-                         <span>{bids.tripType}</span>
+                         <span>{bids.tripType.toLowerCase() == 'oneway' ? 'One Way' : 'Round Trip'}</span>
                        </IonCol>
                        <IonCol size="4" className="bidding_list_pick_point_col">
                            <span className="bidding_list_pick_point_text">{bids.pickupPoint}</span>
                            <br>
                            </br>
-                           <span className="bidding_list_pick_point_time">{_convertUnixToDateTimeFormat(bids.pickupTime,'DD MMM YY')}</span>                    
+                           <span className="bidding_list_pick_point_time">{_convertUnixToDateTimeFormat(bids.pickupTime,'DD MMM')}</span>                    
                        </IonCol>
                        <IonCol size="4"  className="bidding_list_pick_point_col">
                        <span className="bidding_list_pick_point_text">{bids.dropPoint}</span>
@@ -164,7 +163,7 @@ const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21"><circle cx="10.5" cy="10.5" r="10.5" fill="#be0101"/><path d="M15.129 13.399h0l-2.8-2.794 2.8-2.794c.112-.112.112-.295 0-.407l-1.32-1.32a.29.29 0 0 0-.407 0h0l-2.798 2.794-2.793-2.794c-.112-.112-.295-.112-.407 0l-1.32 1.32c-.112.112-.112.295 0 .407h0l2.794 2.794-2.794 2.793c-.112.112-.112.295 0 .407l1.32 1.32c.112.112.295.112.407 0h0l2.793-2.794 2.794 2.794c.112.112.295.112.407 0l1.32-1.32c.112-.112.112-.295 0-.407z" fill="#fff"/></svg>
                           : ''
                         }
-                           </IonCol>
+                       </IonCol>
                   </IonRow>
               </div>
               </>

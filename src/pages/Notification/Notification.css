@@ -1,15 +1,81 @@
 .notification_detail_list_scroll{
     height: calc(100vh - 144px)!important;
-    padding: 25px;
     overflow: auto;
     background: white!important;
-}
-.notification_top_tab {
-    text-align: center;
-    padding: 18px;
-    border: 1px solid #ccc;
+    margin-top: 10px;
 }
 .notification_top_tab.active {
     color: var(--theme-color,rgb(218, 39, 46))!important;
-    font-size: 18px;
+    font-size: 13px;
+    border-bottom: unset!important;
+    background: none!important;
+}
+.notification_top_tab {
+    text-align: center;
+    padding: 12px;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background: #efefef;
+    font-size: 13px;
+    color: #585858;
+}
+.notification_detail_container_loop {
+    border-bottom: 2px solid #ececec;
+    padding: 6px;
+}
+.notification_top_tab:last-child {
+    border-right: unset!important;
+}
+.notification_booking_detail_op {
+    color: rgb(236 107 112);
+    font-size: 11px;
+    font-weight: 600;
+}
+span.notification_booking_detail_title {
+    font-size: 12px;
+    color: #6f6f6f;
+    font-weight: 600;
+}
+.notification_booking_title_left {
+    margin-top: 11px;
+    font-size: 11px;
+    color: #5d5d5d;
+    font-weight: 600;
+    text-align: right;
+}
+.notification_booking_sudo_profile_div {
+    width: 32px;
+    height: 32px;
+    padding: 6px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+}
+.notification_booking_sudo_profile_div svg {
+    fill: #d03d3d;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+}
+.notification_booking_title_left svg{
+    width: 9px;
+    fill: #5d5d5d;
+    margin-left: 10px;
+}
+ion-row.notification_list_info_section_row.success {
+    font-size: 12px;
+    color: #616161;
+    border: 1px solid #5cd004;
+    background: #ebf7f0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.info_svg_icon {
+    background: #368652;
+    width: 17px;
+    border-radius: 3px;
+    padding: 3px;
+    height: 17px;
+    margin: -2px 2px;
+}
+.info_svg_icon svg{
+    fill: #ffffff;
 }

@@ -41,7 +41,7 @@ ion-content{
   height: 52px;
   padding: 6px 19px;
   border: 1px solid #ccc;
-  margin-bottom: 31px;
+  margin-bottom: 10px;
   box-shadow: -1px 0px 20px 5px #b1a9a93d;
 }
 
@@ -65,19 +65,19 @@ button.check_out_video_button {
   border-radius: 6px;
   padding: 5px 10px;
   border: 1px solid #ccc;
-  margin-bottom: 31px;
+  margin-bottom: 16px;
   box-shadow: -1px 0px 7px 5px #928c8c1f;
 }
 .check_out_button_text {
   text-align: left;
-  font-size: 14px;
+  font-size: 12px;
   font-family: system-ui;
   letter-spacing: 1px;
   padding-top: 6px;
 }
 .check_out_button_icon svg{
   fill: var(--theme-color,rgb(218, 39, 46))!important;
-  width: 16px;
+  width: 13px;
 }
 .bottom_logo_container {
   text-align: center;

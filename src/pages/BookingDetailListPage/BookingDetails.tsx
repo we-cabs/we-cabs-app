@@ -1,4 +1,3 @@
-
 import React,{useEffect,useState} from 'react';
 import { IonPage, IonRow,IonCol, IonButton, IonInput, IonDatetime, IonContent } from '@ionic/react'
 import { RouteComponentProps } from 'react-router-dom';
@@ -134,19 +133,21 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
   return (
     <IonPage>
       <SubPageHeaderComponent title={hrederTitle()}/>
-      <IonContent scrollEvents={true} onIonScroll={scrollProfileContent}>
-      <div  className={isFixedSubHeader ? "booking_filter_class fixed" : 'booking_filter_class'}>
-          <div onClick={()=>setShowHideBookingFilter(!showHideBookingFilter)} className="find_booking_section">
-            <span>Filter your Booking</span>
-            {(!showHideBookingFilter) ? 
+       <IonContent scrollEvents={true} onIonScroll={scrollProfileContent}>
+        <div className={isFixedSubHeader ? "booking_filter_class fixed" : 'booking_filter_class'}>
+        <IonRow onClick={()=>setShowHideBookingFilter(!showHideBookingFilter)} className="find_booking_section">
+          <IonCol size="10"><span>Filter your Booking</span></IonCol>
+          <IonCol size="2">
+          {(!showHideBookingFilter) ? 
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.846 451.847"><path d="M345.441 248.292L151.154 442.573c-12.359 12.365-32.397 12.365-44.75 0-12.354-12.354-12.354-32.391 0-44.744L278.318 225.92 106.409 54.017c-12.354-12.359-12.354-32.394 0-44.748 12.354-12.359 32.391-12.359 44.75 0l194.287 194.284a31.53 31.53 0 0 1 9.262 22.366c0 8.099-3.091 16.196-9.267 22.373z"/></svg>
             :
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.847 451.847"><path d="M225.923 354.706c-8.098 0-16.195-3.092-22.369-9.263L9.27 151.157c-12.359-12.359-12.359-32.397 0-44.751 12.354-12.354 32.388-12.354 44.748 0l171.905 171.915 171.906-171.909c12.359-12.354 32.391-12.354 44.744 0 12.365 12.354 12.365 32.392 0 44.751L248.292 345.449c-6.177 6.172-14.274 9.257-22.369 9.257z"/></svg>
             }
-            </div>
+          </IonCol>
+          </IonRow>
             {(showHideBookingFilter) ? 
-          <div className={"filter_section_input"}>
-            <IonRow>
+           <div className={"filter_section_input"}>
+             <IonRow>
               <IonCol size="6">
               <Select
                 value={_pickUpPoint}
@@ -198,8 +199,8 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
             </IonRow>
             </div>  
             :''}
-      </div> 
-       <div className="booking_detail_list_scroll">
+        </div> 
+        <div className="booking_detail_list_scroll">
            <IonRow>
              <IonCol>
              {(loading || bookingClone == undefined) ? <div className="graer_box_loader"><Loader/></div> : 
@@ -225,6 +226,12 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
                       <div className="booking_title_left">
                         <span className="booking_title_op">Date & Time:</span>
                       </div>
+                      <div className="booking_title_left">
+                        <span className="booking_title_op">Car Type:</span>
+                      </div>
+                      <div className="booking_title_left">
+                        <span className="booking_title_op">Max Amount:</span>
+                      </div>
                     </IonCol>
                     <IonCol  size="5">
                     <div className="booking_title_left">
@@ -234,7 +241,13 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
                         <span className="booking_detail_op">{data.dropPoint}</span>
                       </div>
                       <div className="booking_title_left">
-                        <span className="booking_detail_op">{moment(new Date(data.pickupTime)).utc().format("DD MMM")}</span>
+                        <span className="booking_detail_op">{moment(new Date(data.pickupTime)).utc().format("DD MMM, hh:mm")}</span>
+                      </div>
+                      <div className="booking_title_left">
+                        <span className="booking_detail_op">{data.carType}</span>
+                      </div>
+                      <div className="booking_title_left">
+                        <span className="booking_detail_op">{data.basePrice}</span>
                       </div>
                     </IonCol>
                   </IonRow>
@@ -258,12 +271,11 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
                 <NoDataFound/>
               </div>
               }  
-              </>  
-                   
+              </>            
              }      
-              </IonCol>
-           </IonRow>
-           </div>
+            </IonCol>
+          </IonRow>
+         </div>
        </IonContent>
     </IonPage>
   );

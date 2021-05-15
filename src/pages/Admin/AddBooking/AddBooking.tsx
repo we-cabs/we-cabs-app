@@ -18,7 +18,7 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
   const [maxAmount, setMaxAmount] = useState<number>(0);
   const [dropPoint, setDropPoint] = useState<string>("");
   const [pickupTime, setPickUpTime] = useState<string>("");
-  const [carType, setCarType] = useState<string>("");
+  const [carType, setCarType] = useState<string>("Sedan");
   const [tripType, setTripType] = useState<string>("");
   const [distance, setDistance] = useState<number>(0);
   const [expiryTime, setExpiryTime] = useState<string>("");
@@ -46,7 +46,7 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
       carType,
       distance,
       expiryTime:moment(expiryTime).valueOf(),
-      customerDetail,
+      customerDetails:{detail:customerDetail},
       basePrice:maxAmount,
       maxAmount:maxAmount,
       maxPrice:maxAmount,
@@ -106,8 +106,8 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
                 <IonItem>
                   <IonLabel position="floating">Trip Type</IonLabel>
                   <IonSelect onIonChange={(e)=>setTripType(e.detail.value)}>
-                    <IonSelectOption value="oneWay">One Way</IonSelectOption>
-                    <IonSelectOption value="roundTrip">Round Trip</IonSelectOption>
+                    <IonSelectOption value="oneway">One Way</IonSelectOption>
+                    <IonSelectOption value="roundtrip">Round Trip</IonSelectOption>
                   </IonSelect>
                 </IonItem>
                 <IonItem>

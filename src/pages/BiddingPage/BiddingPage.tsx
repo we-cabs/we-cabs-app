@@ -196,6 +196,23 @@ const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
                    </div>
                  </IonCol>
              </IonRow>
+             {(biddingData.customerDetails != undefined && biddingData.customerDetails.detail != undefined) ? 
+             <>
+             <IonRow className="booking_row_section_custmor">
+             <IonCol size="12">
+               <svg className="booking_svg_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.453 18.453" fill="#030104"><path d="M2.711 4.058h8.23v1.334h-8.23zm12.261 10.03c.638-1.127.453-2.563-.475-3.49a2.89 2.89 0 0 0-2.058-.852 2.89 2.89 0 0 0-2.911 2.911 2.9 2.9 0 0 0 .852 2.059c.549.547 1.279.85 2.057.85a2.91 2.91 0 0 0 1.434-.375l3.262 3.262 1.101-1.102-3.262-3.263zm-1.308-.207a1.78 1.78 0 0 1-2.448 0c-.675-.676-.675-1.773 0-2.449a1.72 1.72 0 0 1 1.225-.506 1.72 1.72 0 0 1 1.731 1.731 1.72 1.72 0 0 1-.508 1.224zm-.332 2.419H1.857a.33.33 0 0 1-.329-.328V1.638a.33.33 0 0 1 .329-.329h11.475c.182 0 .328.147.328.329V8.95a3.43 3.43 0 0 1 1.31.597V1.638A1.64 1.64 0 0 0 13.332 0H1.857A1.64 1.64 0 0 0 .219 1.638v14.334a1.64 1.64 0 0 0 1.638 1.637h11.475c.685 0 1.009-.162 1.253-.76l-.594-.594c-.219.092-.565.045-.659.045zM2.711 7.818h8.23v1.334h-8.23z"/></svg>
+
+               <div className="booking_pickup_point">
+                 Customer Details
+               </div><br></br>
+               <div className="booking_pickup_customer_details">
+                 {biddingData.customerDetails.detail}
+               </div>
+             </IonCol>           
+         </IonRow>
+
+         </>
+             :''}
           </div>
           <div className="time_watch_div_section_container">
           <IonRow>
@@ -215,7 +232,7 @@ const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
                   <br></br>
                   <br></br>
                   <span className="min_renaining_text">
-                    Timer
+                    Time Remaining
                   </span>
                 </div>
               </IonCol>
