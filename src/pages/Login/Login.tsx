@@ -134,7 +134,7 @@ const Login: React.FC = () => {
         }
         </IonGrid>
              {(!isSignupScreen) ? 
-                 <div className="new_user_signin_section">
+                 <div className="">
                    <span className="signin_new_user">New User?</span>
                    <span onClick={()=>setIsSignupScreen(true)} className="signin_new_user_link"> Sign up for new account</span>
                   </div>
