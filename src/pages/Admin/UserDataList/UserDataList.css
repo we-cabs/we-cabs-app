@@ -11,6 +11,12 @@ a.phone_number {
     text-decoration: none;
     color: unset!important;
 }
+input.user_balance_input_data {
+    border: 1px solid #ccc;
+    padding: 2px;
+    width: 54px;
+    border-radius: 4px;
+}
 .user_search_by_phone_section {
     position: fixed;
     width: 100%;

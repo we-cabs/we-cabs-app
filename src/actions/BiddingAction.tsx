@@ -27,6 +27,7 @@ export const actionToGetBidByUserId = (id:any) => async (dispatch:any) => {
         api.get(`/booking/${bid.linkedBookingId}`).then(res=>{
           bookingData = res.data;
           bookingData.bidStatus = bid.status;
+          bookingData.carPlate = bid.carPlate;
           newaddedBidData.push(bookingData);
         })
       })

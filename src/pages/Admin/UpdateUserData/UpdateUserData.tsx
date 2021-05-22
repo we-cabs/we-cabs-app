@@ -65,7 +65,7 @@ const UpdateUserData: React.FC<RouteComponentProps> = ({match, history}) => {
         if (!e.target.result.includes('data:image/')) {
           return alert('Wrong file type - IMAGE only.')
         }
-        if (e.target.result.length > 100000) {
+        if (e.target.result.length > 10000000000) {
           return alert('Image is loo large.')
         } 
         dispatch(actionToAddUserImage(profileImgUrl,e.target.result));

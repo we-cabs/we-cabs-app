@@ -26,11 +26,22 @@ const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
     const callToPlaceYourBid = () => {
 
       if(bidValue){
+        let carSelected = ''
+        if(!carPlate.length){
+          if(cars != undefined && cars.length){
+            carSelected = cars[0].carDetails.rcno;
+          }else{
+            alert('You have not added any car');
+            return;
+          }
+        }else{
+          carSelected = carPlate;
+        }
       let payload = {
         linkedUserId:userInfo.phone,
         linkedBookingId:biddingData.bookingId,
         amount:Number(bidValue),
-        carPlate:carPlate,
+        carPlate:carSelected,
         linkedUserRating:0.2,
         status:'pending'
       };

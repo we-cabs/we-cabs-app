@@ -217,6 +217,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
              {(bookingClone != undefined && bookingClone.length) ? 
              <>
              {bookingClone.map((data:any,i:number)=>(
+               (!data.allottedBidId) ?
                <div key={i} className="booking_detail_container loop">
                   <div className="booking_detail_box">
                   <IonRow>
@@ -273,7 +274,8 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
                   </IonRow>
                 </div> 
                 </div>
-              ))} 
+               :''
+             ))} 
               </>  
               : 
               <div className="no_data_found">

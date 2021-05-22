@@ -5,7 +5,7 @@ import './UserDataList.css';
 import { RouteComponentProps } from 'react-router';
 import AdminSubHeader from '../../../components/Admin/AdminHeader/AdminSubHeader';
 import Loader from '../../../components/Loader/Loader';
-import { actionToGerSelectedUserCarData, actionToSetEditUserData } from '../../../actions/AdminAction';
+import { actionToGerSelectedUserCarData, actionToSetEditUserData, actionToUpdateUserData ,actionToUpdatedUserImageUrl,actionToUpdatedUserDocImageUrl} from '../../../actions/AdminAction';
 import UpdateUserCarData from '../AddUserCar/UpdateUserCarData';
 import $ from 'jquery';
 import NoDataFound from '../../../components/NoDatFound/NoDataFound';
@@ -14,6 +14,7 @@ const UserDataList: React.FC<RouteComponentProps> = ({match, history}) => {
   const {userData} = useSelector((state:RootStateOrAny) => state.allUserData);
   const [noDataFound,setNoDataFound] = useState(false);
   const [searchTextData,setSearchTextData] = useState('');
+
   const dispatch = useDispatch();
     const getUserCarsData = (id:any) =>{
       history.push('/tabs/dashboard/user-cars');
@@ -35,12 +36,10 @@ const UserDataList: React.FC<RouteComponentProps> = ({match, history}) => {
        li = ul.getElementsByClassName('user_data_list_container');
 
       if(li && li.length){
-        console.log(li)
       // Loop through all list items, and hide those who don't match the search query
       for (let i = 0; i < li.length; i++) {
         a = li[i].getElementsByTagName("a")[0];
         txtValue = a.textContent || a.innerText;
-        console.log(a)
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
            $(li[i]).show();
            found = true;
@@ -53,7 +52,27 @@ const UserDataList: React.FC<RouteComponentProps> = ({match, history}) => {
       }
     }
     }
-    
+    const updateUserBalanceData = (e:any,data:any)=>{
+      dispatch(actionToUpdatedUserImageUrl(data.profileImgUrl));
+      let newDocImages = [];
+      if(data.images.doc != undefined)
+          newDocImages = data.images.doc;
+      dispatch(actionToUpdatedUserDocImageUrl(newDocImages));
+      const userUpdateData = {
+        userId:data.userId,
+        phone:data.phone,
+        location:data.location,
+        approvalStatus:data.approvalStatus,
+        email:data.email,
+        name:data.name,
+        password:data.password,
+        role:data.role,
+        deviceToken:data.deviceToken,
+      }
+      dispatch(actionToUpdateUserData(userUpdateData));
+    }
+
+
     return (
         <IonPage>
          <AdminSubHeader title={"User List"}/>
@@ -152,6 +171,17 @@ const UserDataList: React.FC<RouteComponentProps> = ({match, history}) => {
                               </IonCol>
                             <IonCol size="6">
                               {(user.approvalStatus == 'notApproved' ? 'Not Approved' : 'Approved')}
+                            </IonCol>
+                          </IonRow>
+                          <IonRow>
+                            <IonCol size="3">
+                            Balance
+                            </IonCol>
+                            <IonCol size="1">
+                              -
+                              </IonCol>
+                            <IonCol size="6">
+                              <input className="user_balance_input_data" onBlur={(e)=>updateUserBalanceData(e,user)} type="number"/>
                             </IonCol>
                           </IonRow>
                           </div> 
