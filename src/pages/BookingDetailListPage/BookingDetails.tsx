@@ -19,8 +19,7 @@ interface BookingDetailsProps extends RouteComponentProps<{
 let filter:any  = {
   carType:'',
   pickupPoint:'',
-  dropPoint:'',
-  data:'',
+  dropPoint:''
 };
 
 const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
@@ -28,6 +27,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
   const [_pickUpPoint, setPickUpPoint] = useState<any>(null);
   const [_dropDownPoint, setDropDownPoint] = useState<any>(null);
   const [_cabTypeOption, setCabTypeOption] = useState<any>(null);
+  const [_dateFilterOption, setDateFilterOption] = useState<any>(null);
   const [isFixedSubHeader,setIsFixedSubHeader] = useState(false);
  
 
@@ -80,7 +80,10 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
   );
 
   const applyFilterInBookingList = (type:string,value:any) =>{
-
+    if(value && value != null){
+      if(type == 'dateFilter'){
+        setDateFilterOption(value);
+      }
     if(type == 'pickupPoint'){
       filter.pickupPoint = value.value;
       setPickUpPoint(value);
@@ -95,15 +98,21 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
     }
       let newBooking:any[] = [];
       booking.map(function(item:any) {
+        if(type == 'dateFilter'){
+          if(moment(value).format('YYYY/MM/DD') == moment(item.pickupTime).format('YYYY/MM/DD')){
+            newBooking.push(item);
+          }
+        }else{
         for (var key in filter) {
           if (item[key] === undefined || item[key] != filter[key])
           {}
           else
             newBooking.push(item);
         }
+      }
       });
-      console.log(newBooking);
       setBookingClone(newBooking);
+    }
   }
 
   const clearAllFilterValue = () =>{
@@ -111,11 +120,11 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
       carType:'',
       pickupPoint:'',
       dropPoint:'',
-      data:'',
     };
     setPickUpPoint(null);
     setDropDownPoint(null);
     setCabTypeOption(null);
+    setDateFilterOption(null);
     setBookingClone(booking);
   }
 
@@ -181,7 +190,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
               />
               </IonCol>
               <IonCol size="6">
-                <IonDatetime className="filter_popup_date" placeholder="Date" displayFormat="MMM DD" display-timezone="utc"></IonDatetime>
+                <IonDatetime onIonChange={(e)=>{e.stopPropagation(); e.preventDefault(); applyFilterInBookingList('dateFilter',e.detail.value)}} value={_dateFilterOption} className="filter_popup_date" placeholder="Date" displayFormat="MMM DD"  displayTimezone="utc"/>
                   <div className="calender_filter_hr"></div>
                   <div className="calender_filter">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M452 40h-24V0h-40v40H124V0H84v40H60C26.916 40 0 66.916 0 100v352c0 33.084 26.916 60 60 60h392c33.084 0 60-26.916 60-60V100c0-33.084-26.916-60-60-60zm20 412c0 11.028-8.972 20-20 20H60c-11.028 0-20-8.972-20-20V188h432v264zm0-304H40v-48c0-11.028 8.972-20 20-20h24v40h40V80h264v40h40V80h24c11.028 0 20 8.972 20 20v48zM76 230h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 310h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 390h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80-80h40v40h-40z"/></svg>

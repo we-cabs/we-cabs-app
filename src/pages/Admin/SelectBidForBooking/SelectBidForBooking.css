@@ -32,3 +32,30 @@
     border-radius: 5px;
     box-shadow: 2px 1px 6px 0px #b7b7b7;
 }
+.booking_search_by_id_section input{
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 21px;
+    padding: 2px 1px 1px 30px;
+    font-size: 11px;
+    height: 29px;
+}
+.booking_search_by_id_section svg.search_icon{
+    position: absolute;
+    width: 14px;
+    left: 12px;
+    fill: #7b7676;
+    top: 13px;
+}
+.booking_detail_op a{
+    color: rgb(210 64 70)!important;
+    font-size: 11px;
+    font-weight: 600;
+}
+.booking_search_by_id_section svg.remove_icon{
+    position: absolute;
+    width: 14px;
+    right: 12px;
+    fill: #7b7676;
+    top: 13px;
+}

@@ -86,6 +86,15 @@ ion-col.bidding_list_inner_col_icon {
     text-align: center;
     padding: 16px 0px;
 }
+ion-col.bidding_list_inner_col_icon.pending{
+    border-left: 3px solid rgb(255, 121, 0);
+}
+ion-col.bidding_list_inner_col_icon.success{
+    border-left: 3px solid rgb(122, 183, 30);
+}
+ion-col.bidding_list_inner_col_icon.cancel{
+    border-left: 3px solid rgb(255, 30, 0);
+}
 ion-col.bidding_list_inner_col_icon svg{
     width: 28px;
     fill: #a5a5a5;

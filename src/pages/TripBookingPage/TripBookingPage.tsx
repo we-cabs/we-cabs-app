@@ -1,15 +1,18 @@
 import React from 'react';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonBackButton, IonButtons } from '@ionic/react'
 import { IonButton,IonCol,IonRow } from '@ionic/react';
+import { useDispatch,useSelector,RootStateOrAny} from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import SubPageHeaderComponent from '../../components/Header/SubPageHeaderComponent';
 import './TripBookingPage.css';
 import VideoAndLogoFooter from '../../components/Footers/VideoAndLogoFooter';
+import { actionToGetBookingData } from '../../actions/BookingAction';
 interface TripBookingPageProps extends RouteComponentProps<{
   type: string;
 }> {}
 
 const TripBookingPage: React.FC<TripBookingPageProps> = ({match, history}) => {
+  const dispatch = useDispatch();
   const hrederTitle = () =>{
     if(match.params.type == 'oneway'){
        return 'One Way Booking';
@@ -19,6 +22,7 @@ const TripBookingPage: React.FC<TripBookingPageProps> = ({match, history}) => {
   }
   const openBookingDetailPage = (e:any,type:string) =>{
     e.preventDefault();
+    dispatch(actionToGetBookingData());
     history.push(`/tabs/dashboard/bookingdetail/${type}`);
   }
   return (

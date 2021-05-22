@@ -23,6 +23,7 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
   const [distance, setDistance] = useState<number>(0);
   const [expiryTime, setExpiryTime] = useState<string>("");
   const [customerDetail, setCustomerDetail] = useState<string>("");
+  const [tripNote, setTripNote] = useState<string>("");
 
   const cabType = useSelector((state:RootStateOrAny) => state.cabType);
   const resetForm = () =>{
@@ -36,6 +37,7 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
     setExpiryTime('');
     setTripType('');
     setCustomerDetail('');
+    setTripNote('');
   }
   const formSubmitHandler =(e:any)=>{
     e.preventDefault();
@@ -47,6 +49,7 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
       distance,
       expiryTime:moment(expiryTime).valueOf(),
       customerDetails:{detail:customerDetail},
+      notes:tripNote,
       basePrice:maxAmount,
       maxAmount:maxAmount,
       maxPrice:maxAmount,
@@ -109,6 +112,10 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
                     <IonSelectOption value="oneway">One Way</IonSelectOption>
                     <IonSelectOption value="roundtrip">Round Trip</IonSelectOption>
                   </IonSelect>
+                </IonItem>
+                <IonItem>
+                  <IonLabel position="floating">Trip Notes</IonLabel>
+                  <IonTextarea  onIonChange={(e)=>setTripNote(e.detail.value || '')} value={tripNote} autoGrow rows={2} required/>
                 </IonItem>
                 <IonItem>
                   <IonLabel position="floating">Customer Details</IonLabel>

@@ -49,14 +49,11 @@ svg.booking_svg_icon_car {
     padding: 0px 38px;
 }
 .request_success_submit_message {
-    text-align: center;
-    top: 36px;
-    position: absolute;
     width: 100%;
-    padding: 1px 4px;
-    font-size: 12px;
-    font-weight: 600;
-    color: #675f5f;
+    padding: 47px 4px;
+    position: relative;
+    font-size: 14px;
+    color: #6b6b6b;
 }
 button.bidding_success_close_button {
     width: 36%;
@@ -82,7 +79,6 @@ button.bidding_success_close_button {
 .add_bidding_success_popup {
     width: 100%;
     background: #ffffff;
-    height: 42%;
     box-shadow: 1px 0px 20px 10px #cccccc2e;
     border-radius: 4px;
     margin-top: 50%;

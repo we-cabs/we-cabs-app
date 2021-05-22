@@ -131,7 +131,7 @@ ion-button.book_or_bid_button {
 
 .find_booking_section svg {
     width: 10px;
-    margin-left: 60%;
+    margin-left: 94%;
 }
 .booking_filter_class {
     background: #efefef;
@@ -147,7 +147,7 @@ ion-button.book_or_bid_button {
 }
 
 .filter_section_input {
-    margin-top: 17px;
+    /* margin-top: 17px; */
 }
 .filter_booking_section_input {
     width: 100%;

@@ -29,7 +29,7 @@ const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
       let payload = {
         linkedUserId:userInfo.phone,
         linkedBookingId:biddingData.bookingId,
-        amount:bidValue,
+        amount:Number(bidValue),
         carPlate:carPlate,
         linkedUserRating:0.2,
         status:'pending'
@@ -196,17 +196,17 @@ const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
                    </div>
                  </IonCol>
              </IonRow>
-             {(biddingData.customerDetails != undefined && biddingData.customerDetails.detail != undefined) ? 
+             {(biddingData.notes != undefined) ? 
              <>
              <IonRow className="booking_row_section_custmor">
              <IonCol size="12">
                <svg className="booking_svg_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.453 18.453" fill="#030104"><path d="M2.711 4.058h8.23v1.334h-8.23zm12.261 10.03c.638-1.127.453-2.563-.475-3.49a2.89 2.89 0 0 0-2.058-.852 2.89 2.89 0 0 0-2.911 2.911 2.9 2.9 0 0 0 .852 2.059c.549.547 1.279.85 2.057.85a2.91 2.91 0 0 0 1.434-.375l3.262 3.262 1.101-1.102-3.262-3.263zm-1.308-.207a1.78 1.78 0 0 1-2.448 0c-.675-.676-.675-1.773 0-2.449a1.72 1.72 0 0 1 1.225-.506 1.72 1.72 0 0 1 1.731 1.731 1.72 1.72 0 0 1-.508 1.224zm-.332 2.419H1.857a.33.33 0 0 1-.329-.328V1.638a.33.33 0 0 1 .329-.329h11.475c.182 0 .328.147.328.329V8.95a3.43 3.43 0 0 1 1.31.597V1.638A1.64 1.64 0 0 0 13.332 0H1.857A1.64 1.64 0 0 0 .219 1.638v14.334a1.64 1.64 0 0 0 1.638 1.637h11.475c.685 0 1.009-.162 1.253-.76l-.594-.594c-.219.092-.565.045-.659.045zM2.711 7.818h8.23v1.334h-8.23z"/></svg>
 
                <div className="booking_pickup_point">
-                 Customer Details
+                 Trip Details
                </div><br></br>
                <div className="booking_pickup_customer_details">
-                 {biddingData.customerDetails.detail}
+                 {biddingData.notes}
                </div>
              </IonCol>           
          </IonRow>
@@ -257,9 +257,9 @@ const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
       {(biddingSuccessPopup) ? 
       <div className="add_bidding_success_popup_container">
          <div className="add_bidding_success_popup">
-            <div className="add_bidding_check_box">
+            {/* <div className="add_bidding_check_box">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21"><path d="M21 10.499c0 5.799-4.701 10.5-10.5 10.5S0 16.298 0 10.499s4.701-10.5 10.5-10.5S21 4.7 21 10.499zm-11.715 5.56l7.79-7.79c.127-.127.199-.299.199-.479s-.071-.352-.199-.479l-.958-.958c-.127-.127-.299-.199-.479-.199s-.352.071-.479.199l-6.353 6.353-2.969-2.969c-.127-.127-.299-.199-.479-.199s-.352.071-.479.199l-.958.958c-.127.127-.199.299-.199.479s.071.352.199.479l4.4 4.4c.127.127.299.199.479.199s.352-.071.479-.199z" fill="#7ab71e"/></svg>
-            </div>
+            </div> */}
             <div className="request_success_submit_message">
               <span>Your request has been <br></br> submmitted successfully.</span><br></br><br></br>
               <span>You will receive a notification <br></br> once a booking is available.</span><br></br><br></br>

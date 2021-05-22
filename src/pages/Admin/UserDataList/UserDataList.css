@@ -4,21 +4,54 @@
 .user_data_list_container {
     position: relative;
     border: 1px solid #ccc;
-    border-bottom: unset;
     margin: 0px 20px;
     font-size: 12px;
+}
+a.phone_number {
+    text-decoration: none;
+    color: unset!important;
+}
+.user_search_by_phone_section {
+    position: fixed;
+    width: 100%;
+    padding: 1px 20px;
+    background: #ffffff;
+    z-index: 9999999999;
 }
 .user_profile_pic {
     text-align: center;
     border-bottom: 1px solid #ccc;
 }
+.user_search_by_phone_section input{
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 21px;
+    padding: 2px 1px 1px 30px;
+    font-size: 11px;
+    height: 29px;
+}
+.user_search_by_phone_section svg.search_icon{
+    position: absolute;
+    width: 14px;
+    left: 28px;
+    fill: #7b7676;
+    top: 9px;
+}
+.user_search_by_phone_section svg.remove_icon{
+    position: absolute;
+    width: 14px;
+    right: 28px;
+    fill: #7b7676;
+    top: 9px;
+}
+
 .user_profile_pic img{
     width: 50px;
     height: 50px;
     border-radius: 50%;
 }
 .user_data_list_section{
-    margin-top: 20px;
+    margin-top: 40px;
 }
 button.user_cars_button {
     border: 1px solid #ccc;
