@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import { cloneDeep } from 'lodash';
-import { BIDDING_DETAIL_BY_BOOKING_ID_FAIL, BIDDING_DETAIL_BY_BOOKING_ID_REQUEST, BIDDING_DETAIL_BY_BOOKING_ID_SUCCESS } from '../constants/BiddingConstants';
+import { BIDDING_DETAIL_BY_BOOKING_ID_FAIL, BIDDING_DETAIL_BY_BOOKING_ID_REQUEST, BIDDING_DETAIL_BY_BOOKING_ID_SUCCESS, BOOKING_DETAIL_FOR_EDIT } from '../constants/BiddingConstants';
 import { BOOKING_DATA_FILTER, BOOKING_DETAIL_FAIL, BOOKING_DETAIL_REQUEST, BOOKING_DETAIL_SUCCESS, UPDATE_CAR_DATA } from '../constants/BookingConstants';
 import { pushNotification } from './PushNotificationHelper';
 const api = Axios.create({
@@ -86,14 +86,19 @@ export const actionToUpdateBidding = (payload:any) => async (dispatch:any,useSta
 
 export const actionToGetBidingDataByBooking = (bookingData:any) => async (dispatch:any) => {
   dispatch({ type: BIDDING_DETAIL_BY_BOOKING_ID_REQUEST });
-try {
-  const response = await api.get(`/bid/bookingId/${bookingData.bookingId}`);
-  dispatch(actionToSortByBidData(response.data.bids,'amount','asc'));
-} catch (error) {
-   dispatch({ type: BIDDING_DETAIL_BY_BOOKING_ID_FAIL, payload: error });
-   console.log(error);
-}
+  try {
+    const response = await api.get(`/bid/bookingId/${bookingData.bookingId}`);
+    dispatch(actionToSortByBidData(response.data.bids,'amount','asc'));
+  } catch (error) {
+    dispatch({ type: BIDDING_DETAIL_BY_BOOKING_ID_FAIL, payload: error });
+    console.log(error);
+  }
 };
+
+export const actionToSetEditByBooking = (bookingData:any) => async (dispatch:any) => {
+  dispatch({ type: BOOKING_DETAIL_FOR_EDIT, payload: bookingData });
+};
+
 export const actionToSortByBidData = (biddingData:any,sortBy:any,direction:any) => async (dispatch:any) => {
   let sortBiddingData = cloneDeep(biddingData);
   sortBiddingData.sort(function (a:any, b:any) {

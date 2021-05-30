@@ -1,3 +1,4 @@
+import { BOOKING_DETAIL_FOR_EDIT } from '../constants/BiddingConstants';
 import {BOOKING_DETAIL_FAIL, BOOKING_DETAIL_REQUEST, BOOKING_DETAIL_SUCCESS,BOOKING_DATA_FILTER,UPDATE_CAR_DATA} from '../constants/BookingConstants';
   
 export const bookingDetailsReducer = (state = {}, action:any) => {
@@ -22,6 +23,16 @@ export const bookingDataFilterReducer = (state = {}, action:any) => {
       return state;
   }
 };
+
+export const editBookingDataReducer = (state = {}, action:any) => {
+  switch (action.type) {
+    case BOOKING_DETAIL_FOR_EDIT:
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 export const updateCarDataReducer = (state = {}, action:any) => {
   switch (action.type) {
     case UPDATE_CAR_DATA:

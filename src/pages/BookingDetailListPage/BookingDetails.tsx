@@ -24,6 +24,8 @@ let filter:any  = {
 
 const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
   const dispatch = useDispatch();
+  const selectedTripType = match.params.type;
+
   const [_pickUpPoint, setPickUpPoint] = useState<any>(null);
   const [_dropDownPoint, setDropDownPoint] = useState<any>(null);
   const [_cabTypeOption, setCabTypeOption] = useState<any>(null);
@@ -100,14 +102,19 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
       booking.map(function(item:any) {
         if(type == 'dateFilter'){
           if(moment(value).format('YYYY/MM/DD') == moment(item.pickupTime).format('YYYY/MM/DD')){
-            newBooking.push(item);
+            if(selectedTripType.toLowerCase() == item.tripType.toLowerCase() && item.status != 'cancel'){
+              newBooking.push(item);
+            }
           }
         }else{
         for (var key in filter) {
           if (item[key] === undefined || item[key] != filter[key])
           {}
-          else
-            newBooking.push(item);
+          else{
+            if(selectedTripType.toLowerCase() == item.tripType.toLowerCase() && item.status != 'cancel'){
+              newBooking.push(item);
+            }
+          }
         }
       }
       });
@@ -130,12 +137,26 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
 
   useEffect(()=>{
     if(booking != undefined && booking.length){
-     setBookingClone(cloneDeep(booking));
+      let bookingData = [];
+      for(let i = 0;i < booking.length;i++){
+        let data = booking[i];
+        if(selectedTripType.toLowerCase() == data.tripType.toLowerCase() && data.status != 'cancel'){
+          bookingData.push(data);
+        }
+      }
+     setBookingClone(cloneDeep(bookingData));
     }
    },[]);
    useEffect(()=>{
     if(booking != undefined && booking.length){
-     setBookingClone(cloneDeep(booking));
+      let bookingData = [];
+      for(let i = 0;i < booking.length;i++){
+        let data = booking[i];
+        if(selectedTripType.toLowerCase() == data.tripType.toLowerCase() && data.status != 'cancel'){
+          bookingData.push(data);
+        }
+      }
+     setBookingClone(cloneDeep(bookingData));
     }
    },[booking]);
 
@@ -143,6 +164,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
     <IonPage>
       <SubPageHeaderComponent title={hrederTitle()}/>
        <IonContent scrollEvents={true} onIonScroll={scrollProfileContent}>
+       {(booking != undefined && booking.length) ? 
         <div className={isFixedSubHeader ? "booking_filter_class fixed" : 'booking_filter_class'}>
         <IonRow onClick={()=>setShowHideBookingFilter(!showHideBookingFilter)} className="find_booking_section">
           <IonCol size="10"><span>Filter your Booking</span></IonCol>
@@ -199,8 +221,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
             </IonRow>
             <IonRow>
                <IonCol className="filter_search_button_col">
-                <button onClick={()=>clearAllFilterValue()}
-                 disabled={(_pickUpPoint != null || _dropDownPoint != null || _cabTypeOption != null) ? false : true}
+                <button onClick={()=>clearAllFilterValue()}             
                  className="filter_search_button">
                   CLEAR
                 </button>
@@ -209,6 +230,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
             </div>  
             :''}
         </div> 
+        :''}
         <div className="booking_detail_list_scroll">
            <IonRow>
              <IonCol>
@@ -221,12 +243,12 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
                <div key={i} className="booking_detail_container loop">
                   <div className="booking_detail_box">
                   <IonRow>
-                  <IonCol size="2">
+                  {/* <IonCol size="2">
                       <div className="booking_sudo_profile_div">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45.532 45.532"><path d="M22.766.001A22.77 22.77 0 0 0 0 22.766a22.77 22.77 0 0 0 22.766 22.765c12.574 0 22.766-10.192 22.766-22.765S35.34.001 22.766.001zm0 6.807a7.53 7.53 0 1 1 0 15.06 7.53 7.53 0 1 1 0-15.06zm-.005 32.771c-4.149 0-7.949-1.511-10.88-4.012a3.21 3.21 0 0 1-1.126-2.439c0-4.217 3.413-7.592 7.631-7.592h8.762c4.219 0 7.619 3.375 7.619 7.592a3.2 3.2 0 0 1-1.125 2.438 16.7 16.7 0 0 1-10.881 4.013z"/></svg>
                       </div>
-                    </IonCol>
-                  <IonCol size="5">
+                    </IonCol> */}
+                  <IonCol size="6">
                     <div className="booking_title_left">
                         <span className="booking_title_op">Pickup: </span>
                       </div>
@@ -240,10 +262,10 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
                         <span className="booking_title_op">Car Type:</span>
                       </div>
                       <div className="booking_title_left">
-                        <span className="booking_title_op">Max Amount:</span>
+                        <span className="booking_title_op">Current Bid:</span>
                       </div>
                     </IonCol>
-                    <IonCol  size="5">
+                    <IonCol  size="6">
                     <div className="booking_title_left">
                         <span className="booking_detail_op">{data.pickupPoint}</span>
                       </div>
@@ -257,7 +279,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
                         <span className="booking_detail_op">{data.carType}</span>
                       </div>
                       <div className="booking_title_left">
-                        <span className="booking_detail_op">{data.basePrice}</span>
+                        <span className="booking_detail_op">1200</span>
                       </div>
                     </IonCol>
                   </IonRow>

@@ -5,7 +5,7 @@ import './SelectBidForBooking.css';
 import AdminSubHeader from '../../../components/Admin/AdminHeader/AdminSubHeader';
 import { useDispatch, useSelector,RootStateOrAny } from 'react-redux';
 import Select from 'react-select';
-import { actionToGetBidingDataByBooking, actionToUpdateBooking } from '../../../actions/BookingAction';
+import { actionToGetBidingDataByBooking, actionToSetEditByBooking, actionToUpdateBooking } from '../../../actions/BookingAction';
 import Loader from '../../../components/Loader/Loader';
 import cloneDeep from 'lodash/cloneDeep';
 import moment from 'moment';
@@ -22,11 +22,10 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
   const [_dateFilterOption, setDateFilterOption] = useState<any>(null);
   const [isFixedSubHeader,setIsFixedSubHeader] = useState(false);
  
-  const [showAlert,setShowAlert] = useState(false);
   const {booking,loading} = useSelector((state:RootStateOrAny) => state.bookingDetails);
   const [bookingClone,setBookingClone] = useState<any>(booking);
   const [showHideBookingFilter,setShowHideBookingFilter] = useState(false);
-  const [actionBooking,setActionBookingId] = useState('');
+
   const [noDataFound,setNoDataFound] = useState(false);
   const [searchTextData,setSearchTextData] = useState('');
   let bookingTypeOption = [{label:'Completed',value:'completed'},{value:'not_completed',label:'Not Completed'}];
@@ -53,6 +52,7 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
       }
       let newBooking:any[] = [];
       booking.map(function(item:any) {
+        if(item.status != 'cancel'){
         if(type == 'bookingType'){
         if(value.value == 'completed'){
           if(item.pickupTime > moment(moment()).valueOf()){
@@ -64,6 +64,7 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
             newBooking.push(item);
           }
         }
+       }
       }
       });
       setBookingClone(newBooking);
@@ -77,16 +78,16 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
     searchBookingById('');
   }
   
-  const callActionToCancelBooking = (bookingId:any) =>{
-    setShowAlert(false);
-    let payload:any = cloneDeep(actionBooking);
-    payload.status = 'cancel';
-    dispatch(actionToUpdateBooking(payload));
-  }
+ 
 
   const callActionToGetBidingDataByBooking = (bookingData:any) =>{
     dispatch(actionToGetBidingDataByBooking(bookingData));
     history.push(`/tabs/dashboard/booking-bids/${JSON.stringify(bookingData)}`);
+  }
+
+  const openEditBookingPage = (bookingData:any) =>{
+    dispatch(actionToSetEditByBooking(bookingData));
+    history.push(`/tabs/dashboard/edit-booking-bids`);
   }
 
   const searchBookingById = (text:any)=>{
@@ -119,14 +120,96 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
 
   }
 
+  const renderBookingData = (bookingData:any)=>{
+    let content:any = [];
+
+    for(let i = 0;i < bookingData.length;i++){
+      let data = bookingData[i];
+      if(data.status != 'cancel'){
+        content.push(<div key={i} className="booking_detail_container loop">
+        <div className="booking_detail_box">
+        <IonRow>
+        {/* <IonCol size="2">
+            <div className="booking_sudo_profile_div">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45.532 45.532"><path d="M22.766.001A22.77 22.77 0 0 0 0 22.766a22.77 22.77 0 0 0 22.766 22.765c12.574 0 22.766-10.192 22.766-22.765S35.34.001 22.766.001zm0 6.807a7.53 7.53 0 1 1 0 15.06 7.53 7.53 0 1 1 0-15.06zm-.005 32.771c-4.149 0-7.949-1.511-10.88-4.012a3.21 3.21 0 0 1-1.126-2.439c0-4.217 3.413-7.592 7.631-7.592h8.762c4.219 0 7.619 3.375 7.619 7.592a3.2 3.2 0 0 1-1.125 2.438 16.7 16.7 0 0 1-10.881 4.013z"/></svg>
+            </div>
+          </IonCol> */}
+        <IonCol size="6">
+        <div className="booking_title_left">
+              <span className="booking_title_op">Booking Id: </span>
+            </div>
+            <div className="booking_title_left">
+              <span className="booking_title_op">Car Type: </span>
+            </div>
+            <div className="booking_title_left">
+              <span className="booking_title_op">Pickup: </span>
+            </div>
+         
+            <div className="booking_title_left">
+              <span className="booking_title_op">Drop: </span>
+            </div>
+            <div className="booking_title_left">
+              <span className="booking_title_op">Date & Time:</span>
+            </div>
+          </IonCol>
+          <IonCol size="6">
+          <div className="booking_title_left">
+              <span className="booking_detail_op"><a>{data.bookingId}</a></span>
+          </div>
+          <div className="booking_title_left">
+              <span className="booking_detail_op">{data.carType}</span>
+            </div>
+          <div className="booking_title_left">
+              <span className="booking_detail_op">{data.pickupPoint}</span>
+            </div>
+            <div className="booking_title_left">
+              <span className="booking_detail_op">{data.dropPoint}</span>
+            </div>
+            <div className="booking_title_left">
+              <span className="booking_detail_op">{moment(new Date(data.pickupTime)).utc().format("DD MMM,HH:MM")}</span>
+            </div>
+          </IonCol>
+        </IonRow>
+        <IonRow>
+           <IonCol className="bid_action_column_section" size="6">
+             <button onClick={()=>openEditBookingPage(data)} className="bid_ammount_max_price_button">
+                Edit
+             </button>
+          </IonCol>
+          <IonCol className="bid_action_column_section" size="6">
+             <button onClick={()=>callActionToGetBidingDataByBooking(data)} className="make_bid_button">Biddings</button>
+          </IonCol>
+        </IonRow>
+      </div> 
+      </div>)
+      }
+    }
+
+    return content;
+  }
+
   useEffect(()=>{
     if(booking != undefined && booking.length){
-     setBookingClone(cloneDeep(booking));
+      let bookingData = [];
+      for(let i = 0;i < booking.length;i++){
+        let data = booking[i];
+        if(data.status != 'cancel'){
+          bookingData.push(data);
+        }
+      }
+     setBookingClone(cloneDeep(bookingData));
     }
    },[]);
    useEffect(()=>{
     if(booking != undefined && booking.length){
-     setBookingClone(cloneDeep(booking));
+      let bookingData = [];
+      for(let i = 0;i < booking.length;i++){
+        let data = booking[i];
+        if(data.status != 'cancel'){
+          bookingData.push(data);
+        }
+      }
+     setBookingClone(cloneDeep(bookingData));
     }
    },[booking]);
 
@@ -203,64 +286,7 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
              <>
              {(bookingClone != undefined && bookingClone.length) ? 
              <>
-             {bookingClone.map((data:any,i:number)=>(
-               <div key={i} className="booking_detail_container loop">
-                  <div className="booking_detail_box">
-                  <IonRow>
-                  <IonCol size="2">
-                      <div className="booking_sudo_profile_div">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45.532 45.532"><path d="M22.766.001A22.77 22.77 0 0 0 0 22.766a22.77 22.77 0 0 0 22.766 22.765c12.574 0 22.766-10.192 22.766-22.765S35.34.001 22.766.001zm0 6.807a7.53 7.53 0 1 1 0 15.06 7.53 7.53 0 1 1 0-15.06zm-.005 32.771c-4.149 0-7.949-1.511-10.88-4.012a3.21 3.21 0 0 1-1.126-2.439c0-4.217 3.413-7.592 7.631-7.592h8.762c4.219 0 7.619 3.375 7.619 7.592a3.2 3.2 0 0 1-1.125 2.438 16.7 16.7 0 0 1-10.881 4.013z"/></svg>
-                      </div>
-                    </IonCol>
-                  <IonCol size="5">
-                  <div className="booking_title_left">
-                        <span className="booking_title_op">Booking Id: </span>
-                      </div>
-                      <div className="booking_title_left">
-                        <span className="booking_title_op">Car Type: </span>
-                      </div>
-                      <div className="booking_title_left">
-                        <span className="booking_title_op">Pickup: </span>
-                      </div>
-                   
-                      <div className="booking_title_left">
-                        <span className="booking_title_op">Drop: </span>
-                      </div>
-                      <div className="booking_title_left">
-                        <span className="booking_title_op">Date & Time:</span>
-                      </div>
-                    </IonCol>
-                    <IonCol size="5">
-                    <div className="booking_title_left">
-                        <span className="booking_detail_op"><a>{data.bookingId}</a></span>
-                    </div>
-                    <div className="booking_title_left">
-                        <span className="booking_detail_op">{data.carType}</span>
-                      </div>
-                    <div className="booking_title_left">
-                        <span className="booking_detail_op">{data.pickupPoint}</span>
-                      </div>
-                      <div className="booking_title_left">
-                        <span className="booking_detail_op">{data.dropPoint}</span>
-                      </div>
-                      <div className="booking_title_left">
-                        <span className="booking_detail_op">{moment(new Date(data.pickupTime)).utc().format("DD MMM,HH:MM")}</span>
-                      </div>
-                    </IonCol>
-                  </IonRow>
-                  <IonRow>
-                     <IonCol className="bid_action_column_section" size="6">
-                       <button onClick={()=>{setActionBookingId(data); setShowAlert(true)}} className="bid_ammount_max_price_button">
-                          Delete
-                       </button>
-                    </IonCol>
-                    <IonCol className="bid_action_column_section" size="6">
-                       <button onClick={()=>callActionToGetBidingDataByBooking(data)} className="make_bid_button">Biddings</button>
-                    </IonCol>
-                  </IonRow>
-                </div> 
-                </div>
-              ))} 
+               {renderBookingData(bookingClone)}
               </>  
               : 
               <div className="no_data_found">
@@ -271,29 +297,7 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
              }      
             </IonCol>
           </IonRow>
-		  <IonAlert
-            isOpen={showAlert}
-            onDidDismiss={() => setShowAlert(false)}
-            cssClass='my-custom-class'
-            header={'Are you sure?'}
-            message={'You want to cancel this booking.'}
-            buttons={[
-              {
-                text: 'Cancel',
-                role: 'cancel',
-                cssClass: 'secondary',
-                handler: blah => {
-              
-                }
-              },
-              {
-                text: 'Okay',
-                handler: () => {
-                  callActionToCancelBooking(actionBooking);
-                }
-              }
-          ]}
-        />
+		  
          </div>
        </IonContent>
     </IonPage>

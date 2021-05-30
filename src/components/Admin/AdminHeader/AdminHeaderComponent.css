@@ -1,8 +1,8 @@
 .admin_logout_botton {
     text-align: right;
-    padding: 13px 23px;
+    padding: 8px 13px;
 }
 .admin_logout_botton svg{
-    width: 25px;
+    width: 30px;
     fill: #585252;
 }

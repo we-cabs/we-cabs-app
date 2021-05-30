@@ -1,13 +1,28 @@
-import React from 'react';
-import {IonHeader, IonToolbar, IonRow,IonCol, IonBackButton, IonButtons } from '@ionic/react'
+import React,{useState} from 'react';
+import {IonHeader, IonToolbar, IonRow,IonCol, IonBackButton, IonButtons, IonAlert } from '@ionic/react'
 import './AdminSubHeader.css';
 import { useHistory } from "react-router";
+import { useDispatch,useSelector,RootStateOrAny } from 'react-redux';
+import { actionToUpdateBooking } from '../../../actions/BookingAction';
+import cloneDeep from 'lodash/cloneDeep';
+
 
 
 const AdminSubHeader = (props:any) => {
   const history = useHistory();
+  const dispatch = useDispatch();
+  const editBookingData = useSelector((state:RootStateOrAny) => state.editBookingData);
+
+  const [showAlert,setShowAlert] = useState(false);
   const openAddUserCarPage = () =>{
     history.push('/tabs/dashboard/add-user-cars');
+  }
+  const callActionToCancelBooking = () =>{
+    setShowAlert(false);
+    let payload = cloneDeep(editBookingData);
+    payload.status = 'cancel';
+    dispatch(actionToUpdateBooking(payload));
+    history.goBack();
   }
   const openAddUserPage = () =>{
     history.push('/tabs/dashboard/add-user');
@@ -28,6 +43,33 @@ const AdminSubHeader = (props:any) => {
             
                : (props.title === 'User List') ? 
                <svg xmlns="http://www.w3.org/2000/svg" onClick={()=>openAddUserPage()} className="add_user_icon" viewBox="0 0 512 512"><path d="M226 232c-63.963 0-116-52.037-116-116S162.037 0 226 0s116 52.037 116 116-52.037 116-116 116zm45 85c0-25.68 7.21-49.707 19.708-70.167C271.193 256.526 249.228 262 226 262c-30.128 0-58.152-9.174-81.429-24.874-28.782 11.157-55.186 28.291-77.669 50.774C24.404 330.397 1 386.899 1 446.999V497c0 8.284 6.716 15 15 15h420c8.284 0 15-6.716 15-15v-50.001l-.036-2.708C436.892 449.277 421.759 452 406 452c-74.439 0-135-60.561-135-135zm135-105c-57.897 0-105 47.103-105 105s47.103 105 105 105 105-47.103 105-105-47.103-105-105-105zm30 120h-15v15c0 8.284-6.716 15-15 15s-15-6.716-15-15v-15h-15c-8.284 0-15-6.716-15-15s6.716-15 15-15h15v-15c0-8.284 6.716-15 15-15s15 6.716 15 15v15h15c8.284 0 15 6.716 15 15s-6.716 15-15 15z"/></svg>
+              : (props.title === 'Edit Booking') ?
+              <>
+              <svg onClick={()=>setShowAlert(true)} xmlns="http://www.w3.org/2000/svg" className="delete_booking_svg_icon" viewBox="0 0 512 512"><path d="M424 64h-88V48c0-26.51-21.49-48-48-48h-64c-26.51 0-48 21.49-48 48v16H88c-22.091 0-40 17.909-40 40v32c0 8.837 7.163 16 16 16h384c8.837 0 16-7.163 16-16v-32c0-22.091-17.909-40-40-40zM208 48c0-8.82 7.18-16 16-16h64c8.82 0 16 7.18 16 16v16h-96zM78.364 184a5 5 0 0 0-4.994 5.238l13.2 277.042c1.22 25.64 22.28 45.72 47.94 45.72h242.98c25.66 0 46.72-20.08 47.94-45.72l13.2-277.042a5 5 0 0 0-4.994-5.238zM320 224a16 16 0 1 1 32 0v208a16 16 0 1 1-32 0zm-80 0a16 16 0 1 1 32 0v208a16 16 0 1 1-32 0zm-80 0a16 16 0 1 1 32 0v208a16 16 0 1 1-32 0z"/></svg> 
+              <IonAlert
+                  isOpen={showAlert}
+                  onDidDismiss={() => setShowAlert(false)}
+                  cssClass='my-custom-class'
+                  header={'Are you sure?'}
+                  message={'You want to cancel this booking.'}
+                  buttons={[
+                    {
+                      text: 'Cancel',
+                      role: 'cancel',
+                      cssClass: 'secondary',
+                      handler: blah => {
+                    
+                      }
+                    },
+                    {
+                      text: 'Okay',
+                      handler: () => {
+                        callActionToCancelBooking();
+                      }
+                    }
+                ]}
+              />
+              </>
               : ''
              }
             </IonCol>

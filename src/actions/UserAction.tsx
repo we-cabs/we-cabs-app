@@ -53,7 +53,8 @@ export const signin = (loginData:any) => async (dispatch:any) => {
     });
   }
 };
-export const actionToGetUserCar = (id:any) => async (dispatch:any) => {
+export const actionToGetUserCar = (id:any,isLoading = 1) => async (dispatch:any) => {
+  if(isLoading)
   dispatch({ type: USER_CAR_REQUEST });
   try {
     api.get(`/car/userId/${id}`).then(car=>{

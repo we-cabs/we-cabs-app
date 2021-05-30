@@ -7,6 +7,7 @@ import './DashboardPage.css';
 import VideoAndLogoFooter from '../../components/Footers/VideoAndLogoFooter';
 import { actionToGetUserCar, actionToGetUserDeviceToken } from '../../actions/UserAction';
 import { actionToGetBidByUserId } from '../../actions/BiddingAction';
+import { actionToGetBookingData } from '../../actions/BookingAction';
 
 const DashboardPage: React.FC<RouteComponentProps> = ({history}) => {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const DashboardPage: React.FC<RouteComponentProps> = ({history}) => {
   }
 
   useEffect(()=>{
+    dispatch(actionToGetBookingData(1));
     dispatch(actionToGetUserCar(userInfo.phone));
     dispatch(actionToGetBidByUserId(userInfo.phone));
     callActionToSendPushNotification();

@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import { cloneDeep } from 'lodash';
 import { BIDDING_DETAIL_BY_USER_ID_FAIL, BIDDING_DETAIL_BY_USER_ID_REQUEST, BIDDING_DETAIL_BY_USER_ID_SUCCESS, BIDING_DETAIL_SUCCESS } from '../constants/BiddingConstants';
 const api = Axios.create({
   baseURL: `https://a46jrcmngi.execute-api.us-west-2.amazonaws.com/dev`
@@ -15,7 +16,8 @@ export const actionToAddBiddingData = (payload:any) => async (dispatch:any,getSt
      console.log(error);
   }
 };
-export const actionToGetBidByUserId = (id:any) => async (dispatch:any) => {
+export const actionToGetBidByUserId = (id:any,isLoading = 1) => async (dispatch:any) => {
+  if(isLoading)
   dispatch({ type: BIDDING_DETAIL_BY_USER_ID_REQUEST });
   try {
     const response = await api.get(`/bid/userId/${id}`);
@@ -28,10 +30,11 @@ export const actionToGetBidByUserId = (id:any) => async (dispatch:any) => {
           bookingData = res.data;
           bookingData.bidStatus = bid.status;
           bookingData.carPlate = bid.carPlate;
+          bookingData.amount = bid.amount;
           newaddedBidData.push(bookingData);
         })
       })
-      dispatch({ type: BIDDING_DETAIL_BY_USER_ID_SUCCESS, payload: newaddedBidData });
+      dispatch({ type: BIDDING_DETAIL_BY_USER_ID_SUCCESS, payload: newaddedBidData});
     }
   } catch (error) {
     dispatch({ type: BIDDING_DETAIL_BY_USER_ID_FAIL, payload: error });

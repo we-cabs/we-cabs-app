@@ -31,6 +31,7 @@ const BookingBids: React.FC<BookingBidsProps> = ({match,history}) => {
     setShowAlert(false);
     let payload:any = cloneDeep(bookingData);
     payload.allottedBidId = bidData.bidId;
+    payload.allottedUserId = bidData.linkedUserId;
     dispatch(actionToUpdateBooking(payload));
     let bidPayload = cloneDeep(bidData);
     bidPayload.status = 'approved';
@@ -41,6 +42,7 @@ const BookingBids: React.FC<BookingBidsProps> = ({match,history}) => {
     setShowAlert(false);
     let payload:any = cloneDeep(bookingData);
     payload.allottedBidId = '';
+    payload.allottedUserId = '';
     dispatch(actionToUpdateBooking(payload));
     let bidPayload = cloneDeep(bidData);
     bidPayload.status = 'notApproved';

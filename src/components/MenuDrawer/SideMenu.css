@@ -9,7 +9,8 @@
 .menu_drawer_header_section img{
     border-radius: 50%;
     border: 3px solid #ffffff;
-    width: 30%;
+    width: 60px;
+    height: 60px;
 }
 .menu_drawer_header_section .pending_balance{
     color: #ffffff;

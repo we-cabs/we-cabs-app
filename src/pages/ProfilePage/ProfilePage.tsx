@@ -8,6 +8,7 @@ import { useDispatch,useSelector,RootStateOrAny } from 'react-redux';
 import Loader from '../../components/Loader/Loader';
 import NoDataFound from '../../components/NoDatFound/NoDataFound';
 import { actionToGetBidByUserId } from '../../actions/BiddingAction';
+import { actionToGetUserCar } from '../../actions/UserAction';
 
 const ProfilePage: React.FC<RouteComponentProps> = ({match,history}) => {
 
@@ -28,7 +29,7 @@ const ProfilePage: React.FC<RouteComponentProps> = ({match,history}) => {
      }
   }
   useEffect(()=>{
-    dispatch(actionToGetBidByUserId(userInfo.phone));
+    dispatch(actionToGetUserCar(userInfo.phone,0));
   },[])
   return (
     <IonPage>
@@ -52,7 +53,7 @@ const ProfilePage: React.FC<RouteComponentProps> = ({match,history}) => {
                     </span>
                     <br></br>
                     <span className="total_bid_and_booking_value">
-                         {(biddingDetailByUserId.loading) ? '' : (biddingDetailByUserId.bidData != undefined ? biddingDetailByUserId.bidData.length : '')}
+                         {(biddingDetailByUserId.bidData.length)}
                     </span>
                 </IonCol>
             </IonRow>

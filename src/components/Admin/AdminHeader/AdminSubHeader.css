@@ -29,4 +29,7 @@ ion-header.admin_sub_header_class ion-toolbar.admin_sub_header_toolbar {
     font-size: 15px;
     margin-top: 5px;
 }
-
+svg.delete_booking_svg_icon {
+    fill: var(--theme-color,rgb(218, 39, 46))!important;
+    width: 20px;
+}

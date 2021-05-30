@@ -10,42 +10,37 @@ import { addBookingData } from '../../../actions/BookingAction';
 import moment from 'moment';
 import $ from 'jquery';
 
-const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
+const EditingBooking: React.FC<RouteComponentProps> = ({match, history}) => {
   const dispatch = useDispatch();
+  const editBookingData = useSelector((state:RootStateOrAny) => state.editBookingData);
 
-  const [pickupPoint, setPickUpPoint] = useState<string>("");
+  const [pickupPoint, setPickUpPoint] = useState<string>(editBookingData.pickupPoint);
   const [onSubmit, setOnSubmit] = useState<boolean>(false);
-  const [maxAmount, setMaxAmount] = useState<number>(0);
-  const [dropPoint, setDropPoint] = useState<string>("");
-  const [pickupTime, setPickUpTime] = useState<string>("");
-  const [carType, setCarType] = useState<string>("Sedan");
-  const [tripType, setTripType] = useState<string>("");
-  const [distance, setDistance] = useState<number>(0);
-  const [expiryTime, setExpiryTime] = useState<string>("");
-  const [customerDetail, setCustomerDetail] = useState<string>("");
-  const [tripNote, setTripNote] = useState<string>("");
+  const [maxAmount, setMaxAmount] = useState<number>(editBookingData.basePrice);
+  const [dropPoint, setDropPoint] = useState<string>(editBookingData.dropPoint);
+  const [pickupTime, setPickUpTime] = useState<string>(moment(editBookingData.pickupTime).format('DD MMM hh:mm a'));
+  const [carType, setCarType] = useState<string>((editBookingData.carType));
+  const [tripType, setTripType] = useState<string>(editBookingData.tripType);
+  const [distance, setDistance] = useState<number>(editBookingData.distance);
+  const [reviewCollected, setReviewCollected] = useState<number>(editBookingData.reviewCollected);
+  const [expiryTime, setExpiryTime] = useState<string>(moment(editBookingData.expiryTime).format('DD MMM hh:mm a'));
+  const [customerDetail, setCustomerDetail] = useState<string>(editBookingData.customerDetails.detail);
+  const [tripNote, setTripNote] = useState<string>(editBookingData.notes);
+  const [companyReceivableAmount, setCompanyReceivableAmount] = useState<number>(editBookingData.companyReceivableAmount);
+
+  
 
   const cabType = useSelector((state:RootStateOrAny) => state.cabType);
-  const resetForm = () =>{
-    setOnSubmit(true);
-    setPickUpPoint('');
-    setDropPoint('');
-    setPickUpTime('');
-    setCarType('');
-    setDistance(0);
-    setMaxAmount(0);
-    setExpiryTime('');
-    setTripType('');
-    setCustomerDetail('');
-    setTripNote('');
-  }
   const formSubmitHandler =(e:any)=>{
     e.preventDefault();
     const bookingData = {
+      bookingId:editBookingData.bookingId,
       pickupPoint,
       dropPoint,
       pickupTime:moment(pickupTime).valueOf(),
       carType,
+      allottedBidId:editBookingData.allottedBidId,
+      allottedUserId:editBookingData.allottedUserId,
       distance,
       expiryTime:moment(expiryTime).valueOf(),
       customerDetails:{detail:customerDetail},
@@ -53,24 +48,41 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
       basePrice:maxAmount,
       maxAmount:maxAmount,
       maxPrice:maxAmount,
-      tripType
+      status:editBookingData.status,
+      tripType,
+      reviewCollected:Number(reviewCollected),
+      companyReceivableAmount:Number(companyReceivableAmount)
     }
     dispatch(addBookingData(bookingData));
-    resetForm();
+    setOnSubmit(true);
   }
     return (
         <IonPage>
-         <AdminSubHeader title={"Add Booking"}/>
+         <AdminSubHeader title={"Edit Booking"}/>
          <IonContent>
              <div className="add_bidding_inner_coontainer">
              <form id={"add_booking_form"} className="ion-padding" onSubmit={(e)=>formSubmitHandler(e)}>
              <IonAlert
                 isOpen={onSubmit}
-                onDidDismiss={() => setOnSubmit(false)}
+                onDidDismiss={() => {history.goBack(); setOnSubmit(false)}}
                 cssClass="my-custom-class"
                 header={"Success!"}
-                message={"Successfully added booking."}
-                buttons={["Dismiss"]}/>
+                message={"Booking Successfully Updated."}
+                buttons={["Close"]}/>
+                 <IonItem>
+                  <IonLabel position="floating">Amount To Receive</IonLabel>
+                  <IonInput onIonChange={(e)=>setCompanyReceivableAmount(Number(e.detail.value) || 0)} value={companyReceivableAmount} type="number" required/>
+                </IonItem>
+                <IonItem>
+                   <IonLabel position="floating">Rating</IonLabel>
+                   <IonSelect value={reviewCollected} onIonChange={(e)=>setReviewCollected(e.detail.value)}>
+                    <IonSelectOption value="1">1 Star</IonSelectOption>
+                    <IonSelectOption value="2">2 Star</IonSelectOption>
+                    <IonSelectOption value="3">3 Star</IonSelectOption>
+                    <IonSelectOption value="4">4 Star</IonSelectOption>
+                    <IonSelectOption value="5">5 Star</IonSelectOption>
+                  </IonSelect>
+                </IonItem>
                 <IonItem>
                   <IonLabel position="floating">Pick Up Point</IonLabel>
                   <IonInput onIonChange={(e)=>setPickUpPoint(e.detail.value || '')} value={pickupPoint} type="text" required/>
@@ -86,7 +98,7 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
                 <IonItem>
                   <IonLabel position="floating">Car Type</IonLabel>
                   {(cabType != undefined && cabType.length) ? 
-                     <IonSelect onIonChange={(e)=>setCarType(e.detail.value)}>
+                     <IonSelect value={carType} onIonChange={(e)=>setCarType(e.detail.value)}>
                        {cabType.map((car:any,key:number)=>(
                           <IonSelectOption key={key}>{car}</IonSelectOption>
                        ))}
@@ -107,12 +119,13 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
                   <IonInput  onIonChange={(e)=>setMaxAmount(Number(e.detail.value) || 0)} value={maxAmount} type="number" required/>
                 </IonItem>
                 <IonItem>
-                  <IonLabel position="floating">Trip Type</IonLabel>
-                  <IonSelect onIonChange={(e)=>setTripType(e.detail.value)}>
+                <IonLabel position="floating">Trip Type</IonLabel>
+                  <IonSelect value={tripType} onIonChange={(e)=>setTripType(e.detail.value)}>
                     <IonSelectOption value="oneway">One Way</IonSelectOption>
                     <IonSelectOption value="round">Round Trip</IonSelectOption>
                   </IonSelect>
                 </IonItem>
+               
                 <IonItem>
                   <IonLabel position="floating">Trip Notes</IonLabel>
                   <IonTextarea  onIonChange={(e)=>setTripNote(e.detail.value || '')} value={tripNote} autoGrow rows={2} required/>
@@ -122,7 +135,7 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
                   <IonTextarea  onIonChange={(e)=>setCustomerDetail(e.detail.value || '')} value={customerDetail} autoGrow rows={2} required/>
                 </IonItem>
                 <IonButton className="ion-margin-top" type="submit" expand="block">
-                  Add Booking
+                  Update Booking
                 </IonButton>
               </form>
              </div>
@@ -131,4 +144,4 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
     );
   }
 
-export default AddBooking;
+export default EditingBooking;

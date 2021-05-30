@@ -22,7 +22,7 @@ const TripBookingPage: React.FC<TripBookingPageProps> = ({match, history}) => {
   }
   const openBookingDetailPage = (e:any,type:string) =>{
     e.preventDefault();
-    dispatch(actionToGetBookingData());
+    dispatch(actionToGetBookingData(0));
     history.push(`/tabs/dashboard/bookingdetail/${type}`);
   }
   return (
