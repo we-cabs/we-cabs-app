@@ -9,8 +9,8 @@
 .menu_drawer_header_section img{
     border-radius: 50%;
     border: 3px solid #ffffff;
-    width: 60px;
-    height: 60px;
+    width: 65px;
+    height: 65px;
 }
 .menu_drawer_header_section .pending_balance{
     color: #ffffff;
@@ -37,13 +37,12 @@
     text-align: center;
 }
 .menu_drawer_list_options_link_row .menu_drawer_list_svg_icon svg{
-    width: 16px;
+    width: 20px;
     fill: var(--theme-color,rgb(218, 39, 46))!important;
 }
 .menu_drawer_list_options_link_row .menu_drawer_list_title {
-    color: #8a8a8a;
-    font-size: 12px;
+    color: #6f6f6f;
+    font-size: 15px;
     font-family: unset;
-    font-weight: 600;
     word-spacing: 1px;
 }

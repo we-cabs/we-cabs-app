@@ -16,7 +16,7 @@
 }
 .bidding_list_section_container .booking_svg_icon{
     fill: #4c4c4c;
-    width: 18px;
+    width: 19px;
 }
 .bidding_list_section_container .booking_row_section {
     border-top: 1px solid #ccc;
@@ -95,7 +95,7 @@ button.bidding_success_close_button {
 .bidding_list_section_container .booking_pickup_point {
     margin-top: 4px;
     padding: 0px 11px;
-    font-size: 12px;
+    font-size: 13px;
     color: #000;
     text-overflow: clip;
     overflow: hidden;
@@ -104,7 +104,7 @@ button.bidding_success_close_button {
 .bidding_list_section_container .booking_pickup_point_result {
     margin-top: 3px;
     color: #c33030;
-    font-size: 12px;
+    font-size: 13px;
     text-overflow: ellipsis;
     overflow: auto;
     white-space: nowrap;

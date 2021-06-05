@@ -7,18 +7,12 @@ import SubPageHeaderComponent from '../../components/Header/SubPageHeaderCompone
 import './TripBookingPage.css';
 import VideoAndLogoFooter from '../../components/Footers/VideoAndLogoFooter';
 import { actionToGetBookingData } from '../../actions/BookingAction';
-interface TripBookingPageProps extends RouteComponentProps<{
-  type: string;
-}> {}
 
-const TripBookingPage: React.FC<TripBookingPageProps> = ({match, history}) => {
+
+const TripBookingPage: React.FC<RouteComponentProps> = ({match, history}) => {
   const dispatch = useDispatch();
   const hrederTitle = () =>{
-    if(match.params.type == 'oneway'){
-       return 'One Way Booking';
-    }else{
-      return 'Round Trip Booking';
-    }
+    return 'We Cab Bus';
   }
   const openBookingDetailPage = (e:any,type:string) =>{
     e.preventDefault();
@@ -34,7 +28,7 @@ const TripBookingPage: React.FC<TripBookingPageProps> = ({match, history}) => {
         <div className="trip_button_container">
           <IonRow>
             <IonCol>
-              <button onClick={(e) => openBookingDetailPage(e,match.params.type)} className="trip_button">
+              <button className="trip_button">
                 <IonRow>
                     <IonCol size="12" className="trip_booking_button_text">
                       Available Bookings

@@ -88,11 +88,11 @@
 }
 .booking_detail_op {
     color: rgb(210 64 70);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
 }
 .booking_title_op {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
     letter-spacing: 0px;
     color: #807d7d;
@@ -105,6 +105,35 @@ span.booking_hr {
     margin-left: 9px;
     display: inline-flex;
 }
+.booking_detail_box .booking_box_heading {
+
+    font-size: 13px;
+    font-family: -webkit-pictograph;
+    color: #7b7b7b;
+    font-weight: 600;
+}
+.booking_detail_box .booking_box_heading .booking_box_heading_left_bar{
+    height: 2px;
+    background: #ccc;
+    margin-right: 5px;
+    margin-bottom: 4px;
+    display: inline-flex;
+}
+.booking_detail_box .booking_box_heading .booking_box_heading_right_bar{
+    height: 2px;
+    background: #ccc;
+    margin-left: 5px;
+    margin-bottom: 4px;
+    display: inline-flex;
+}
+.booking_detail_box .booking_box_heading .on_round_trip{
+    width: 118px;
+}
+
+.booking_detail_box .booking_box_heading .on_one_way{
+    width: 127px;
+}
+
 ion-button.book_or_bid_button {
     width: 100%;
     position: absolute;
@@ -127,7 +156,7 @@ ion-button.book_or_bid_button {
 .find_booking_section {
     color:#6f6e6e;
     padding: 9px;
-    font-size: 11px;
+    font-size: 12px;
  }
 
 .find_booking_section svg {
@@ -188,7 +217,7 @@ ion-button.book_or_bid_button {
     border-radius: 20px;
     border: 1px solid var(--theme-color,rgb(218, 39, 46))!important;
     background: var(--theme-color,rgb(218, 39, 46))!important;
-    font-size: 12px;
+    font-size: 14px;
     width: 93%;
     height: 24px;
 }

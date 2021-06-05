@@ -65,11 +65,11 @@ const TabRoot: React.FC = () => {
          
           <Route path="/tabs/bidding-list" component={BiddingListPage} exact={true} /> 
           <Route path="/tabs/dashboard/contact-us" component={ContactUs} exact={true} /> 
-          <Route path={`/tabs/dashboard/tripbooking/:type`} component={TripBookingPage} />
+          <Route path={`/tabs/dashboard/tripbooking`} component={TripBookingPage} />
           <Route path={`/tabs/dashboard/notification`} component={Notification} />
           <Route path={`/tabs/dashboard/enter-to-get-booking`} component={AddDetailToGetBooking} />
           <Route path={`/tabs/dashboard/my-profile`} component={ProfilePage} />
-          <Route path={`/tabs/dashboard/bookingdetail/:type`} component={BookingDetails} />
+          <Route path={`/tabs/dashboard/bookingdetail`} component={BookingDetails} />
           <Route path={`/tabs/dashboard/show-bidding`} component={ShowSelectedBidDetailPage} />
           <Route path={`/tabs/dashboard/bidding`} component={BiddingPage} />
           <Route path="/tabs" render={() => <Redirect to="/tabs/dashboard" />} exact={true} />

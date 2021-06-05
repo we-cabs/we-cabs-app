@@ -12,19 +12,14 @@ import cloneDeep from 'lodash/cloneDeep';
 import moment from 'moment';
 import NoDataFound from '../../components/NoDatFound/NoDataFound';
 
-interface BookingDetailsProps extends RouteComponentProps<{
-  type: string;
-}> {}
-
 let filter:any  = {
   carType:'',
   pickupPoint:'',
   dropPoint:''
 };
 
-const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
+const BookingDetails: React.FC<RouteComponentProps> = ({match,history}) => {
   const dispatch = useDispatch();
-  const selectedTripType = match.params.type;
 
   const [_pickUpPoint, setPickUpPoint] = useState<any>(null);
   const [_dropDownPoint, setDropDownPoint] = useState<any>(null);
@@ -102,7 +97,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
       booking.map(function(item:any) {
         if(type == 'dateFilter'){
           if(moment(value).format('YYYY/MM/DD') == moment(item.pickupTime).format('YYYY/MM/DD')){
-            if(selectedTripType.toLowerCase() == item.tripType.toLowerCase() && item.status != 'cancel'){
+            if(item.status != 'cancel'){
               newBooking.push(item);
             }
           }
@@ -111,7 +106,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
           if (item[key] === undefined || item[key] != filter[key])
           {}
           else{
-            if(selectedTripType.toLowerCase() == item.tripType.toLowerCase() && item.status != 'cancel'){
+            if(item.status != 'cancel'){
               newBooking.push(item);
             }
           }
@@ -140,7 +135,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
       let bookingData = [];
       for(let i = 0;i < booking.length;i++){
         let data = booking[i];
-        if(selectedTripType.toLowerCase() == data.tripType.toLowerCase() && data.status != 'cancel'){
+        if(data.status != 'cancel'){
           bookingData.push(data);
         }
       }
@@ -152,7 +147,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
       let bookingData = [];
       for(let i = 0;i < booking.length;i++){
         let data = booking[i];
-        if(selectedTripType.toLowerCase() == data.tripType.toLowerCase() && data.status != 'cancel'){
+        if(data.status != 'cancel'){
           bookingData.push(data);
         }
       }
@@ -242,12 +237,14 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
                (!data.allottedBidId) ?
                <div key={i} className="booking_detail_container loop">
                   <div className="booking_detail_box">
+                    <div className="booking_box_heading">
+                      <span 
+                      className={"booking_box_heading_left_bar "+(data.tripType.toLowerCase() == 'round' ? 'on_round_trip' : 'on_one_way')}
+                      ></span>
+                      {data.tripType.toLowerCase() == 'round' ? 'ROUND TRIP' : 'ONE WAY'}
+                      <span className={"booking_box_heading_right_bar "+(data.tripType.toLowerCase() == 'round' ? 'on_round_trip' : 'on_one_way')}></span>
+                   </div>
                   <IonRow>
-                  {/* <IonCol size="2">
-                      <div className="booking_sudo_profile_div">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45.532 45.532"><path d="M22.766.001A22.77 22.77 0 0 0 0 22.766a22.77 22.77 0 0 0 22.766 22.765c12.574 0 22.766-10.192 22.766-22.765S35.34.001 22.766.001zm0 6.807a7.53 7.53 0 1 1 0 15.06 7.53 7.53 0 1 1 0-15.06zm-.005 32.771c-4.149 0-7.949-1.511-10.88-4.012a3.21 3.21 0 0 1-1.126-2.439c0-4.217 3.413-7.592 7.631-7.592h8.762c4.219 0 7.619 3.375 7.619 7.592a3.2 3.2 0 0 1-1.125 2.438 16.7 16.7 0 0 1-10.881 4.013z"/></svg>
-                      </div>
-                    </IonCol> */}
                   <IonCol size="6">
                     <div className="booking_title_left">
                         <span className="booking_title_op">Pickup: </span>
@@ -260,6 +257,9 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
                       </div>
                       <div className="booking_title_left">
                         <span className="booking_title_op">Car Type:</span>
+                      </div>
+                      <div className="booking_title_left">
+                        <span className="booking_title_op">Booking Type:</span>
                       </div>
                       <div className="booking_title_left">
                         <span className="booking_title_op">Current Bid:</span>
@@ -277,6 +277,9 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({match,history}) => {
                       </div>
                       <div className="booking_title_left">
                         <span className="booking_detail_op">{data.carType}</span>
+                      </div>
+                      <div className="booking_title_left">
+                        <span className="booking_detail_op">{data.tripType.toLowerCase() == 'round' ? 'Round Trip' : 'One Way'}</span>
                       </div>
                       <div className="booking_title_left">
                         <span className="booking_detail_op">1200</span>
