@@ -46,6 +46,12 @@ export const actionToSetAllBookingFilters = (bookingData:any) => async (dispatch
 export const addBookingData = (payload:any) => async (dispatch:any) => {
   try {
     const response = await api.post('/booking',payload);
+    let newNotification = {
+      location:payload.pickupPoint,
+      details:payload,
+    }
+    await api.post('/user/notification/location',newNotification);
+   
     dispatch(actionToGetBookingData(0));
     return response;
   } catch (error) {

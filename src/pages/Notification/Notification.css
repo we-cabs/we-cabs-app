@@ -18,6 +18,22 @@
     font-size: 13px;
     color: #585858;
 }
+.notification_booking_title_right {
+    margin-top: 6px;
+    height: 18px;
+    text-overflow: ellipsis;
+    width: 100px;
+    white-space: nowrap;
+}
+.notification_booking_detail_op {
+    margin-top: 6px;
+    height: 18px;
+    text-overflow: ellipsis;
+    width: 150px;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+}
 .notification_detail_container_loop {
     border-bottom: 2px solid #ececec;
     padding: 6px;

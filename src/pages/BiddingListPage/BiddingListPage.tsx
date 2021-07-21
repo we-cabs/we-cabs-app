@@ -24,6 +24,7 @@ const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
     setFilterType(type);
     let filterBidData = cloneDeep(bidDataProp);
     let data:any = [];
+    if(filterBidData != undefined){
     if(type != 'all'){
       filterBidData.map((bid:any)=>{
         if(bid.status != 'cancel'){
@@ -32,15 +33,15 @@ const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
           }
         }
       })
-      setBidDataClone(data);
     }else{
       filterBidData.map((bid:any)=>{
         if(bid.status != 'cancel'){
           data.push(bid);
         }
       })
-      setBidDataClone(data);
     }
+  }
+  setBidDataClone(data);
   }
 
    

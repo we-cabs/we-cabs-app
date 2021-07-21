@@ -16,25 +16,30 @@ export const actionToAddBiddingData = (payload:any) => async (dispatch:any,getSt
      console.log(error);
   }
 };
-export const actionToGetBidByUserId = (id:any,isLoading = 1) => async (dispatch:any) => {
+export const actionToGetBidByUserId = (id:any,isLoading = 1) => async (dispatch:any,getState:any) => {
   if(isLoading)
   dispatch({ type: BIDDING_DETAIL_BY_USER_ID_REQUEST });
+
   try {
     const response = await api.get(`/bid/userId/${id}`);
     let bidData = response.data.bids;
     let newaddedBidData:any = [];
     let bookingData:any = {};
     if(bidData.length){
-      bidData.map((bid:any)=>{
-        api.get(`/booking/${bid.linkedBookingId}`).then(res=>{
-          bookingData = res.data;
+       bidData.map(async (bid:any) => {
+         let responseNew = await api.get(`/booking/${bid.linkedBookingId}`);
+
+          bookingData = responseNew.data;
           bookingData.bidStatus = bid.status;
           bookingData.carPlate = bid.carPlate;
           bookingData.amount = bid.amount;
           newaddedBidData.push(bookingData);
-        })
+        
       })
-      dispatch({ type: BIDDING_DETAIL_BY_USER_ID_SUCCESS, payload: newaddedBidData});
+      setTimeout(function(){     
+        
+         dispatch({ type: BIDDING_DETAIL_BY_USER_ID_SUCCESS, payload: cloneDeep(newaddedBidData)});
+      })
     }
   } catch (error) {
     dispatch({ type: BIDDING_DETAIL_BY_USER_ID_FAIL, payload: error });
