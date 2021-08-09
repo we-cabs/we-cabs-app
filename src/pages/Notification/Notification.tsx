@@ -7,7 +7,7 @@ import SubPageHeaderComponent from '../../components/Header/SubPageHeaderCompone
 import { useDispatch, useSelector,RootStateOrAny } from 'react-redux';
 import Select from 'react-select';
 import { _convertUnixToDateTimeFormat } from '../../hooks/DateTimeConverter';
-import { addBiddingBookingData } from '../../actions/BiddingAction';
+import { addBiddingBookingData,actionToUpdateUserNotificationData } from '../../actions/BiddingAction';
 import Loader from '../../components/Loader/Loader';
 import cloneDeep from 'lodash/cloneDeep';
 import moment from 'moment';
@@ -25,9 +25,10 @@ const Notification: React.FC<NotificationProps> = ({match,history}) => {
   const userInfo = useSelector((state:RootStateOrAny) => state.userSignin.userInfo);
   const [notificationTab,setNotificationTab] = useState('type');
  
-  const openBiddingPage = (e:any,data:any) =>{
+  const openBiddingPage = (e:any,data:any,key:any) =>{
     e.preventDefault();
     dispatch(addBiddingBookingData(data));
+    dispatch(actionToUpdateUserNotificationData({data:userInfo.notifications,key:key}));
     history.push(`/tabs/dashboard/bidding`);
   }
 
@@ -42,7 +43,7 @@ const Notification: React.FC<NotificationProps> = ({match,history}) => {
       let notification = userInfo.notifications[key];
      if(notification.details != undefined && notification.details.pickupPoint != undefined) {
       content.push(<div key={i} className="notification_detail_container_loop">
-         <div onClick={(e)=>openBiddingPage(e,notification.details)} className="">
+         <div onClick={(e)=>openBiddingPage(e,notification.details,key)} className="">
          <IonRow>
            <IonCol size="2">
               <div className="notification_booking_sudo_profile_div">

@@ -9,6 +9,7 @@ import { actionToGerSelectedUserCarData, actionToSetEditUserData, actionToUpdate
 import UpdateUserCarData from '../AddUserCar/UpdateUserCarData';
 import $ from 'jquery';
 import NoDataFound from '../../../components/NoDatFound/NoDataFound';
+import moment from 'moment';
 
 const UserDataList: React.FC<RouteComponentProps> = ({match, history}) => {
   const {userData} = useSelector((state:RootStateOrAny) => state.allUserData);
@@ -67,6 +68,8 @@ const UserDataList: React.FC<RouteComponentProps> = ({match, history}) => {
         name:data.name,
         password:data.password,
         role:data.role,
+        notifications:data.notifications,
+        balance:{date:moment(new Date()).valueOf(),balance:Number(e.target.value)},
         deviceToken:data.deviceToken,
       }
       dispatch(actionToUpdateUserData(userUpdateData));
@@ -181,7 +184,9 @@ const UserDataList: React.FC<RouteComponentProps> = ({match, history}) => {
                               -
                               </IonCol>
                             <IonCol size="6">
-                              <input className="user_balance_input_data" onBlur={(e)=>updateUserBalanceData(e,user)} type="number"/>
+                              <input className="user_balance_input_data" onBlur={(e)=>updateUserBalanceData(e,user)}
+                              value={(user.balance != undefined) ? user.balance.balance : 0}
+                              type="number"/>
                             </IonCol>
                           </IonRow>
                           </div> 

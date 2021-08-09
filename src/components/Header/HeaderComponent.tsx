@@ -48,6 +48,11 @@ const HeaderComponent: React.FC<ContainerProps> = (match) => {
           <IonCol>
             {(match.title != 'My Bids') ?              
             <div className="notification_bell_icon" onClick={()=>history.push('/tabs/dashboard/notification')}>
+              {Object.keys(userInfo.notifications) && Object.keys(userInfo.notifications).length ?
+                <div className="show_notification_count_icon">
+                  {Object.keys(userInfo.notifications).length}
+                </div>:''
+              }
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.379 16.913A6.7 6.7 0 0 1 19 11.788V9c0-3.519-2.614-6.432-6-6.92V1a1 1 0 1 0-2 0v1.08C7.613 2.568 5 5.481 5 9v2.788c0 1.979-.867 3.847-2.388 5.133-.389.333-.612.817-.612 1.329 0 .965.785 1.75 1.75 1.75h16.5c.965 0 1.75-.785 1.75-1.75 0-.512-.223-.996-.621-1.337zM12 24c1.811 0 3.326-1.291 3.674-3H8.326c.348 1.709 1.863 3 3.674 3z"/></svg>
            </div>
             :''}

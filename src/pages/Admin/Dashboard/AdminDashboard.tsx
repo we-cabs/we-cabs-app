@@ -4,16 +4,18 @@ import { useDispatch,useSelector,RootStateOrAny } from 'react-redux';
 import './AdminDashboard.css';
 import AdminHeaderComponent from '../../../components/Admin/AdminHeader/AdminHeaderComponent';
 import { RouteComponentProps } from 'react-router';
-import { actionToGetAllUserData } from '../../../actions/UserAction';
+import { actionToGetAllUserData,actionToGetUserDataById } from '../../../actions/UserAction';
 import { actionToGetBookingData } from '../../../actions/BookingAction';
 import { actionToGetAllBookingDetailData } from '../../../actions/AdminAction';
 
 const AdminDashboard: React.FC<RouteComponentProps> = ({match, history}) => {
 
     const dispatch = useDispatch();
+    const {userInfo} = useSelector((state:RootStateOrAny) => state.userSignin);
     useEffect(()=>{
         dispatch(actionToGetBookingData());
         dispatch(actionToGetAllUserData());
+        dispatch(actionToGetUserDataById(userInfo.userId)); 
         dispatch(actionToGetAllBookingDetailData());
     },[])
     return (

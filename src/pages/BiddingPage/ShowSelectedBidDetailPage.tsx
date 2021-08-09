@@ -1,83 +1,13 @@
-import React,{useEffect, useState} from 'react';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonRow,IonCol, IonButton } from '@ionic/react'
+import React from 'react';
+import { IonPage, IonContent, IonRow,IonCol, IonButton } from '@ionic/react'
 import SubPageHeaderComponent from '../../components/Header/SubPageHeaderComponent';
-import { useDispatch, useSelector,RootStateOrAny } from 'react-redux';
+import {  useSelector,RootStateOrAny } from 'react-redux';
 import './BiddingPage.css';
 import { RouteComponentProps } from 'react-router';
 import { _convertUnixToDateTimeFormat } from '../../hooks/DateTimeConverter';
-import { actionToAddBiddingData } from '../../actions/BiddingAction';
-import moment from 'moment';
 
-let interValFunc:any = null;
-const ShowSelectedBidDetailPage: React.FC<RouteComponentProps> = ({match,history}) => {
+const ShowSelectedBidDetailPage: React.FC<RouteComponentProps> = () => {
     const biddingData = useSelector((state:RootStateOrAny) => state.biddingData);
-    const [bidValue,setBidValue] = useState(0);
-    const [biddingSuccessPopup,setBiddingSuccessPopup] = useState(false);
-
-    const [bidDate,setBidDate] = useState(0);
-    const [bidHour,setBidHour] = useState(0);
-    const [bidMin,setBidMin] = useState(0);
-    const [bidSec,setBidSec] = useState(0);
-    
-    const [carPlate,setCarPlate] = useState('');
-    const {cars} = useSelector((state:RootStateOrAny) => state.carData);
-    const {userInfo} = useSelector((state:RootStateOrAny) => state.userSignin);
-    const dispatch = useDispatch();
-    const callToPlaceYourBid = () => {
-      let payload = {
-        linkedUserId:userInfo.phone,
-        linkedBookingId:biddingData.bookingId,
-        amount:bidValue,
-        carPlate:carPlate,
-        linkedUserRating:0.2,
-        status:'pending'
-      };
-
-      setBiddingSuccessPopup(true);
-      dispatch(actionToAddBiddingData(payload));
-    }
-
-    useEffect(()=>{
-      if(biddingData.basePrice){
-        setBidValue(biddingData.basePrice);
-      }
-      if(biddingData.expiryTime){
-        var countDownDate = new Date(moment(new Date(biddingData.expiryTime)).utc().format("YYYY-MM-DD HH:mm")).getTime();
-  
-
-        interValFunc = setInterval(function() {
-       
-          var now = new Date().getTime();
-          var timeleft = countDownDate - now;
-
-          var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
-          var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
-          var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
-
-          setBidDate(days);
-          setBidHour(hours);
-          setBidMin(minutes);
-          setBidSec(seconds);
-
-          if (timeleft < 0) {
-            clearInterval(interValFunc);
-            setBidDate(0);
-            setBidHour(0);
-            setBidMin(0);
-            setBidSec(0);
-          }
-
-        
-       }, 1000)
-      }
-    },[biddingData])
-
-    const setBiddingValue = (val:any) =>{
-      if(!isNaN(Number(val))){
-        setBidValue(Number(val));
-      }
-    }
 
   return (
     <IonPage>
@@ -185,7 +115,9 @@ const ShowSelectedBidDetailPage: React.FC<RouteComponentProps> = ({match,history
                    </div>
                  </IonCol>
              </IonRow>
-             <IonRow className="booking_row_section_custmor">
+             {(biddingData.notes != undefined && biddingData.notes) ? 
+             <>
+             <IonRow className="booking_row_section_custmor">        
              <IonCol size="12">
                <svg className="booking_svg_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.453 18.453" fill="#030104"><path d="M2.711 4.058h8.23v1.334h-8.23zm12.261 10.03c.638-1.127.453-2.563-.475-3.49a2.89 2.89 0 0 0-2.058-.852 2.89 2.89 0 0 0-2.911 2.911 2.9 2.9 0 0 0 .852 2.059c.549.547 1.279.85 2.057.85a2.91 2.91 0 0 0 1.434-.375l3.262 3.262 1.101-1.102-3.262-3.263zm-1.308-.207a1.78 1.78 0 0 1-2.448 0c-.675-.676-.675-1.773 0-2.449a1.72 1.72 0 0 1 1.225-.506 1.72 1.72 0 0 1 1.731 1.731 1.72 1.72 0 0 1-.508 1.224zm-.332 2.419H1.857a.33.33 0 0 1-.329-.328V1.638a.33.33 0 0 1 .329-.329h11.475c.182 0 .328.147.328.329V8.95a3.43 3.43 0 0 1 1.31.597V1.638A1.64 1.64 0 0 0 13.332 0H1.857A1.64 1.64 0 0 0 .219 1.638v14.334a1.64 1.64 0 0 0 1.638 1.637h11.475c.685 0 1.009-.162 1.253-.76l-.594-.594c-.219.092-.565.045-.659.045zM2.711 7.818h8.23v1.334h-8.23z"/></svg>
                <div className="booking_pickup_point">
@@ -196,7 +128,9 @@ const ShowSelectedBidDetailPage: React.FC<RouteComponentProps> = ({match,history
                </div>
              </IonCol>           
          </IonRow>
-         {(biddingData.customerDetails != undefined && biddingData.customerDetails.detail != undefined) ? 
+          </>
+          :''}
+         {(biddingData.bidStatus != 'undefined' && biddingData.bidStatus == 'approved' && biddingData.customerDetails != undefined && biddingData.customerDetails.detail != undefined && biddingData.customerDetails.detail) ? 
              <IonRow className="booking_row_section_custmor">
              <IonCol size="12">
                <svg className="booking_svg_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.453 18.453" fill="#030104"><path d="M2.711 4.058h8.23v1.334h-8.23zm12.261 10.03c.638-1.127.453-2.563-.475-3.49a2.89 2.89 0 0 0-2.058-.852 2.89 2.89 0 0 0-2.911 2.911 2.9 2.9 0 0 0 .852 2.059c.549.547 1.279.85 2.057.85a2.91 2.91 0 0 0 1.434-.375l3.262 3.262 1.101-1.102-3.262-3.263zm-1.308-.207a1.78 1.78 0 0 1-2.448 0c-.675-.676-.675-1.773 0-2.449a1.72 1.72 0 0 1 1.225-.506 1.72 1.72 0 0 1 1.731 1.731 1.72 1.72 0 0 1-.508 1.224zm-.332 2.419H1.857a.33.33 0 0 1-.329-.328V1.638a.33.33 0 0 1 .329-.329h11.475c.182 0 .328.147.328.329V8.95a3.43 3.43 0 0 1 1.31.597V1.638A1.64 1.64 0 0 0 13.332 0H1.857A1.64 1.64 0 0 0 .219 1.638v14.334a1.64 1.64 0 0 0 1.638 1.637h11.475c.685 0 1.009-.162 1.253-.76l-.594-.594c-.219.092-.565.045-.659.045zM2.711 7.818h8.23v1.334h-8.23z"/></svg>

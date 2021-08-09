@@ -186,6 +186,8 @@ export const actionToUpdateUserData = (payload:any) => async (dispatch:any) => {
         "name": payload.name,
         "location":payload.location,
         "password":payload.password,
+        "notifications":payload.notifications,
+        "balance":payload.balance,
         "role":payload.role,
         "images":{doc:userDocImages},
         "deviceToken":payload.deviceToken,

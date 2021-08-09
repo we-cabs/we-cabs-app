@@ -5,7 +5,7 @@ import { useDispatch,useSelector,RootStateOrAny} from 'react-redux';
 import HeaderComponent from '../../components/Header/HeaderComponent';
 import './DashboardPage.css';
 import VideoAndLogoFooter from '../../components/Footers/VideoAndLogoFooter';
-import { actionToGetUserCar, actionToGetUserDeviceToken } from '../../actions/UserAction';
+import { actionToGetUserCar, actionToGetUserDeviceToken,actionToGetUserDataById } from '../../actions/UserAction';
 import { actionToGetBidByUserId } from '../../actions/BiddingAction';
 import { actionToGetBookingData } from '../../actions/BookingAction';
 
@@ -26,6 +26,7 @@ const DashboardPage: React.FC<RouteComponentProps> = ({history}) => {
 
   useEffect(()=>{
     dispatch(actionToGetBookingData(1));
+    dispatch(actionToGetUserDataById(userInfo.phone)); 
     dispatch(actionToGetUserCar(userInfo.phone));
     dispatch(actionToGetBidByUserId(userInfo.phone));
     callActionToSendPushNotification();

@@ -19,7 +19,7 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
   const [dropPoint, setDropPoint] = useState<string>("");
   const [pickupTime, setPickUpTime] = useState<string>("");
   const [carType, setCarType] = useState<string>("Sedan");
-  const [tripType, setTripType] = useState<string>("");
+  const [tripType, setTripType] = useState<string>("oneway");
   const [distance, setDistance] = useState<number>(0);
   const [expiryTime, setExpiryTime] = useState<string>("");
   const [customerDetail, setCustomerDetail] = useState<string>("");
@@ -31,11 +31,11 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
     setPickUpPoint('');
     setDropPoint('');
     setPickUpTime('');
-    setCarType('');
+    setCarType('Sedan');
     setDistance(0);
     setMaxAmount(0);
     setExpiryTime('');
-    setTripType('');
+    setTripType('oneway');
     setCustomerDetail('');
     setTripNote('');
   }

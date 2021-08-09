@@ -8,7 +8,7 @@ import AdminSubHeader from '../../../components/Admin/AdminHeader/AdminSubHeader
 import { _convertUnixToDateTimeFormat } from '../../../hooks/DateTimeConverter';
 import Loader from '../../../components/Loader/Loader';
 import NoDataFound from '../../../components/NoDatFound/NoDataFound';
-import { actionToUpdateBooking,actionToUpdateBidding, actionToSortByBidData } from '../../../actions/BookingAction';
+import { actionToUpdateBooking,actionToUpdateBidding, actionToSortByBidData,actionToSendAlotNotification } from '../../../actions/BookingAction';
 
 interface BookingBidsProps extends RouteComponentProps<{
     bookingData: string;
@@ -33,6 +33,8 @@ const BookingBids: React.FC<BookingBidsProps> = ({match,history}) => {
     payload.allottedBidId = bidData.bidId;
     payload.allottedUserId = bidData.linkedUserId;
     dispatch(actionToUpdateBooking(payload));
+    dispatch(actionToSendAlotNotification(payload));
+    
     let bidPayload = cloneDeep(bidData);
     bidPayload.status = 'approved';
     dispatch(actionToUpdateBidding(bidPayload));

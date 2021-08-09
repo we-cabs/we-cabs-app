@@ -8,7 +8,6 @@ export function pushNotification(dispatch:any,state:any){
  PushNotifications.register();
     PushNotifications.addListener('registration',
     (token: PushNotificationToken) => {
-     console.log(token.value);
      let userData = state.userSignin.userInfo;
      userData.deviceToken = token.value;
      dispatch(actionToUpdateUserData(userData));

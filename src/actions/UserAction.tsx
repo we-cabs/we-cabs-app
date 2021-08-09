@@ -53,6 +53,24 @@ export const signin = (loginData:any) => async (dispatch:any) => {
     });
   }
 };
+export const actionToGetUserDataById = (id:any) => async (dispatch:any) => {
+  try {
+    api.get(`/user/${id}`).then(user=>{
+      let userData = user.data;
+
+      dispatch({ type: USER_SIGNIN_SUCCESS, payload: userData });
+      localStorage.setItem('userInfo',JSON.stringify(userData));
+    })
+  } catch (error) {
+    dispatch({
+      type: USER_SIGNIN_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+}
 export const actionToGetUserCar = (id:any,isLoading = 1) => async (dispatch:any) => {
   if(isLoading)
   dispatch({ type: USER_CAR_REQUEST });

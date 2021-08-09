@@ -1,6 +1,5 @@
 .booking_detail_list_scroll{
     height: calc(100vh - 166px)!important;
-    padding: 15px;
     overflow: auto;
     background: white!important;
 }
@@ -83,7 +82,7 @@
     position: absolute;
     font-size: 11px;
     text-align: center;
-    font-family: unset;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: 700;
 }
 .booking_detail_op {
@@ -96,7 +95,7 @@
     font-weight: 600;
     letter-spacing: 0px;
     color: #807d7d;
-    font-family: inherit;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 span.booking_hr {
     background: #dcdcdc;
@@ -108,7 +107,7 @@ span.booking_hr {
 .booking_detail_box .booking_box_heading {
 
     font-size: 13px;
-    font-family: -webkit-pictograph;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     color: #7b7b7b;
     font-weight: 600;
 }
@@ -176,9 +175,6 @@ ion-button.book_or_bid_button {
     z-index: 9;
 }
 
-.filter_section_input {
-    /* margin-top: 17px; */
-}
 .filter_booking_section_input {
     width: 100%;
     padding: 4px;
@@ -220,4 +216,187 @@ ion-button.book_or_bid_button {
     font-size: 14px;
     width: 93%;
     height: 24px;
+}
+.booking_header_section_banner {
+    background: black;
+    color: white;
+    text-align: right;
+    font-size: 12px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 600;
+    height: 29px;
+}
+.booking_header_section_banner div {
+    overflow: hidden;
+    max-width: 76px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.booking_header_section_right_arrow {
+    display: inline-block;
+    height: auto;
+    background-color: white;
+    cursor: pointer;
+    font-size: 12px;
+    color: #676767;
+    padding-top: 8px;
+    font-weight: 600;
+}
+.avialable_booking_main_parent_section_loop_padding {
+    padding: 7px 12px;
+    box-shadow: 0px 0px 20px 5px #cccccc73;
+}
+.booking_header_section_right_arrow::after{
+    width: 0;
+    height: 0;
+    position: absolute;
+    right:0;
+    top: 0;
+    border-top: 14px solid black;
+    border-bottom: 15px solid black;
+    border-left: 15px solid white;
+    content: "";
+}
+.booking_header_second_location_connect_row {
+    height: 33px;
+}
+.avialable_booking_main_parent_section_loop {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+.booking_header_second_location_connect_row .pick_point_dot {
+    border: 1px solid #ccc;
+    display: inline-flex;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    padding: 2px;
+}
+.booking_header_second_location_connect_row .pick_point_dot .pick_point_dot_inner {
+    background: rgb(155, 155, 155);
+    width: 6px;
+    border-radius: 50%;
+    height: 6px;
+}
+.booking_header_second_location_connect_row .pick_point_inner_line_collection {
+    display: inline-flex;
+    width: 100%;
+    height: 2px;
+    background: #d8d8d8;
+    margin-bottom: 2px;
+}
+.booking_header_second_location_connect_row .pick_point_svg_location svg {
+    fill: var(--theme-color,rgb(218, 39, 46))!important;
+    width: 13px;
+    margin-top: 4px;
+}
+.booking_header_second_location_connect_second_row .pick_point_dot_text {
+    color: #717171;
+    font-size: 12px;   
+    font-weight: 600;
+}
+.booking_header_second_location_connect_second_row .pick_point_svg_location_text {
+    color: #717171;
+    text-align: right;
+    font-size: 12px;
+    font-weight: 600;
+}
+.booking_third_row_main_section {
+    border: 1px solid #ccc;
+}
+.booking_third_row_main_section_first_row.grey{
+    background: #f7f7f7;
+}
+.booking_third_row_main_section_first_row.white{
+    background: white
+}
+.booking_third_row_main_section_first_col1 {
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    padding: 13px;
+}
+.booking_third_row_main_section_first_col2 {
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    padding: 13px;
+}
+.booking_third_row_main_section_first_col3 {
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    padding: 13px;
+}
+.booking_third_row_main_section_first_col1 .rupee_icon_booking svg {
+    fill: var(--theme-color,rgb(218, 39, 46))!important;
+    width: 10px;
+}
+.booking_third_row_main_section_first_col1 .row_svg_rupee_note_icon svg {
+    fill: #a9a9a9;
+    width: 50px;
+}
+.booking_third_row_main_section_first_col1 .row_svg_rupee_note_icon {
+    margin-bottom: 7px;
+}
+.booking_third_row_main_section_first_col2 .row_svg_rupee_note_icon svg {
+    fill: #a9a9a9;
+    width: 30px;
+}
+.booking_header_section_banner div svg {
+    width: 10px;
+    fill: white;
+    margin-left: 4px;
+}
+.booking_third_row_main_section_first_col2 .row_svg_rupee_note_icon {
+    margin-bottom: 7px;
+}
+
+.booking_third_row_main_section_first_col3 .row_svg_rupee_note_icon svg {
+    fill: #a9a9a9;
+    width: 25px;
+}
+.booking_third_row_main_section_first_col3 .row_svg_rupee_note_icon {
+    margin-bottom: 7px;
+}
+
+.rupee_icon_booking {
+    font-size: 13px;
+    color: #4e4e4e;
+    font-weight: 600;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.booking_third_row_main_section_first_row .booking_text_toll_col {
+    text-align: center;
+    padding: 7px 11px;
+    font-size: 12px;
+    color: #717171;
+    font-weight: 600;
+}
+.booking_third_row_main_section_second_row .booking_text_toll_col svg{
+    fill: #a9a9a9;
+    width: 15px;
+    margin-right: 7px;
+    margin-bottom: -3px;
+}
+.booking_third_row_main_section_second_row .booking_text_toll_col{
+    color: #717070;
+    font-size: 13px;
+    font-weight: 600;
+}
+.booking_third_row_main_section_second_row {
+    padding: 11px 0px;
+}
+.booking_third_row_main_section_second_row .booking_text_pick_time_div {
+    font-size: 13px;
+    color: var(--theme-color,rgb(218, 39, 46))!important;
+    font-weight: 600;
+}
+.booking_third_row_main_section_third_row button.make_bid_button {
+    width: 100%;
+    height: 37px;
+    background: var(--theme-color,rgb(218, 39, 46))!important;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
 }

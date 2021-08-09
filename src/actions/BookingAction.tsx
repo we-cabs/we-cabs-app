@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import { cloneDeep } from 'lodash';
-import { BIDDING_DETAIL_BY_BOOKING_ID_FAIL, BIDDING_DETAIL_BY_BOOKING_ID_REQUEST, BIDDING_DETAIL_BY_BOOKING_ID_SUCCESS, BOOKING_DETAIL_FOR_EDIT } from '../constants/BiddingConstants';
+import { BIDDING_DETAIL_BY_BOOKING_ID_FAIL, BIDDING_DETAIL_BY_BOOKING_ID_REQUEST, BIDDING_DETAIL_BY_BOOKING_ID_SUCCESS, BIDDING_DETAIL_BY_USER_ID_SUCCESS, BOOKING_DETAIL_FOR_EDIT } from '../constants/BiddingConstants';
 import { BOOKING_DATA_FILTER, BOOKING_DETAIL_FAIL, BOOKING_DETAIL_REQUEST, BOOKING_DETAIL_SUCCESS, UPDATE_CAR_DATA } from '../constants/BookingConstants';
 import { pushNotification } from './PushNotificationHelper';
 const api = Axios.create({
@@ -14,7 +14,15 @@ export const actionToGetBookingData = (isLoad = 1) => async (dispatch:any) => {
   try {
     const response = await api.get('/booking');
     dispatch({ type: BOOKING_DETAIL_SUCCESS, payload: response.data.bookings });
-    dispatch(actionToSetAllBookingFilters(response.data.bookings));
+    let boookingDetails = response.data.bookings;
+    boookingDetails.sort()
+    boookingDetails.sort(function(a:any,b:any){
+      // Turn your strings into dates, and then subtract them
+      // to get a value that is either negative, positive, or zero.
+      return b.submittedAt - a.submittedAt;
+    });
+    
+    dispatch(actionToSetAllBookingFilters(boookingDetails));
 
   } catch (error) {
     dispatch({ type: BOOKING_DETAIL_FAIL, payload: error });
@@ -46,6 +54,7 @@ export const actionToSetAllBookingFilters = (bookingData:any) => async (dispatch
 export const addBookingData = (payload:any) => async (dispatch:any) => {
   try {
     const response = await api.post('/booking',payload);
+    payload.notificationType = 'booking';
     let newNotification = {
       location:payload.pickupPoint,
       details:payload,
@@ -57,6 +66,17 @@ export const addBookingData = (payload:any) => async (dispatch:any) => {
   } catch (error) {
      console.log(error);
   }
+};
+export const editStartStopTripLocally = (payload:any) => async (dispatch:any,getState:any) => {
+  let bookingData = cloneDeep(getState().biddingDetailByUserId.bidData);
+  if(bookingData != undefined && bookingData.length){
+    bookingData.map((bidData:any,index:any)=>{
+      if(bidData.bookingId == payload.bookingId){
+        bookingData[index] = payload;
+      }
+    })
+  }
+  dispatch({ type: BIDDING_DETAIL_BY_USER_ID_SUCCESS, payload: cloneDeep(bookingData)});
 };
 
 export const addDetailToGetBookingData = (payload:any) => async (dispatch:any) => {
@@ -72,6 +92,25 @@ export const actionToUpdateBooking = (payload:any) => async (dispatch:any) => {
   api.post('/booking',payload).then((res)=>{
     dispatch(actionToGetBookingData(0));
   })
+};
+export const actionToSendAlotNotification = (payload:any) => async (dispatch:any) => {
+  console.log(payload)
+  payload.notificationType = 'allot';
+
+  let notifications = {
+    location:payload.pickupPoint,
+    details:payload,
+  }
+
+  try {
+    api.get(`/user/${payload.allottedUserId}`).then(user=>{
+      let userData = user.data;
+      userData.notifications[payload.allottedBidId] = notifications;
+      api.post('/user',userData);
+    })
+  } catch (error) {
+    console.log(error);
+  }
 };
 export const actionToUpdateBidding = (payload:any) => async (dispatch:any,useState:any) => {
   api.post('/bid',payload);
