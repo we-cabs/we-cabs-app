@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import { cloneDeep } from 'lodash';
 import {
   ALL_USER_DATA_FAIL,
   ALL_USER_DATA_REQUEST,
@@ -58,7 +59,7 @@ export const actionToGetUserDataById = (id:any) => async (dispatch:any) => {
     api.get(`/user/${id}`).then(user=>{
       let userData = user.data;
 
-      dispatch({ type: USER_SIGNIN_SUCCESS, payload: userData });
+      dispatch({ type: USER_SIGNIN_SUCCESS, payload: cloneDeep(userData) });
       localStorage.setItem('userInfo',JSON.stringify(userData));
     })
   } catch (error) {

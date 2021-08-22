@@ -1,5 +1,6 @@
 import { Plugins, PushNotification, PushNotificationToken, PushNotificationActionPerformed } from '@capacitor/core';
 import { actionToUpdateUserData } from './AdminAction';
+import { actionToGetUserDataById } from './UserAction';
 const { PushNotifications } = Plugins;
 
 export function pushNotification(dispatch:any,state:any){
@@ -20,18 +21,16 @@ export function pushNotification(dispatch:any,state:any){
     }
 );
 // // Show us the notification payload if the app is open on our device
-// PushNotifications.addListener('pushNotificationReceived',
-//     (notification: PushNotification) => {
-//     let notif = payload.notifications;
-//     notif.push({ id: notification.id, title: notification.title, body: notification.body })
-//     }
-// );
+PushNotifications.addListener('pushNotificationReceived',
+    (notification: PushNotification) => {
+        dispatch(actionToGetUserDataById(state.userSignin.userInfo.phone)); 
+    }
+);
 
 // // Method called when tapping on a notification
-// PushNotifications.addListener('pushNotificationActionPerformed',
-//     (notification: PushNotificationActionPerformed) => {
-//     let notif = payload.notifications;
-//     notif.push({ id: notification.notification.data.id, title: notification.notification.data.title, body: notification.notification.data.body })
-//     }
-// );
+PushNotifications.addListener('pushNotificationActionPerformed',
+    (notification: PushNotificationActionPerformed) => {
+        dispatch(actionToGetUserDataById(state.userSignin.userInfo.phone)); 
+    }
+);
 }
