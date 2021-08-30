@@ -5,7 +5,7 @@ import './SelectBidForBooking.css';
 import AdminSubHeader from '../../../components/Admin/AdminHeader/AdminSubHeader';
 import { useDispatch, useSelector,RootStateOrAny } from 'react-redux';
 import Select from 'react-select';
-import { actionToGetBidingDataByBooking, actionToSetEditByBooking, actionToUpdateBooking } from '../../../actions/BookingAction';
+import { actionToGetBidingDataByBooking, actionToParmanentDeleteBooking, actionToSetEditByBooking, actionToUpdateBidding, actionToUpdateBooking } from '../../../actions/BookingAction';
 import Loader from '../../../components/Loader/Loader';
 import cloneDeep from 'lodash/cloneDeep';
 import moment from 'moment';
@@ -25,6 +25,9 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
   const {booking,loading} = useSelector((state:RootStateOrAny) => state.bookingDetails);
   const [bookingClone,setBookingClone] = useState<any>(booking);
   const [showHideBookingFilter,setShowHideBookingFilter] = useState(false);
+  const [selectedBid,setSelectedBid] = useState('');
+
+  const [onSubmit,setOnSubmit] = useState(false);
 
   const [noDataFound,setNoDataFound] = useState(false);
   const [searchTextData,setSearchTextData] = useState('');
@@ -170,14 +173,20 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
             </div>
           </IonCol>
         </IonRow>
+       
         <IonRow>
-           <IonCol className="bid_action_column_section" size="6">
+           <IonCol className="bid_action_column_section" size="4">
              <button onClick={()=>openEditBookingPage(data)} className="bid_ammount_max_price_button">
                 Edit
              </button>
           </IonCol>
-          <IonCol className="bid_action_column_section" size="6">
-             <button onClick={()=>callActionToGetBidingDataByBooking(data)} className="make_bid_button">Biddings</button>
+          <IonCol className="bid_action_column_section" size="5">
+             <button onClick={()=>callActionToGetBidingDataByBooking(data)} className="make_bid_button">Biddings</button>       
+          </IonCol>
+          <IonCol className="bid_action_column_section" size="3">
+             <button onClick={()=>{setSelectedBid(data.bookingId); setOnSubmit(true)}} className="make_bid_button">
+               Delete
+             </button>           
           </IonCol>
         </IonRow>
       </div> 
@@ -212,9 +221,35 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
      setBookingClone(cloneDeep(bookingData));
     }
    },[booking]);
-
+   const callActionToDeleteBooking = (id:any) =>{
+    setOnSubmit(false);
+    dispatch(actionToParmanentDeleteBooking(id));
+   }
   return (
     <IonPage>
+       <IonAlert
+            isOpen={onSubmit}
+            onDidDismiss={() => setOnSubmit(false)}
+            cssClass='my-custom-class'
+            header={'Are you sure?'}
+            message={'You want to permanent delete this booking with all bidings.'}
+            buttons={[
+              {
+                text: 'Cancel',
+                role: 'cancel',
+                cssClass: 'secondary',
+                handler: blah => {
+              
+                }
+              },
+              {
+                text: 'Okay',
+                handler: () => {
+                  callActionToDeleteBooking(selectedBid);
+                }
+              }
+          ]}
+        />
         <AdminSubHeader title={"Bookings"}/>
        <IonContent scrollEvents={true} onIonScroll={scrollProfileContent}>
         <div className={isFixedSubHeader ? "booking_filter_class fixed" : 'booking_filter_class'}>

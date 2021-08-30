@@ -9,6 +9,10 @@ import { _convertUnixToDateTimeFormat } from '../../../hooks/DateTimeConverter';
 import Loader from '../../../components/Loader/Loader';
 import NoDataFound from '../../../components/NoDatFound/NoDataFound';
 import { actionToUpdateBooking,actionToUpdateBidding, actionToSortByBidData,actionToSendAlotNotification } from '../../../actions/BookingAction';
+import { actionToSendUserBalanceData } from '../../../actions/AdminAction';
+
+import { Plugins} from '@capacitor/core';
+const { PushNotification } = Plugins;
 
 interface BookingBidsProps extends RouteComponentProps<{
     bookingData: string;
@@ -38,6 +42,33 @@ const BookingBids: React.FC<BookingBidsProps> = ({match,history}) => {
     let bidPayload = cloneDeep(bidData);
     bidPayload.status = 'approved';
     dispatch(actionToUpdateBidding(bidPayload));
+
+    let channelId = Math.random().toString();
+    PushNotification.createChannel(
+    {
+      channelId: channelId, // (required)
+      channelName: "My channel", // (required)
+      channelDescription: "A channel to categorise your notifications", // (optional) default: undefined.
+      soundName: "android.resource://com.wecab.app/raw/notification.wav", // (optional) See `soundName` parameter of `localNotification` function
+      importance: 4, // (optional) default: 4. Int value of the Android notification importance
+      vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
+    } // (optional) callback returns whether the channel was created, false means it already existed.
+  );
+
+    let notification = {
+      "message": {
+          "notification": {
+              "title": "Wecab Booking Alloted",
+              "body": "Booking alloted to you for pickup point "+bookingData.pickupPoint,
+              "data": "",
+              "click_action":"FCM_PLUGIN_ACTIVITY",
+              "icon":"ic_launcher_round",
+              "channelId":channelId,
+          }
+      }
+  }
+
+    dispatch(actionToSendUserBalanceData(bidData.linkedUserId,notification));
   }
   
   const callActionToRemoveBookingBooking = (bidData:any) =>{

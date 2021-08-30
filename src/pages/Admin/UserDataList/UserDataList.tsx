@@ -5,16 +5,22 @@ import './UserDataList.css';
 import { RouteComponentProps } from 'react-router';
 import AdminSubHeader from '../../../components/Admin/AdminHeader/AdminSubHeader';
 import Loader from '../../../components/Loader/Loader';
-import { actionToGerSelectedUserCarData, actionToSetEditUserData, actionToUpdateUserData ,actionToUpdatedUserImageUrl,actionToUpdatedUserDocImageUrl} from '../../../actions/AdminAction';
+import { actionToGerSelectedUserCarData, actionToSetEditUserData, actionToUpdateUserData ,actionToUpdatedUserImageUrl,actionToUpdatedUserDocImageUrl, actionToSendUserBalanceData} from '../../../actions/AdminAction';
 import UpdateUserCarData from '../AddUserCar/UpdateUserCarData';
 import $ from 'jquery';
 import NoDataFound from '../../../components/NoDatFound/NoDataFound';
 import moment from 'moment';
+import { Plugins} from '@capacitor/core';
+const { PushNotifications } = Plugins;
 
 const UserDataList: React.FC<RouteComponentProps> = ({match, history}) => {
-  const {userData} = useSelector((state:RootStateOrAny) => state.allUserData);
+  let {userData} = useSelector((state:RootStateOrAny) => state.allUserData);
   const [noDataFound,setNoDataFound] = useState(false);
+  const [userBalanceDataInput,setUserBalanceDataInput] = useState('');
   const [searchTextData,setSearchTextData] = useState('');
+  const [userBalanceData,setUserBalanceData] = useState(0);
+
+  
 
   const dispatch = useDispatch();
     const getUserCarsData = (id:any) =>{
@@ -53,26 +59,76 @@ const UserDataList: React.FC<RouteComponentProps> = ({match, history}) => {
       }
     }
     }
-    const updateUserBalanceData = (e:any,data:any)=>{
-      dispatch(actionToUpdatedUserImageUrl(data.profileImgUrl));
-      let newDocImages = [];
-      if(data.images.doc != undefined)
-          newDocImages = data.images.doc;
-      dispatch(actionToUpdatedUserDocImageUrl(newDocImages));
-      const userUpdateData = {
-        userId:data.userId,
-        phone:data.phone,
-        location:data.location,
-        approvalStatus:data.approvalStatus,
-        email:data.email,
-        name:data.name,
-        password:data.password,
-        role:data.role,
-        notifications:data.notifications,
-        balance:{date:moment(new Date()).valueOf(),balance:Number(e.target.value)},
-        deviceToken:data.deviceToken,
-      }
-      dispatch(actionToUpdateUserData(userUpdateData));
+    const setUserBalanceDataInputOnClick = (user:any) =>{
+      if(user.balance != undefined){
+        setUserBalanceDataInput(user.userId);
+        setUserBalanceData(user.balance.balance);
+       }else{
+        setUserBalanceDataInput(user.userId);
+         let a = 0;
+         setUserBalanceData(a);
+       }
+    }
+    const setUserBalance = (val:any) =>{
+      setUserBalanceData(val);
+    }
+    const updateUserBalanceData = async (data:any)=>{
+      console.log('updateUserBalanceData')
+      if(userBalanceData != data.balance.balance){
+          dispatch(actionToUpdatedUserImageUrl(data.profileImgUrl));
+          let newDocImages = [];
+          if(data.images.doc != undefined)
+              newDocImages = data.images.doc;
+          dispatch(actionToUpdatedUserDocImageUrl(newDocImages));
+          const userUpdateData = {
+            userId:data.userId,
+            phone:data.phone,
+            location:data.location,
+            approvalStatus:data.approvalStatus,
+            email:data.email,
+            name:data.name,
+            password:data.password,
+            role:data.role,
+            notifications:data.notifications,
+            balance:{date:moment(new Date()).valueOf(),balance:Number(userBalanceData)},
+            deviceToken:data.deviceToken,
+          }
+          dispatch(actionToUpdateUserData(userUpdateData));
+          PushNotifications.createChannel({
+            description: 'General Notifications',
+            id: 'fcm_default_channel',
+            importance: 5,
+            lights: true,
+            name: 'My notification channel',
+            sound: 'notification.wav',
+            vibration: true,
+            visibility: 1
+        }).then(()=>{
+            console.log('push channel created: ');
+
+            let notification = {
+              "message": {
+                  "notification": {
+                      "title": "Wecab Wallet Balance Updated",
+                      "body": `Yor wallet balance updated to ${userBalanceData}`,
+                      "data": "",
+                      "sound": 'notification.wav',
+                      "android_channel_id":'fcm_default_channel',
+                      "click_action":"FCM_PLUGIN_ACTIVITY",
+                      "icon":"ic_launcher_round"
+                  },                 
+              }
+          }
+
+          dispatch(actionToSendUserBalanceData(data.userId,notification));
+          setUserBalanceDataInput('');
+          setUserBalanceData(0);
+
+        }).catch(error =>{
+            console.error('push channel error: ', error);
+        });
+      
+    }
     }
 
 
@@ -184,9 +240,20 @@ const UserDataList: React.FC<RouteComponentProps> = ({match, history}) => {
                               -
                               </IonCol>
                             <IonCol size="6">
-                              <input className="user_balance_input_data" onBlur={(e)=>updateUserBalanceData(e,user)}
-                              value={(user.balance != undefined) ? user.balance.balance : 0}
-                              type="number"/>
+                              {userBalanceDataInput == user.userId ? 
+                                       <input className="user_balance_input_data 1"                               
+                                       value={userBalanceData}                                      
+                                       onChange={(e)=>setUserBalance(e.target.value)}
+                                       type="number"/>                           
+                                  :
+                                      <input className="user_balance_input_data 2"
+                                      value={(user.balance != undefined) ? user.balance.balance : 0}
+                                      onClick={()=>setUserBalanceDataInputOnClick(user)}
+                                      type="number"/>                   
+                                }
+                                &nbsp;&nbsp;
+                                <button onClick={(e)=>updateUserBalanceData(user)} className="add_wallet_balance_class">Add</button>
+                            
                             </IonCol>
                           </IonRow>
                           </div> 

@@ -1,6 +1,6 @@
 {
   "appId": "com.wecab.app",
-  "windowsAndroidStudioPath": "C:\\Program Files\\Android\\Android Studio\\bin\\studio64.exe",
+  "windowsAndroidStudioPath": "D:\\Android Studio\\bin\\studio64.exe",
   "appName": "wecab",
   "bundledWebRuntime": false,
   "npmClient": "npm",

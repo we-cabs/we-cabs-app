@@ -1,5 +1,5 @@
 import { Plugins, PushNotification, PushNotificationToken, PushNotificationActionPerformed } from '@capacitor/core';
-import { actionToUpdateUserData } from './AdminAction';
+import { actionToShowNotification, actionToUpdateUserData } from './AdminAction';
 import { actionToGetUserDataById } from './UserAction';
 const { PushNotifications } = Plugins;
 
@@ -13,7 +13,10 @@ export function pushNotification(dispatch:any,state:any){
      userData.deviceToken = token.value;
      dispatch(actionToUpdateUserData(userData));
     }
+
 );
+
+
 //  // Some issue with your setup and push will not work
  PushNotifications.addListener('registrationError',
     (error: any) => {
@@ -24,6 +27,7 @@ export function pushNotification(dispatch:any,state:any){
 PushNotifications.addListener('pushNotificationReceived',
     (notification: PushNotification) => {
         dispatch(actionToGetUserDataById(state.userSignin.userInfo.phone)); 
+        dispatch(actionToShowNotification(notification)); 
     }
 );
 

@@ -1,8 +1,7 @@
 import Axios from 'axios';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, identity } from 'lodash';
 import { BIDDING_DETAIL_BY_BOOKING_ID_FAIL, BIDDING_DETAIL_BY_BOOKING_ID_REQUEST, BIDDING_DETAIL_BY_BOOKING_ID_SUCCESS, BIDDING_DETAIL_BY_USER_ID_SUCCESS, BOOKING_DETAIL_FOR_EDIT } from '../constants/BiddingConstants';
 import { BOOKING_DATA_FILTER, BOOKING_DETAIL_FAIL, BOOKING_DETAIL_REQUEST, BOOKING_DETAIL_SUCCESS, UPDATE_CAR_DATA } from '../constants/BookingConstants';
-import { pushNotification } from './PushNotificationHelper';
 const api = Axios.create({
   baseURL: `https://a46jrcmngi.execute-api.us-west-2.amazonaws.com/dev`
 })
@@ -60,7 +59,19 @@ export const addBookingData = (payload:any) => async (dispatch:any) => {
       details:payload,
     }
     await api.post('/user/notification/location',newNotification);
-   
+    let notification = {
+      "message": {
+          "notification": {
+              "title": "Added New Booking From "+payload.pickupPoint,
+              "body": "Booking from "+payload.pickupPoint,
+              "sound":"notification.wav",
+              "click_action":"FCM_PLUGIN_ACTIVITY",
+              "icon":"ic_launcher_round",
+              "data": "add_booking",
+          }
+      }
+  }
+    api.post('/user/addNotificationPush',notification);
     dispatch(actionToGetBookingData(0));
     return response;
   } catch (error) {
@@ -127,6 +138,16 @@ export const actionToUpdateBidding = (payload:any) => async (dispatch:any,useSta
   })
 
   dispatch({ type: BIDDING_DETAIL_BY_BOOKING_ID_SUCCESS, payload: {data:newBidData,sortBy:useState().biddingDetailByBookingId.sortBy,direction:useState().biddingDetailByBookingId.direction}});
+};
+export const actionToParmanentDeleteBooking = (id:any) => async (dispatch:any,useState:any) => {
+  let bookingData = useState().bookingDetails.booking;
+  bookingData.map((booking:any,key:any)=>{
+    if(booking.bookingId == id){
+      bookingData.splice(key,1);
+    }
+  })
+
+  dispatch({ type: BOOKING_DETAIL_SUCCESS, payload: cloneDeep(bookingData) });
 };
 
 export const actionToGetBidingDataByBooking = (bookingData:any) => async (dispatch:any) => {

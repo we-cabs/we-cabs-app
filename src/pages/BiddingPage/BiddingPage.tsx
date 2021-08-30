@@ -295,8 +295,8 @@ const BiddingPage: React.FC<RouteComponentProps> = ({match,history}) => {
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21"><path d="M21 10.499c0 5.799-4.701 10.5-10.5 10.5S0 16.298 0 10.499s4.701-10.5 10.5-10.5S21 4.7 21 10.499zm-11.715 5.56l7.79-7.79c.127-.127.199-.299.199-.479s-.071-.352-.199-.479l-.958-.958c-.127-.127-.299-.199-.479-.199s-.352.071-.479.199l-6.353 6.353-2.969-2.969c-.127-.127-.299-.199-.479-.199s-.352.071-.479.199l-.958.958c-.127.127-.199.299-.199.479s.071.352.199.479l4.4 4.4c.127.127.299.199.479.199s.352-.071.479-.199z" fill="#7ab71e"/></svg>
             </div> */}
             <div className="request_success_submit_message">
-              <span>Your request has been <br></br> submmitted successfully.</span><br></br><br></br>
-              <span>You will receive a notification <br></br> once a booking is available.</span><br></br><br></br>
+              <span>Your bid has been <br></br> submmitted successfully.</span><br></br><br></br>
+              <span>You will receive a notification <br></br> once approved.</span><br></br><br></br>
               <button onClick={()=>{setBiddingSuccessPopup(false); history.goBack()}} className="bidding_success_close_button">Close</button>
             </div>
          </div>

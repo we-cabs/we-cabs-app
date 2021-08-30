@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import { SELECTED_USER_CAR_FAIL, SELECTED_USER_CAR_REQUEST, SELECTED_USER_CAR_SUCCESS, SELECTED_USER_DATA,EDIT_USER_DATA, ALL_BOOKING_REQUEST_DATA_REQUEST, ALL_BOOKING_REQUEST_DATA_SUCCESS, ALL_BOOKING_REQUEST_DATA_FAIL } from '../constants/AdminConstants';
-
+import { Plugins,LocalNotification } from '@capacitor/core';
+const { LocalNotifications } = Plugins;
 const api = Axios.create({
   baseURL: `https://a46jrcmngi.execute-api.us-west-2.amazonaws.com/dev`
 })
@@ -176,7 +177,31 @@ export const actionToAddUserDocImage = (image:any) => (dispatch:any) => {
   })
 };
 
-export const actionToUpdateUserData = (payload:any) => async (dispatch:any) => {
+export const actionToSendUserBalanceData = (id:any,notif:any) => async (dispatch:any) => {
+  try {
+    api.post(`/user/addNotificationPush/${id}`,notif);
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+
+export const actionToShowNotification = (payload:any) => async () => {
+  if (!(await LocalNotifications.requestPermission()).granted) return;
+  const pending = await LocalNotifications.getPending();
+  if (pending.notifications.length > 0)
+    await LocalNotifications.cancel(pending);
+    await LocalNotifications.schedule({
+      notifications: [{
+        title: payload.title,
+        body: payload.body,
+        id: Math.random(),
+      }]
+    });
+}
+
+  export const actionToUpdateUserData = (payload:any) => async (dispatch:any) => {
   let insertData = {
         "userId": payload.phone,
         "phone": payload.phone,
