@@ -317,11 +317,11 @@ const BookingDetails: React.FC<RouteComponentProps> = ({history}) => {
                         </div>
                       </IonCol>
                     </IonRow>
-                    <IonRow className="booking_third_row_main_section_first_row white">
+                    {/* <IonRow className="booking_third_row_main_section_first_row white">
                       <IonCol size="12" className="booking_text_toll_col">
                          Toll &  State Extra<br/> Parking Extra,If applicable
                       </IonCol>
-                    </IonRow>
+                    </IonRow> */}
                   </div>  
                   <IonRow className="booking_third_row_main_section_second_row">
                     <IonCol size="6" className="booking_text_toll_col">

@@ -50,11 +50,13 @@ const PublicRoutes = () => {
 };
 
 
-const App: React.FC = () => (
-  <IonApp>
-    <Logout/>
-    {(isLogin()) ? <PublicRoutes /> : <PrivateRoutes />}
-</IonApp>
-);
+const App: React.FC = () => {
+  return (
+      <IonApp>
+        <Logout/>
+        {(isLogin()) ? <PublicRoutes /> : <PrivateRoutes />}
+      </IonApp>
+  )
+}
 
 export default App;

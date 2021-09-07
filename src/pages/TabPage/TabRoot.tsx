@@ -45,10 +45,11 @@ const TabRoot: React.FC = () => {
        {(userInfo.role === 'admin') ? '' : <SideMenu/>}
        <IonTabs>
           <IonRouterOutlet id="main-content">
-            {(userInfo.role === 'admin') 
+          {(userInfo.role === 'admin') 
               ? <Route path="/tabs/dashboard" component={AdminDashboard} exact={true} /> 
-              : <Route path="/tabs/dashboard" component={DashboardPage} exact={true} /> 
+              : <Route path="/tabs/dashboard" component={DashboardPage} exact={true}/> 
             }
+           
             
           <Route path={`/tabs/dashboard/add-booking`} component={AddBooking} />
           <Route path={`/tabs/dashboard/select-bid-for-booking`} component={SelectBidForBooking} />

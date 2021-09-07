@@ -44,7 +44,7 @@ export const signin = (loginData:any) => async (dispatch:any) => {
         });
       }
     })
-  } catch (error) {
+  } catch (error:any) {
     dispatch({
       type: USER_SIGNIN_FAIL,
       payload:
@@ -62,7 +62,7 @@ export const actionToGetUserDataById = (id:any) => async (dispatch:any) => {
       dispatch({ type: USER_SIGNIN_SUCCESS, payload: cloneDeep(userData) });
       localStorage.setItem('userInfo',JSON.stringify(userData));
     })
-  } catch (error) {
+  } catch (error:any) {
     dispatch({
       type: USER_SIGNIN_FAIL,
       payload:
@@ -87,7 +87,7 @@ export const actionToGetUserCar = (id:any,isLoading = 1) => async (dispatch:any)
         });
       }
     })
-  } catch (error) {
+  } catch (error:any) {
     dispatch({
       type: USER_SIGNIN_FAIL,
       payload:
@@ -111,7 +111,7 @@ export const actionToGetAllUserData = () => async (dispatch:any) => {
         });
       }
     })
-  } catch (error) {
+  } catch (error:any) {
     dispatch({
       type: USER_SIGNIN_FAIL,
       payload:
@@ -119,7 +119,7 @@ export const actionToGetAllUserData = () => async (dispatch:any) => {
           ? error.response.data.message
           : error.message,
     });
-  }
+  } 
 };
 
 export const signout = () => (dispatch:any) => {
@@ -129,6 +129,6 @@ export const signout = () => (dispatch:any) => {
     dispatch({ type: USER_SIGNOUT });
   },1000)
 };
-export const actionToGetUserDeviceToken = () => async (dispatch:any,useState:any) => {
-  pushNotification(dispatch,useState());
+export const actionToGetUserDeviceToken = (history:any) => async (dispatch:any,useState:any) => {
+  pushNotification(dispatch,useState(),history);
 };

@@ -21,6 +21,8 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
   const [_bookingTypeOptions, setBookingTypeOptions] = useState<any>(null);
   const [_dateFilterOption, setDateFilterOption] = useState<any>(null);
   const [isFixedSubHeader,setIsFixedSubHeader] = useState(false);
+  const [editBookingData,setEditBookingData] = useState({});
+  
  
   const {booking,loading} = useSelector((state:RootStateOrAny) => state.bookingDetails);
   const [bookingClone,setBookingClone] = useState<any>(booking);
@@ -184,7 +186,7 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
              <button onClick={()=>callActionToGetBidingDataByBooking(data)} className="make_bid_button">Biddings</button>       
           </IonCol>
           <IonCol className="bid_action_column_section" size="3">
-             <button onClick={()=>{setSelectedBid(data.bookingId); setOnSubmit(true)}} className="make_bid_button">
+             <button onClick={()=>{setEditBookingData(data); setSelectedBid(data.bookingId); setOnSubmit(true)}} className="make_bid_button">
                Delete
              </button>           
           </IonCol>
@@ -221,10 +223,15 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
      setBookingClone(cloneDeep(bookingData));
     }
    },[booking]);
-   const callActionToDeleteBooking = (id:any) =>{
+
+   const callActionToDeleteBooking = (id:any,data:any) =>{
     setOnSubmit(false);
     dispatch(actionToParmanentDeleteBooking(id));
+    let payload = cloneDeep(data);
+    payload.status = 'cancel';
+    dispatch(actionToUpdateBooking(payload));
    }
+   
   return (
     <IonPage>
        <IonAlert
@@ -245,7 +252,7 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
               {
                 text: 'Okay',
                 handler: () => {
-                  callActionToDeleteBooking(selectedBid);
+                  callActionToDeleteBooking(selectedBid,editBookingData);
                 }
               }
           ]}

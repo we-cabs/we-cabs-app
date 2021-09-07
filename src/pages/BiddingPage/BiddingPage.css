@@ -41,6 +41,12 @@ svg.booking_svg_icon_car {
 .booking_pickup_customer_details {
     font-size: 12px;
     color: #c33030;
+    height: 100%;
+    border: none;
+    resize: none;
+    text-align: left;
+    width: 100%;
+    white-space: pre-wrap;
 }
 .add_bidding_success_popup_container {
     position: fixed;

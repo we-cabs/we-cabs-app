@@ -1,11 +1,11 @@
-import { IonPage,IonRow,IonCol, IonGrid, IonContent } from '@ionic/react';
+import { IonPage,IonRow,IonCol, IonGrid, IonContent, IonToast } from '@ionic/react';
 import React, { useState } from 'react';
 import { useSelector,RootStateOrAny,useDispatch } from 'react-redux';
 import './UserDataList.css';
 import { RouteComponentProps } from 'react-router';
 import AdminSubHeader from '../../../components/Admin/AdminHeader/AdminSubHeader';
 import Loader from '../../../components/Loader/Loader';
-import { actionToGerSelectedUserCarData, actionToSetEditUserData, actionToUpdateUserData ,actionToUpdatedUserImageUrl,actionToUpdatedUserDocImageUrl, actionToSendUserBalanceData} from '../../../actions/AdminAction';
+import { actionToGerSelectedUserCarData, actionToSetEditUserData, actionToUpdateUserData ,actionToUpdatedUserImageUrl,actionToUpdatedUserDocImageUrl, actionToSendUserBalanceData, actionToUpdateUserBalanceData} from '../../../actions/AdminAction';
 import UpdateUserCarData from '../AddUserCar/UpdateUserCarData';
 import $ from 'jquery';
 import NoDataFound from '../../../components/NoDatFound/NoDataFound';
@@ -19,6 +19,10 @@ const UserDataList: React.FC<RouteComponentProps> = ({match, history}) => {
   const [userBalanceDataInput,setUserBalanceDataInput] = useState('');
   const [searchTextData,setSearchTextData] = useState('');
   const [userBalanceData,setUserBalanceData] = useState(0);
+  const [showToast,setShowToast] = useState(false);
+  const [buttonPauseId,addButtonPauseId] = useState('');
+
+  
 
   
 
@@ -73,8 +77,10 @@ const UserDataList: React.FC<RouteComponentProps> = ({match, history}) => {
       setUserBalanceData(val);
     }
     const updateUserBalanceData = async (data:any)=>{
-      console.log('updateUserBalanceData')
-      if(userBalanceData != data.balance.balance){
+      console.log('updateUserBalanceData');
+      setUserBalanceDataInput('');
+      if(userBalanceData != data.balance.balance && buttonPauseId != data.userId){
+          addButtonPauseId(data.userId);
           dispatch(actionToUpdatedUserImageUrl(data.profileImgUrl));
           let newDocImages = [];
           if(data.images.doc != undefined)
@@ -93,47 +99,40 @@ const UserDataList: React.FC<RouteComponentProps> = ({match, history}) => {
             balance:{date:moment(new Date()).valueOf(),balance:Number(userBalanceData)},
             deviceToken:data.deviceToken,
           }
-          dispatch(actionToUpdateUserData(userUpdateData));
-          PushNotifications.createChannel({
-            description: 'General Notifications',
-            id: 'fcm_default_channel',
-            importance: 5,
-            lights: true,
-            name: 'My notification channel',
-            sound: 'notification.wav',
-            vibration: true,
-            visibility: 1
-        }).then(()=>{
-            console.log('push channel created: ');
+          console.log('userUpdateData',userUpdateData);
+          dispatch(actionToUpdateUserBalanceData(userUpdateData));
+          let notification = {
+            "message": {
+                "notification": {
+                    "title": "Wecab Wallet Balance Updated",
+                    "body": `Your wallet balance updated to ${userBalanceData}`,
+                    "sound": 'notification.wav',
+                    "android_channel_id":"fcm_default_channel",
+                    "channel_id":"fcm_default_channel",
+                    "icon":"ic_launcher_round"
+                },    
+                "data": {"page":"user_detail"}       
+            }
+        }
 
-            let notification = {
-              "message": {
-                  "notification": {
-                      "title": "Wecab Wallet Balance Updated",
-                      "body": `Yor wallet balance updated to ${userBalanceData}`,
-                      "data": "",
-                      "sound": 'notification.wav',
-                      "android_channel_id":'fcm_default_channel',
-                      "click_action":"FCM_PLUGIN_ACTIVITY",
-                      "icon":"ic_launcher_round"
-                  },                 
-              }
-          }
-
-          dispatch(actionToSendUserBalanceData(data.userId,notification));
-          setUserBalanceDataInput('');
+        dispatch(actionToSendUserBalanceData(data.userId,notification));
+        setTimeout(function(){
+          setShowToast(true);
+          addButtonPauseId('');
           setUserBalanceData(0);
-
-        }).catch(error =>{
-            console.error('push channel error: ', error);
-        });
-      
-    }
+        },1000)
+      }
     }
 
 
     return (
         <IonPage>
+              <IonToast
+                isOpen={showToast}
+                onDidDismiss={() => setShowToast(false)}
+                message="Balance updated"
+                duration={1300}
+              />
          <AdminSubHeader title={"User List"}/>
          <IonContent>
          <div className="user_search_by_phone_section">
@@ -251,9 +250,12 @@ const UserDataList: React.FC<RouteComponentProps> = ({match, history}) => {
                                       onClick={()=>setUserBalanceDataInputOnClick(user)}
                                       type="number"/>                   
                                 }
-                                &nbsp;&nbsp;
-                                <button onClick={(e)=>updateUserBalanceData(user)} className="add_wallet_balance_class">Add</button>
-                            
+                                {userBalanceDataInput == user.userId ? 
+                                <>
+                                  &nbsp;&nbsp;
+                                  <button onClick={()=>{updateUserBalanceData(user)}}className="add_wallet_balance_class">{(buttonPauseId == user.userId) ? '...' : 'Add'}</button>                           
+                                </>
+                                :''}
                             </IonCol>
                           </IonRow>
                           </div> 

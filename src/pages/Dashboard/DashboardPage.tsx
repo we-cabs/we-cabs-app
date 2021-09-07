@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonRow,IonCol, IonButton, IonToast } from '@ionic/react'
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { Link, RouteComponentProps,useParams } from 'react-router-dom';
 import { useDispatch,useSelector,RootStateOrAny} from 'react-redux';
 import HeaderComponent from '../../components/Header/HeaderComponent';
 import './DashboardPage.css';
@@ -11,6 +11,7 @@ import { actionToGetBookingData } from '../../actions/BookingAction';
 
 const DashboardPage: React.FC<RouteComponentProps> = ({history}) => {
   const dispatch = useDispatch();
+  const params:any = useParams();
   const openBookingDetailPage = (e:any) =>{
     e.preventDefault();
     dispatch(actionToGetBookingData(0));
@@ -21,7 +22,7 @@ const DashboardPage: React.FC<RouteComponentProps> = ({history}) => {
   const {userInfo} = useSelector((state:RootStateOrAny) => state.userSignin);
 
   const callActionToSendPushNotification = () =>{
-    dispatch(actionToGetUserDeviceToken());
+    dispatch(actionToGetUserDeviceToken(history));
   }
 
   useEffect(()=>{

@@ -1,6 +1,8 @@
 import Axios from 'axios';
+import { useHistory } from "react-router";
 import { SELECTED_USER_CAR_FAIL, SELECTED_USER_CAR_REQUEST, SELECTED_USER_CAR_SUCCESS, SELECTED_USER_DATA,EDIT_USER_DATA, ALL_BOOKING_REQUEST_DATA_REQUEST, ALL_BOOKING_REQUEST_DATA_SUCCESS, ALL_BOOKING_REQUEST_DATA_FAIL } from '../constants/AdminConstants';
 import { Plugins,LocalNotification } from '@capacitor/core';
+import { actionToGetBookingData } from './BookingAction';
 const { LocalNotifications } = Plugins;
 const api = Axios.create({
   baseURL: `https://a46jrcmngi.execute-api.us-west-2.amazonaws.com/dev`
@@ -179,10 +181,10 @@ export const actionToAddUserDocImage = (image:any) => (dispatch:any) => {
 
 export const actionToSendUserBalanceData = (id:any,notif:any) => async (dispatch:any) => {
   try {
-    api.post(`/user/addNotificationPush/${id}`,notif);
+    api.post(`/user/addNotificationPush/${id}?rand=`+Math.random(),notif);
   } catch (error) {
     console.log(error);
-  }
+  } 
 
 }
 
@@ -195,13 +197,77 @@ export const actionToShowNotification = (payload:any) => async () => {
     await LocalNotifications.schedule({
       notifications: [{
         title: payload.title,
-        body: payload.body,
+        body: payload.body, 
         id: Math.random(),
-      }]
+      }] 
     });
 }
+export const actionToOpenNotificationSpecificPage = (payload:any,history:any) => async (dispatch:any) => {
+  if(payload == 'user_detail'){
+    history.push('/tabs/dashboard/my-profile');
+  }else
+  if(payload == 'booking_page'){
+    dispatch(actionToGetBookingData(0));
+    history.push(`/tabs/dashboard/bookingdetail`);
+  }else
+  if(payload == 'bidding_page'){
+    history.push(`/tabs/dashboard/bidding-list`);
+  }
+}
 
-  export const actionToUpdateUserData = (payload:any) => async (dispatch:any) => {
+export const actionToUpdateUserBalanceData = (payload:any) => async (dispatch:any) => {
+  console.log('payload',payload);
+  let insertData1 = {
+    "userId": payload.phone,
+    "phone": payload.phone,
+    "profileImgUrl": userImagesUrl,
+    "approvalStatus": payload.approvalStatus,
+    "email": payload.email,
+    "name": payload.name,
+    "location":payload.location,
+    "password":payload.password,
+    "notifications":payload.notifications,
+    "balance":payload.balance,
+    "role":payload.role,
+    "images":{doc:userDocImages},
+    "deviceToken":payload.deviceToken,
+  }
+  dispatch(actionToGeUpdateUserDataLocally(insertData1));
+  try {
+    api.get(`/user/${payload.phone}`).then(user=>{
+      let userData = user.data;
+      let insertData = {
+        "userId": payload.phone,
+        "phone": payload.phone,
+        "profileImgUrl": userImagesUrl,
+        "approvalStatus": payload.approvalStatus,
+        "email": payload.email,
+        "name": payload.name,
+        "location":payload.location,
+        "password":payload.password,
+        "notifications":payload.notifications,
+        "balance":payload.balance,
+        "role":payload.role,
+        "images":{doc:userDocImages},
+        "deviceToken":userData.deviceToken,
+      }
+      console.log('insertData',insertData)
+      dispatch(actionToGeUpdateUserDataLocally(insertData));
+
+      try {
+        api.post('/user',insertData);
+      } catch (error) {
+        console.log(error);
+      }
+
+
+    })
+  } catch (error) {
+    
+  } 
+
+}
+export const actionToUpdateUserData = (payload:any) => async (dispatch:any) => {
   let insertData = {
         "userId": payload.phone,
         "phone": payload.phone,
@@ -224,6 +290,7 @@ export const actionToShowNotification = (payload:any) => async () => {
     console.log(error);
   }
 };
+
 
 export const actionToGeUpdateUserDataLocally = (insertData:any) => async (dispatch:any,useState:any) => {
   let selectedUserUserData = useState().allUserData.userData;

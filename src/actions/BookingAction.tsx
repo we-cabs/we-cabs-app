@@ -64,14 +64,15 @@ export const addBookingData = (payload:any) => async (dispatch:any) => {
           "notification": {
               "title": "Added New Booking From "+payload.pickupPoint,
               "body": "Booking from "+payload.pickupPoint,
-              "sound":"notification.wav",
-              "click_action":"FCM_PLUGIN_ACTIVITY",
+              "sound": 'notification.wav',
+              "android_channel_id":"fcm_default_channel",
+              "channel_id":"fcm_default_channel",
               "icon":"ic_launcher_round",
-              "data": "add_booking",
-          }
+          },
+          "data": {"page":"booking_page"}
       }
   }
-    api.post('/user/addNotificationPush',notification);
+    api.post('/user/addNotificationPush?rand='+Math.random(),notification);
     dispatch(actionToGetBookingData(0));
     return response;
   } catch (error) {
