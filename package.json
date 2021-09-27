@@ -1,6 +1,6 @@
 {
-  "name": "bookcab",
-  "version": "0.0.1",
+  "name": "Wecab",
+  "version": "0.0.2",
   "private": true,
   "dependencies": {
     "@capacitor/android": "^2.4.6",

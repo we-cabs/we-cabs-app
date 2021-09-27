@@ -211,7 +211,7 @@ export const actionToOpenNotificationSpecificPage = (payload:any,history:any) =>
     history.push(`/tabs/dashboard/bookingdetail`);
   }else
   if(payload == 'bidding_page'){
-    history.push(`/tabs/dashboard/bidding-list`);
+    history.push(`/tabs/bidding-list`);
   }
 }
 
