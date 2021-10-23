@@ -9,9 +9,9 @@ import { _convertUnixToDateTimeFormat } from '../../../hooks/DateTimeConverter';
 import Loader from '../../../components/Loader/Loader';
 import NoDataFound from '../../../components/NoDatFound/NoDataFound';
 import { actionToUpdateBooking,actionToUpdateBidding, actionToSortByBidData,actionToSendAlotNotification } from '../../../actions/BookingAction';
-import { actionToSendUserBalanceData } from '../../../actions/AdminAction';
 
 import { Plugins} from '@capacitor/core';
+import { actionToSendNotificationToUser } from '../../../actions/AdminAction';
 const { PushNotification } = Plugins;
 
 interface BookingBidsProps extends RouteComponentProps<{
@@ -58,7 +58,7 @@ const BookingBids: React.FC<BookingBidsProps> = ({match,history}) => {
       }
   }
 
-    dispatch(actionToSendUserBalanceData(bidData.linkedUserId,notification));
+    dispatch(actionToSendNotificationToUser(bidData.linkedUserId,notification));
   }
   
   const callActionToRemoveBookingBooking = (bidData:any) =>{

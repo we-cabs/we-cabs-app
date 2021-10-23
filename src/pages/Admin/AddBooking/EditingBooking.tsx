@@ -27,8 +27,7 @@ const EditingBooking: React.FC<RouteComponentProps> = ({match, history}) => {
   const [customerDetail, setCustomerDetail] = useState<string>(editBookingData.customerDetails.detail);
   const [tripNote, setTripNote] = useState<string>(editBookingData.notes);
   const [companyReceivableAmount, setCompanyReceivableAmount] = useState<number>(editBookingData.companyReceivableAmount);
-
-  
+  const [bookingType, setBookingType] = useState<string>(editBookingData.bookingType);
 
   const cabType = useSelector((state:RootStateOrAny) => state.cabType);
   const formSubmitHandler =(e:any)=>{
@@ -105,6 +104,13 @@ const EditingBooking: React.FC<RouteComponentProps> = ({match, history}) => {
                      </IonSelect>
                      :''
                   }
+                </IonItem>
+                <IonItem>
+                  <IonLabel position="floating">Booking Type</IonLabel>
+                  <IonSelect value={bookingType} onIonChange={(e)=>setBookingType(e.detail.value)}>
+                    <IonSelectOption value="buzz">Buzz</IonSelectOption>
+                    <IonSelectOption value="gold">Gold</IonSelectOption>
+                  </IonSelect>
                 </IonItem>
                 <IonItem>
                   <IonLabel position="floating">Bid Expiry Time</IonLabel>

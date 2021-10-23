@@ -59,6 +59,17 @@ input.user_balance_input_data {
 .user_data_list_section{
     margin-top: 40px;
 }
+
+.user_data_grid .user_data_grid_toggle_section{
+    width: 32px;
+    height: 7px;
+    position: absolute;
+    top: -5px;
+    left: -6px;
+}
+.vertual_list_scroll {
+    height: calc(100vh - 153px)!important;
+}
 button.user_cars_button {
     border: 1px solid #ccc;
     border-radius: 3px;

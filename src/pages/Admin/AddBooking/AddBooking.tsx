@@ -24,6 +24,7 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
   const [expiryTime, setExpiryTime] = useState<string>("");
   const [customerDetail, setCustomerDetail] = useState<string>("");
   const [tripNote, setTripNote] = useState<string>("");
+  const [bookingType, setBookingType] = useState<string>("buzz");
 
   const cabType = useSelector((state:RootStateOrAny) => state.cabType);
   const resetForm = () =>{
@@ -86,13 +87,20 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
                 <IonItem>
                   <IonLabel position="floating">Car Type</IonLabel>
                   {(cabType != undefined && cabType.length) ? 
-                     <IonSelect onIonChange={(e)=>setCarType(e.detail.value)}>
+                     <IonSelect value={carType} onIonChange={(e)=>setCarType(e.detail.value)}>
                        {cabType.map((car:any,key:number)=>(
                           <IonSelectOption key={key}>{car}</IonSelectOption>
                        ))}
                      </IonSelect>
                      :''
                   }
+                </IonItem>
+                <IonItem>
+                  <IonLabel position="floating">Booking Type</IonLabel>
+                  <IonSelect value={bookingType} onIonChange={(e)=>setBookingType(e.detail.value)}>
+                    <IonSelectOption value="buzz">Buzz</IonSelectOption>
+                    <IonSelectOption value="gold">Gold</IonSelectOption>
+                  </IonSelect>
                 </IonItem>
                 <IonItem>
                   <IonLabel position="floating">Bid Expiry Time</IonLabel>
@@ -108,7 +116,7 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
                 </IonItem>
                 <IonItem>
                   <IonLabel position="floating">Trip Type</IonLabel>
-                  <IonSelect onIonChange={(e)=>setTripType(e.detail.value)}>
+                  <IonSelect  value={tripType} onIonChange={(e)=>setTripType(e.detail.value)}>
                     <IonSelectOption value="oneway">One Way</IonSelectOption>
                     <IonSelectOption value="round">Round Trip</IonSelectOption>
                   </IonSelect>

@@ -297,6 +297,9 @@ ion-button.book_or_bid_button {
     text-transform: uppercase;
     font-weight: 600;
 }
+.vertual_list_scroll_booking_page {
+    height: calc(100vh - 176px)!important;
+}
 .booking_header_second_location_connect_second_row .pick_point_svg_location_text {
     color: #717171;
     text-align: right;

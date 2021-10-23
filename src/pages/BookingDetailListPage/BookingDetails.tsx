@@ -11,6 +11,7 @@ import Loader from '../../components/Loader/Loader';
 import cloneDeep from 'lodash/cloneDeep';
 import moment from 'moment';
 import NoDataFound from '../../components/NoDatFound/NoDataFound';
+import { Virtuoso } from 'react-virtuoso';
 
 let filter:any  = {
   carType:'',
@@ -116,12 +117,11 @@ const BookingDetails: React.FC<RouteComponentProps> = ({history}) => {
 
       let finalArray:any = [];
       newBooking.map((bookingBid:any)=>{
-        if(!bookingBid.allottedBidId){
+        if(!bookingBid.allottedBidId && bookingBid.status != 'cancel'){
           finalArray.push(bookingBid);
         }
       })
      
-
       setBookingClone(finalArray);
     }
   }
@@ -138,7 +138,7 @@ const BookingDetails: React.FC<RouteComponentProps> = ({history}) => {
     setDateFilterOption(null);
     let finalArray:any = [];
     booking.map((bookingBid:any)=>{
-      if(!bookingBid.allottedBidId){
+      if(bookingBid.status != 'cancel' && !bookingBid.allottedBidId){
         finalArray.push(bookingBid);
       }
     })
@@ -172,86 +172,11 @@ const BookingDetails: React.FC<RouteComponentProps> = ({history}) => {
     }
    },[booking]);
 
-  return (
-    <IonPage>
-      <SubPageHeaderComponent title={hrederTitle()}/>
-       <IonContent scrollEvents={true} onIonScroll={scrollProfileContent}>
-       {(booking != undefined && booking.length) ? 
-        <div className={isFixedSubHeader ? "booking_filter_class fixed" : 'booking_filter_class'}>
-        <IonRow onClick={()=>setShowHideBookingFilter(!showHideBookingFilter)} className="find_booking_section">
-          <IonCol size="10"><span>Filter your Booking</span></IonCol>
-          <IonCol size="2">
-          {(!showHideBookingFilter) ? 
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.846 451.847"><path d="M345.441 248.292L151.154 442.573c-12.359 12.365-32.397 12.365-44.75 0-12.354-12.354-12.354-32.391 0-44.744L278.318 225.92 106.409 54.017c-12.354-12.359-12.354-32.394 0-44.748 12.354-12.359 32.391-12.359 44.75 0l194.287 194.284a31.53 31.53 0 0 1 9.262 22.366c0 8.099-3.091 16.196-9.267 22.373z"/></svg>
-            :
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.847 451.847"><path d="M225.923 354.706c-8.098 0-16.195-3.092-22.369-9.263L9.27 151.157c-12.359-12.359-12.359-32.397 0-44.751 12.354-12.354 32.388-12.354 44.748 0l171.905 171.915 171.906-171.909c12.359-12.354 32.391-12.354 44.744 0 12.365 12.354 12.365 32.392 0 44.751L248.292 345.449c-6.177 6.172-14.274 9.257-22.369 9.257z"/></svg>
-            }
-          </IonCol>
-          </IonRow>
-            {(showHideBookingFilter) ? 
-           <div className={"filter_section_input"}>
-             <IonRow>
-              <IonCol size="6">
-              <Select
-                value={_pickUpPoint}
-                options={searchListPickupCity}
-                isSearchable
-                onChange={(e)=>applyFilterInBookingList('pickupPoint',e)}
-                placeholder= "Pickup Point"
-                openMenuOnClick={false}
-              />
-            </IonCol>
-              <IonCol size="6">
-              <Select
-                value={_dropDownPoint}
-                options={searchListDropCity}
-                onChange={(e)=>applyFilterInBookingList('dropPoint',e)}
-                isSearchable
-                placeholder= "Drop Point"
-                openMenuOnClick={false}
-              />
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol size="6">
-              <Select
-                value={_cabTypeOption}
-                options={searchCabList}
-                onChange={(e)=>applyFilterInBookingList('carType',e)}
-                isSearchable
-                placeholder= "Cab Type"
-                openMenuOnClick={false}
-              />
-              </IonCol>
-              <IonCol size="6">
-                <IonDatetime onIonChange={(e)=>{e.stopPropagation(); e.preventDefault(); applyFilterInBookingList('dateFilter',e.detail.value)}} value={_dateFilterOption} className="filter_popup_date" placeholder="Date" displayFormat="MMM DD"  displayTimezone="utc"/>
-                  <div className="calender_filter_hr"></div>
-                  <div className="calender_filter">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M452 40h-24V0h-40v40H124V0H84v40H60C26.916 40 0 66.916 0 100v352c0 33.084 26.916 60 60 60h392c33.084 0 60-26.916 60-60V100c0-33.084-26.916-60-60-60zm20 412c0 11.028-8.972 20-20 20H60c-11.028 0-20-8.972-20-20V188h432v264zm0-304H40v-48c0-11.028 8.972-20 20-20h24v40h40V80h264v40h40V80h24c11.028 0 20 8.972 20 20v48zM76 230h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 310h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 390h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80-80h40v40h-40z"/></svg>
-                  </div>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-               <IonCol className="filter_search_button_col">
-                <button onClick={()=>clearAllFilterValue()}             
-                 className="filter_search_button">
-                  CLEAR
-                </button>
-              </IonCol>
-            </IonRow>
-            </div>  
-            :''}
-        </div> 
-        :''}
-        <div className="booking_detail_list_scroll">
-           <IonRow>
-             <IonCol>
-             {(loading || bookingClone == undefined) ? <div className="graer_box_loader"><Loader/></div> : 
-             <>
-             {(bookingClone != undefined && bookingClone.length) ? 
-             <>
-             {bookingClone.map((data:any,i:number)=>(
-               <div className="avialable_booking_main_parent_section_loop">
+
+   const InnerItem = React.memo(({ index }:any) => {
+    const data = bookingClone[index]; 
+    return (
+      <div className="avialable_booking_main_parent_section_loop">
                   <div className="avialable_booking_main_parent_section_loop_padding">
                   <IonRow className="booking_header_section">
                     <IonCol size="7" className="booking_header_section_right_arrow">
@@ -341,8 +266,94 @@ const BookingDetails: React.FC<RouteComponentProps> = ({history}) => {
                   </IonRow>            
                   </div>
                   </div>
-             ))} 
-              </>  
+
+    );
+  })
+
+   
+   const itemContent = (index:any) => {
+    return <InnerItem index={index} />
+  }
+
+
+  return (
+    <IonPage>
+      <SubPageHeaderComponent title={hrederTitle()}/>
+       <IonContent scrollEvents={true} onIonScroll={scrollProfileContent}>
+       {(booking != undefined && booking.length) ? 
+        <div className={isFixedSubHeader ? "booking_filter_class fixed" : 'booking_filter_class'}>
+        <IonRow onClick={()=>setShowHideBookingFilter(!showHideBookingFilter)} className="find_booking_section">
+          <IonCol size="10"><span>Filter your Booking</span></IonCol>
+          <IonCol size="2">
+          {(!showHideBookingFilter) ? 
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.846 451.847"><path d="M345.441 248.292L151.154 442.573c-12.359 12.365-32.397 12.365-44.75 0-12.354-12.354-12.354-32.391 0-44.744L278.318 225.92 106.409 54.017c-12.354-12.359-12.354-32.394 0-44.748 12.354-12.359 32.391-12.359 44.75 0l194.287 194.284a31.53 31.53 0 0 1 9.262 22.366c0 8.099-3.091 16.196-9.267 22.373z"/></svg>
+            :
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.847 451.847"><path d="M225.923 354.706c-8.098 0-16.195-3.092-22.369-9.263L9.27 151.157c-12.359-12.359-12.359-32.397 0-44.751 12.354-12.354 32.388-12.354 44.748 0l171.905 171.915 171.906-171.909c12.359-12.354 32.391-12.354 44.744 0 12.365 12.354 12.365 32.392 0 44.751L248.292 345.449c-6.177 6.172-14.274 9.257-22.369 9.257z"/></svg>
+            }
+          </IonCol>
+          </IonRow>
+            {(showHideBookingFilter) ? 
+           <div className={"filter_section_input"}>
+             <IonRow>
+              <IonCol size="6">
+              <Select
+                value={_pickUpPoint}
+                options={searchListPickupCity}
+                isSearchable
+                onChange={(e)=>applyFilterInBookingList('pickupPoint',e)}
+                placeholder= "Pickup Point"
+                openMenuOnClick={false}
+              />
+            </IonCol>
+              <IonCol size="6">
+              <Select
+                value={_dropDownPoint}
+                options={searchListDropCity}
+                onChange={(e)=>applyFilterInBookingList('dropPoint',e)}
+                isSearchable
+                placeholder= "Drop Point"
+                openMenuOnClick={false}
+              />
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol size="6">
+              <Select
+                value={_cabTypeOption}
+                options={searchCabList}
+                onChange={(e)=>applyFilterInBookingList('carType',e)}
+                isSearchable
+                placeholder= "Cab Type"
+                openMenuOnClick={false}
+              />
+              </IonCol>
+              <IonCol size="6">
+                <IonDatetime onIonChange={(e)=>{e.stopPropagation(); e.preventDefault(); applyFilterInBookingList('dateFilter',e.detail.value)}} value={_dateFilterOption} className="filter_popup_date" placeholder="Date" displayFormat="MMM DD"  displayTimezone="utc"/>
+                  <div className="calender_filter_hr"></div>
+                  <div className="calender_filter">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M452 40h-24V0h-40v40H124V0H84v40H60C26.916 40 0 66.916 0 100v352c0 33.084 26.916 60 60 60h392c33.084 0 60-26.916 60-60V100c0-33.084-26.916-60-60-60zm20 412c0 11.028-8.972 20-20 20H60c-11.028 0-20-8.972-20-20V188h432v264zm0-304H40v-48c0-11.028 8.972-20 20-20h24v40h40V80h264v40h40V80h24c11.028 0 20 8.972 20 20v48zM76 230h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 310h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 390h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80-80h40v40h-40z"/></svg>
+                  </div>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+               <IonCol className="filter_search_button_col">
+                <button onClick={()=>clearAllFilterValue()}             
+                 className="filter_search_button">
+                  CLEAR
+                </button>
+              </IonCol>
+            </IonRow>
+            </div>  
+            :''}
+        </div> 
+        :''}
+        <div className="booking_detail_list_scroll">
+           <IonRow>
+             <IonCol>
+             {(loading || bookingClone == undefined) ? <div className="graer_box_loader"><Loader/></div> : 
+             <>
+             {(bookingClone != undefined && bookingClone.length) ? 
+             <Virtuoso totalCount={bookingClone.length} itemContent={itemContent} className="vertual_list_scroll_booking_page" />
               : 
               <div className="no_data_found">
                 <NoDataFound/>

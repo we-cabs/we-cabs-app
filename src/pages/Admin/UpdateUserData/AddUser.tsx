@@ -22,7 +22,7 @@ const AddUser: React.FC<RouteComponentProps> = ({match, history}) => {
   const [password, setPassword] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [image, setImage] = useState<any>([]);
-  const [role, setRole] = useState<string>('');
+  const [role, setRole] = useState<string>('driver');
   const [imageLoading, setImageLoading] = useState<boolean>(false);
   const [onSubmit, setOnSubmit] = useState<boolean>(false);
   const [profileImgUrl, setProfileImgUrl] = useState<string>('');
@@ -174,6 +174,7 @@ const AddUser: React.FC<RouteComponentProps> = ({match, history}) => {
                   <IonSelect value={role} onIonChange={(e)=>setRole(e.detail.value || '')}>
                      <IonSelectOption value="admin">Admin</IonSelectOption>
                      <IonSelectOption value="driver">Driver</IonSelectOption>
+                     <IonSelectOption value="goldDriver">Gold Driver</IonSelectOption>
                   </IonSelect>
                 </IonItem>
                 <IonItem>

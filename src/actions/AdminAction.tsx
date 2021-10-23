@@ -3,13 +3,15 @@ import { useHistory } from "react-router";
 import { SELECTED_USER_CAR_FAIL, SELECTED_USER_CAR_REQUEST, SELECTED_USER_CAR_SUCCESS, SELECTED_USER_DATA,EDIT_USER_DATA, ALL_BOOKING_REQUEST_DATA_REQUEST, ALL_BOOKING_REQUEST_DATA_SUCCESS, ALL_BOOKING_REQUEST_DATA_FAIL } from '../constants/AdminConstants';
 import { Plugins,LocalNotification } from '@capacitor/core';
 import { actionToGetBookingData } from './BookingAction';
-const { LocalNotifications } = Plugins;
+import { cloneDeep } from 'lodash';
+import { ALL_USER_DATA_SUCCESS } from '../constants/UserConstants';
+const { LocalNotifications } = Plugins; 
 const api = Axios.create({
   baseURL: `https://a46jrcmngi.execute-api.us-west-2.amazonaws.com/dev`
 })
 const API_ENDPOINT = 'https://bbyocyuvlb.execute-api.us-west-2.amazonaws.com/uploads';
 
-export const actionToGerSelectedUserCarData = (id:any) => async (dispatch:any) => {
+export const  actionToGerSelectedUserCarData = (id:any) => async (dispatch:any) => {
   dispatch({ type: SELECTED_USER_DATA, payload: id });
   dispatch({ type: SELECTED_USER_CAR_REQUEST });
   try {
@@ -179,7 +181,7 @@ export const actionToAddUserDocImage = (image:any) => (dispatch:any) => {
   })
 };
 
-export const actionToSendUserBalanceData = (id:any,notif:any) => async (dispatch:any) => {
+export const actionToSendNotificationToUser = (id:any,notif:any) => async () => {
   try {
     api.post(`/user/addNotificationPush/${id}?rand=`+Math.random(),notif);
   } catch (error) {
@@ -214,9 +216,7 @@ export const actionToOpenNotificationSpecificPage = (payload:any,history:any) =>
     history.push(`/tabs/bidding-list`);
   }
 }
-
-export const actionToUpdateUserBalanceData = (payload:any) => async (dispatch:any) => {
-  console.log('payload',payload);
+export const actionToUpdateUserData = (payload:any) => async (dispatch:any) => {
   let insertData1 = {
     "userId": payload.phone,
     "phone": payload.phone,
@@ -233,62 +233,43 @@ export const actionToUpdateUserBalanceData = (payload:any) => async (dispatch:an
     "deviceToken":payload.deviceToken,
   }
   dispatch(actionToGeUpdateUserDataLocally(insertData1));
-  try {
-    api.get(`/user/${payload.phone}`).then(user=>{
-      let userData = user.data;
-      let insertData = {
-        "userId": payload.phone,
-        "phone": payload.phone,
-        "profileImgUrl": userImagesUrl,
-        "approvalStatus": payload.approvalStatus,
-        "email": payload.email,
-        "name": payload.name,
-        "location":payload.location,
-        "password":payload.password,
-        "notifications":payload.notifications,
-        "balance":payload.balance,
-        "role":payload.role,
-        "images":{doc:userDocImages},
-        "deviceToken":userData.deviceToken,
-      }
-      console.log('insertData',insertData)
-      dispatch(actionToGeUpdateUserDataLocally(insertData));
+  setTimeout(function(){
+    try {
+      api.post('/user',insertData1);
+    } catch (error) {
+      console.log(error);
+    }
+  })
 
-      try {
-        api.post('/user',insertData);
-      } catch (error) {
-        console.log(error);
-      }
+  // setTimeout(function(){
+  //   try {
+  //     api.get(`/user/${payload.phone}`).then(user=>{
+  //       let userData = user.data;
+  //       let insertData = {
+  //         "userId": payload.phone,
+  //         "phone": payload.phone,
+  //         "profileImgUrl": userImagesUrl,
+  //         "approvalStatus": payload.approvalStatus,
+  //         "email": payload.email,
+  //         "name": payload.name,
+  //         "location":payload.location,
+  //         "password":payload.password,
+  //         "notifications":payload.notifications,
+  //         "balance":payload.balance,
+  //         "role":payload.role,
+  //         "images":{doc:userDocImages},
+  //         "deviceToken":userData.deviceToken,
+  //       }
+  //       dispatch(actionToGeUpdateUserDataLocally(insertData));
 
-
-    })
-  } catch (error) {
-    
-  } 
-
-}
-export const actionToUpdateUserData = (payload:any) => async (dispatch:any) => {
-  let insertData = {
-        "userId": payload.phone,
-        "phone": payload.phone,
-        "profileImgUrl": userImagesUrl,
-        "approvalStatus": payload.approvalStatus,
-        "email": payload.email,
-        "name": payload.name,
-        "location":payload.location,
-        "password":payload.password,
-        "notifications":payload.notifications,
-        "balance":payload.balance,
-        "role":payload.role,
-        "images":{doc:userDocImages},
-        "deviceToken":payload.deviceToken,
-}
-  dispatch(actionToGeUpdateUserDataLocally(insertData));
-  try {
-    api.post('/user',insertData);
-  } catch (error) {
-    console.log(error);
-  }
+  //       try {
+  //         api.post('/user',insertData);
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //     })
+  // } catch (error) {} 
+//})
 };
 
 
@@ -308,5 +289,5 @@ export const actionToGeUpdateUserDataLocally = (insertData:any) => async (dispat
    }else{
     selectedUserUserData = [insertData];
    }
-  dispatch({ type: SELECTED_USER_CAR_SUCCESS, payload: selectedUserUserData });
+  dispatch({ type: ALL_USER_DATA_SUCCESS, payload: cloneDeep(selectedUserUserData) });
 }
