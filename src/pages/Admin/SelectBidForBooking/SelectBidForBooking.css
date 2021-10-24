@@ -86,6 +86,14 @@ ion-card-header.ionic_card_header.ion-inherit-color.md.hydrated {
 .booking_detail_op {
     font-size: 13px;
 }
+.bid_action_column_section_admin .make_request_button {
+    color: #ffffff;
+    border: #3aab3a;
+    background: #3aab3a;
+    font-size: 13px;
+    width: 100%;
+    height: 30px;
+}
 @media (min-width: 600px) {
     .booking_detail_list_scroll {
         padding: 0px 20%!important;

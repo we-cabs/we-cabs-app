@@ -6,10 +6,19 @@
     fill:#757575
 }
 .tab-selected .tab_svg_icon svg{
-    fill:var(--theme-color,rgb(218, 39, 46))!important;
-  }
+  fill:var(--theme-color,rgb(218, 39, 46))!important;
+}
+
+.tab-selected .tab_svg_icon_request svg{
+  fill:var(--theme-color,rgb(218, 39, 46))!important;
+}
+  
 
  .tab_label{
     color: #757575!important;
     font-size: 12px;
   }
+  .tab_svg_icon_request svg {
+    width: 36px;
+    fill: #757575;
+}

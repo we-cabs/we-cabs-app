@@ -53,10 +53,10 @@ const AdminDashboard: React.FC<RouteComponentProps> = ({match, history}) => {
                     </IonCol>
                     <IonCol>
                     <button  onClick={(e) => {
-                        history.push(`/tabs/dashboard/booking-request-list`);
+                        history.push(`/tabs/dashboard/gold-booking-request-list`);
                     }}
                     className="update_user_data_button">
-                       Booking Request
+                       Gold Booking Request
                     </button>
                     </IonCol>
                 </IonRow>

@@ -19,7 +19,7 @@ let filter:any  = {
   dropPoint:''
 };
 
-const BookingDetails: React.FC<RouteComponentProps> = ({history}) => {
+const GoldBookingPageList: React.FC<RouteComponentProps> = ({history}) => {
   const dispatch = useDispatch();
 
   const [_pickUpPoint, setPickUpPoint] = useState<any>(null);
@@ -50,7 +50,7 @@ const BookingDetails: React.FC<RouteComponentProps> = ({history}) => {
  }
 
   const hrederTitle = () =>{ 
-    return 'Buzz Bookings';
+    return 'Gold Bookings';
   }
 
   const searchListPickupCity = pickupCity.map((val:any) => {
@@ -261,7 +261,7 @@ const BookingDetails: React.FC<RouteComponentProps> = ({history}) => {
                   </IonRow>  
                   <IonRow className="booking_third_row_main_section_third_row">
                     <IonCol size="12" className="booking_third_row_book_button">
-                      <button onClick={(e)=>openBiddingPage(e,data)} className="make_bid_button">Make Bid</button>
+                      <button onClick={(e)=>openBiddingPage(e,data)} className="make_bid_button">Add Request</button>
                     </IonCol>
                   </IonRow>            
                   </div>
@@ -369,4 +369,4 @@ const BookingDetails: React.FC<RouteComponentProps> = ({history}) => {
   );
 };
 
-export default BookingDetails;
+export default GoldBookingPageList;

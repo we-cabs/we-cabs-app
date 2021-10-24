@@ -27,7 +27,7 @@ const HeaderComponent: React.FC<ContainerProps> = (match) => {
           <IonCol>
           <div className="header_section">
             <div onClick={(e)=>openMenu()} className={'user_avatar_image_icon'}>
-             {(match.title != 'My Bids') ?      
+             {(match.title != 'My Bids' && match.title != 'Requests') ?      
                <>
                  <img src={userInfo.profileImgUrl}/>
                  <div className="menu_drawer_icon_section">
@@ -46,7 +46,7 @@ const HeaderComponent: React.FC<ContainerProps> = (match) => {
             <span className="header_title_text">{match.title}</span>
           </IonCol>
           <IonCol>
-            {(match.title != 'My Bids') ?              
+            {(match.title != 'My Bids' && match.title != 'Requests') ?              
             <div className="notification_bell_icon" onClick={()=>history.push('/tabs/dashboard/notification')}>
               {Object.keys(userInfo.notifications) && Object.keys(userInfo.notifications).length ?
                 <div className="show_notification_count_icon">

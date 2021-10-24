@@ -255,7 +255,7 @@ const SelectBidForBooking: React.FC<SelectBidForBookingProps> = ({match,history}
               </IonRow>
               <IonRow>
               <IonCol className="bid_action_column_section_admin">
-                <button onClick={()=>callActionToGetBidingDataByBooking(data)} className="make_bid_button">Biddings</button>       
+                <button onClick={()=>callActionToGetBidingDataByBooking(data)} className="make_request_button">Biddings</button>       
               </IonCol>
               </IonRow>
               <IonRow>
