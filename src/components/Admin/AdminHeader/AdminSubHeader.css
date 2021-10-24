@@ -19,10 +19,10 @@ ion-header.admin_sub_header_class ion-toolbar.admin_sub_header_toolbar {
     letter-spacing: 1px;
 }
 .header_title_col_add_car svg{
-    width: 95%;
+    width: 25px;
 }
 .header_title_col_add_car svg.add_user_icon{
-    width: 68%!important;
+    width: 25px!important;
 }
 .header_title_col_user_list{
     text-align: center;
@@ -32,4 +32,23 @@ ion-header.admin_sub_header_class ion-toolbar.admin_sub_header_toolbar {
 svg.delete_booking_svg_icon {
     fill: var(--theme-color,rgb(218, 39, 46))!important;
     width: 20px;
+}
+.admin_sub_header_class {
+    border-bottom: 1px solid #ccc;
+    box-shadow: 0px -1px 5px 2px #ccc;
+}
+
+@media (min-width: 800px) {
+    .header_title_col_user_list {
+        text-align: left!important;
+    }
+    .admin_sub_header_toolbar {
+        padding: 0px 13%!important;
+    }
+    .add_bidding_inner_coontainer {
+        padding: 0px 15%!important;
+    }
+    .add_bidding_inner_coontainer ion-item {
+        font-size: 17px!important;
+    }
 }

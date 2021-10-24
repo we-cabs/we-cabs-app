@@ -17,8 +17,8 @@ function validatePhone(phoneNumber: string) {
 const Login: React.FC = () => {
   const {error} = useSelector((state:RootStateOrAny) => state.userSignin);
   const dispatch = useDispatch();
-  const [phoneNumber, setPhoneNumber] = useState<string>('8785443234');
-  const [password, setPassword] = useState<string>('password');
+  const [phoneNumber, setPhoneNumber] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [iserror, setIserror] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
   const [isSignupScreen, setIsSignupScreen] = useState<boolean>(false);
@@ -55,7 +55,7 @@ const Login: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen className="ion-padding ion-text-center">
-        <IonGrid>
+        <IonGrid className="login_main_container">
         {(isSignupScreen) ? <Signup setIsSignupScreen={setIsSignupScreen}/> : 
         <>
         <IonRow>

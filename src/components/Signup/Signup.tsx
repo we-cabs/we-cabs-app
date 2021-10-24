@@ -121,7 +121,7 @@ export const Signup = (props:any)=>{
     },[])
 
     return (
-        <IonPage>
+        <IonPage className="signup_page_container">
          <IonRow>
           <IonCol>
             <div className="login_logo_container">

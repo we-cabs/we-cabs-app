@@ -1,5 +1,4 @@
 form#add_booking_form {
-    background: #f5f5f5;
     margin: 13px;
     padding: 10px;
     text-align: left;
@@ -12,15 +11,15 @@ form#add_booking_form {
 input.signup_inout_section {
     border: 1px solid #eaeaea;
     border-radius: 4px;
-    padding: 9px;
-    font-size: 11px;
+    padding: 14px 10px;
+    font-size: 2vh;
     width: 100%;
 }
 textarea.signup_inout_section {
     border: 1px solid #eaeaea;
     border-radius: 4px;
-    padding: 7px;
-    font-size: 11px;
+    padding: 14px 10px;
+    font-size: 2vh;
     resize: none;
     width: 100%;
 }

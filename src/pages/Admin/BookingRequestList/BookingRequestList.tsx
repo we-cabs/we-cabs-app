@@ -17,6 +17,7 @@ const BookingRequestList: React.FC<RouteComponentProps> = ({match,history}) => {
     <IonPage>
       <AdminSubHeader title={"Booking Requests"}/>
       <IonContent className="ion-padding">
+        <div className="booking_request_list_section">
            <IonRow>
              <IonCol>
              {(loading || bookingRequestData == undefined) ? <div className="graer_box_loader"><Loader/></div> : 
@@ -72,7 +73,7 @@ const BookingRequestList: React.FC<RouteComponentProps> = ({match,history}) => {
              }      
               </IonCol>
            </IonRow>
-           
+           </div>
        </IonContent>
     </IonPage>
   );

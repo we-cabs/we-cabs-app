@@ -91,3 +91,45 @@ span.signin_new_user_link {
 .login_logo_container svg{
     width: 90%;
 }
+.login_phone_input_div_container {
+    padding: 10px 0px!important;
+}
+.login_main_container{
+    padding: 0px 5%!important;
+}
+.signup_page_container{
+    padding: 0px 5%!important;
+    margin-top: 44px;
+}
+.login_logo_container svg {
+    width: 65%;
+}
+@media (min-width: 900px) {
+    .login_main_container{
+        padding: 0px 35%!important;
+    }
+    .signup_page_container{
+        padding: 0px 35%!important;
+        margin-top: 44px;
+    }
+    .signup_already_have_account_div span.signin_new_user {
+        font-size: 12px!important
+    }
+    .signup_already_have_account_div span.signin_new_user {
+        font-size: 13px!important;
+    }
+    .signup_already_have_account_div .signin_new_user_link {
+        font-size: 13px!important;
+    }
+    .phone_icon svg {
+        width: 16px!important;
+    }
+    .password_icon svg {
+        width: 21px!important;
+    }
+    .login_input {
+        font-size: 17px!important;
+        padding-top: 3px!important;
+    }
+    
+}

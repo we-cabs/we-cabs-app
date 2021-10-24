@@ -1,6 +1,12 @@
 .border.profile_page_registered_cars_loop_section{
  border: 1px solid #ccc;;
 }
-.car_card_header span.edit_section{
- 
+
+@media (min-width: 800px) {
+    .profile_page_registered_cars_user_profile {
+        padding: 0px 25%;
+    }
+    .profile_page_registered_cars_loop_section {
+        font-size: 16px!important;
+    }
 }

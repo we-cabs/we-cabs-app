@@ -1,4 +1,4 @@
-import { IonPage,IonRow,IonCol, IonContent } from '@ionic/react';
+import { IonPage,IonRow,IonCol, IonContent, IonGrid } from '@ionic/react';
 import React,{useEffect} from 'react';
 import { useDispatch,useSelector,RootStateOrAny } from 'react-redux';
 import './AdminDashboard.css';
@@ -23,29 +23,26 @@ const AdminDashboard: React.FC<RouteComponentProps> = ({match, history}) => {
          <AdminHeaderComponent/>
         <IonContent>
           <div className="add_select_button_container">
-                <IonRow>
+            <IonGrid className="selection_dashboard_grid">
+                 <IonRow>
                     <IonCol>
                     <button onClick={(e) => {
                         e.preventDefault();
                         history.push(`/tabs/dashboard/add-booking`);
-                    }} className="bid_booing_button">
+                    }} className="update_user_data_button">
                         Add Booking
                     </button>
                     </IonCol>
-                </IonRow>
-                <IonRow>
                     <IonCol>
                     <button onClick={(e) => {
                                 dispatch(actionToGetBookingData(0));
                         history.push(`/tabs/dashboard/select-bid-for-booking`);
-                    }} className="bid_booing_button">
+                    }} className="update_user_data_button">
                         Select Bid for Booking
                     </button>
                     </IonCol>
-                </IonRow>
-           </div>
-           <div className="update_user_data_container">
-                <IonRow>
+                    </IonRow>
+                    <IonRow>
                     <IonCol>
                     <button  onClick={(e) => {
                         history.push(`/tabs/dashboard/user-data-list`);
@@ -54,8 +51,6 @@ const AdminDashboard: React.FC<RouteComponentProps> = ({match, history}) => {
                        User List
                     </button>
                     </IonCol>
-                </IonRow>
-                <IonRow>
                     <IonCol>
                     <button  onClick={(e) => {
                         history.push(`/tabs/dashboard/booking-request-list`);
@@ -65,6 +60,7 @@ const AdminDashboard: React.FC<RouteComponentProps> = ({match, history}) => {
                     </button>
                     </IonCol>
                 </IonRow>
+            </IonGrid> 
            </div>
        
            </IonContent>

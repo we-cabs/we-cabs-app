@@ -36,6 +36,16 @@ input.user_balance_input_data {
     font-size: 11px;
     height: 29px;
 }
+button.user_edit_button {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background: #e12411;
+    font-size: 15px;
+    color: #fff;
+    margin-top: 12px;
+    height: 32px;
+    width: 100%;
+}
 .user_search_by_phone_section svg.search_icon{
     position: absolute;
     width: 14px;
@@ -89,3 +99,45 @@ button.user_cars_button {
     top: 19px;
     right: 12px;
 }
+.user_profile_pic_profile_section {
+    max-height: 200px;
+    overflow: hidden;
+    text-align: center;
+    background: #cdcdcd;
+}
+.user_profile_pic_profile_section img {
+    width: 178px;
+    height: 167px;
+}
+.user_data_grid_toggle_section {
+    margin-top: -10px!important;
+}
+.user_data_list_card_content{
+    font-size: 12px;
+}
+@media (min-width: 900px) {
+    .user_data_list_main_top_container {
+        padding: 0px 18%;
+    }
+    .user_data_list_card_content{
+        font-size: 15px;
+    }
+    .booking_request_list_section {
+        padding: 0px 32%;
+    }
+}
+/* @media (max-width: 300px) and (min-width: 200px) {
+    .user_data_list_main_top_container {
+        padding: 0px 30%;
+    }
+}
+@media (max-width: 400px) and (min-width: 300px) {
+    .user_data_list_main_top_container {
+        padding: 0px 30%;
+    }
+}
+@media (max-width: 200px) and (min-width: 100px) {
+    .user_data_list_main_top_container {
+        padding: 0px 30%;
+    }
+} */

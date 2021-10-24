@@ -77,7 +77,7 @@ const TabRoot: React.FC = () => {
           <Route path="/" render={() => <Redirect to="/tabs/dashboard" />} exact={true} />
         </IonRouterOutlet>
         {(userInfo.role === 'admin') ? 
-          <IonTabBar slot="bottom">
+          <IonTabBar slot="bottom" className="admin_bottom_toolbar">
           <IonTabButton tab="dashboard" href="/tabs/dashboard"> 
               <IonIcon className="active" icon={home} />
               <IonLabel className="active">Home</IonLabel>
