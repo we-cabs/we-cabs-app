@@ -48,7 +48,7 @@ const HeaderComponent: React.FC<ContainerProps> = (match) => {
           <IonCol>
             {(match.title != 'My Bids' && match.title != 'Requests') ?              
             <div className="notification_bell_icon" onClick={()=>history.push('/tabs/dashboard/notification')}>
-              {Object.keys(userInfo.notifications) && Object.keys(userInfo.notifications).length ?
+              {userInfo.notifications != undefined && Object.keys(userInfo.notifications) && Object.keys(userInfo.notifications).length ?
                 <div className="show_notification_count_icon">
                   {Object.keys(userInfo.notifications).length}
                 </div>:''

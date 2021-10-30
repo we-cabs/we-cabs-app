@@ -45,6 +45,7 @@ const EditingBooking: React.FC<RouteComponentProps> = ({match, history}) => {
       customerDetails:{detail:customerDetail},
       notes:tripNote,
       basePrice:maxAmount,
+      bookingType:bookingType,
       maxAmount:maxAmount,
       maxPrice:maxAmount,
       status:editBookingData.status,

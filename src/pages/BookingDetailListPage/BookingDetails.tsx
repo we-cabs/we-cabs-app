@@ -180,7 +180,7 @@ const BookingDetails: React.FC<RouteComponentProps> = ({history}) => {
                   <div className="avialable_booking_main_parent_section_loop_padding">
                   <IonRow className="booking_header_section">
                     <IonCol size="7" className="booking_header_section_right_arrow">
-                      {data.tripType.toLowerCase() == 'round' ? 'ROUND TRIP' : 'ONE WAY TRIP'}
+                      {data.tripType != undefined && data.tripType.toLowerCase() == 'round' ? 'ROUND TRIP' : 'ONE WAY TRIP'}
                     </IonCol>
                     <IonCol size="5" className="booking_header_section_banner">
                       <div>

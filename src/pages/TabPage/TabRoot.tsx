@@ -62,7 +62,7 @@ const TabRoot: React.FC = () => {
           <Route path={`/tabs/dashboard/booking-bids/:bookingData`} component={BookingBids} />
           <Route path={`/tabs/dashboard/update-car-data`} component={UpdateUserCarData} />
           <Route path={`/tabs/dashboard/update-user-data`} component={UpdateUserData} />
-          <Route path={`/tabs/dashboard/gold-booking-request-list`} component={GoldBookingPageList} />
+          <Route path={`/tabs/dashboard/gold-booking-request-list`} component={SelectBidForBooking} />
           <Route path={`/tabs/dashboard/edit-booking-bids`} component={EditingBooking} />
 
          

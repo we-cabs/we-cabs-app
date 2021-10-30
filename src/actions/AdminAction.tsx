@@ -276,16 +276,11 @@ export const actionToUpdateUserData = (payload:any) => async (dispatch:any) => {
 export const actionToGeUpdateUserDataLocally = (insertData:any) => async (dispatch:any,useState:any) => {
   let selectedUserUserData = useState().allUserData.userData;
    if(selectedUserUserData != null && selectedUserUserData != undefined){
-     let flag = false;
-     selectedUserUserData.map((car:any,key:any)=>{
-        if(car.userId == insertData.userId){ 
+     selectedUserUserData.map((user:any,key:any)=>{
+        if(user.phone == insertData.phone){ 
           selectedUserUserData[key] = insertData;
-          flag = true;
         }
      })
-     if(!flag){
-      selectedUserUserData.unshift(insertData);
-     }
    }else{
     selectedUserUserData = [insertData];
    }

@@ -125,7 +125,7 @@ const UpdateUserData: React.FC<RouteComponentProps> = ({match, history}) => {
     useEffect(()=>{
         dispatch(actionToUpdatedUserImageUrl(editUserData.profileImgUrl));
         let newDocImages = [];
-        if(editUserData.images.doc != undefined)
+        if(editUserData != undefined && editUserData.images != undefined && editUserData.images.doc != undefined)
             newDocImages = editUserData.images.doc;
             setImage(newDocImages);
         dispatch(actionToUpdatedUserDocImageUrl(newDocImages));
@@ -174,6 +174,7 @@ const UpdateUserData: React.FC<RouteComponentProps> = ({match, history}) => {
                   <IonSelect value={role} onIonChange={(e)=>setRole(e.detail.value || '')}>
                      <IonSelectOption value="admin">Admin</IonSelectOption>
                      <IonSelectOption value="driver">Driver</IonSelectOption>
+                     <IonSelectOption value="goldDriver">Gold Driver</IonSelectOption>
                   </IonSelect>
                 </IonItem>
                 <IonItem>

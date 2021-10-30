@@ -18,23 +18,22 @@ input.user_balance_input_data {
     border-radius: 4px;
 }
 .user_search_by_phone_section {
-    position: fixed;
     width: 100%;
-    padding: 1px 20px;
+    padding: 30px 20px;
     background: #ffffff;
-    z-index: 9999999999;
+    position: relative;
 }
 .user_profile_pic {
     text-align: center;
     border-bottom: 1px solid #ccc;
 }
-.user_search_by_phone_section input{
+.user_search_by_phone_section input {
     width: 100%;
     border: 1px solid #ccc;
     border-radius: 21px;
     padding: 2px 1px 1px 30px;
     font-size: 11px;
-    height: 29px;
+    height: 40px;
 }
 button.user_edit_button {
     border: 1px solid #ccc;
@@ -46,19 +45,47 @@ button.user_edit_button {
     height: 32px;
     width: 100%;
 }
-.user_search_by_phone_section svg.search_icon{
-    position: absolute;
+.user_search_by_phone_section svg.search_icon {
     width: 14px;
-    left: 28px;
     fill: #7b7676;
-    top: 9px;
+    position: absolute;
+    left: 31px;
+    top: 44px;
+}
+button.add_wallet_balance_class.edit {
+    padding: 6px;
+    color: #ffffff;
+    font-size: 13px;
+    background: #d31212;
+    border-radius: 5px;
+    font-weight: 600;
+}
+button.add_wallet_balance_class.cancel {
+    padding: 6px;
+    color: #ffffff;
+    font-size: 13px;
+    background: #9f9f9f;
+    border-radius: 5px;
+    font-weight: 600;
+}
+button.add_wallet_balance_class.add {
+    padding: 6px;
+    color: #ffffff;
+    font-size: 13px;
+    background: #4c9f2a;
+    border-radius: 5px;
+    font-weight: 600;
+}
+.user_balance_update_input_section svg {
+    width: 12px;
+    fill: #646464;
 }
 .user_search_by_phone_section svg.remove_icon{
     position: absolute;
-    width: 14px;
-    right: 28px;
+    width: 18px;
     fill: #7b7676;
-    top: 9px;
+    right: 38px;
+    top: 41px;
 }
 
 .user_profile_pic img{
@@ -66,9 +93,7 @@ button.user_edit_button {
     height: 50px;
     border-radius: 50%;
 }
-.user_data_list_section{
-    margin-top: 40px;
-}
+
 
 .user_data_grid .user_data_grid_toggle_section{
     width: 32px;
@@ -114,6 +139,8 @@ button.user_cars_button {
 }
 .user_data_list_card_content{
     font-size: 12px;
+}
+@media (min-width: 900px) {
 }
 @media (min-width: 900px) {
     .user_data_list_main_top_container {

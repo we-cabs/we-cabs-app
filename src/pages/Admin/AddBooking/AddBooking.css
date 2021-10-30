@@ -1,0 +1,6 @@
+
+@media (min-width: 800px) {
+    .picker-wrapper {
+        bottom: 40%!important;
+    }
+}

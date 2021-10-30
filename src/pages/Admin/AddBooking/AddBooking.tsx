@@ -1,14 +1,12 @@
-import { IonPage,IonRow,IonCol,IonItem,IonLabel,IonInput,IonButton, IonTextarea, IonDatetime, IonAlert, IonSelect, IonSelectOption, IonContent } from '@ionic/react';
+import { IonPage,IonItem,IonLabel,IonInput,IonButton, IonTextarea, IonDatetime, IonAlert, IonSelect, IonSelectOption, IonContent } from '@ionic/react';
 import React,{useState} from 'react';
 import { useSelector,RootStateOrAny } from 'react-redux';
 import './AddBooking.css';
-import AdminHeaderComponent from '../../../components/Admin/AdminHeader/AdminHeaderComponent';
 import { RouteComponentProps } from 'react-router';
 import AdminSubHeader from '../../../components/Admin/AdminHeader/AdminSubHeader';
 import { useDispatch } from 'react-redux';
 import { addBookingData } from '../../../actions/BookingAction';
 import moment from 'moment';
-import $ from 'jquery';
 
 const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
   const dispatch = useDispatch();
@@ -51,6 +49,7 @@ const AddBooking: React.FC<RouteComponentProps> = ({match, history}) => {
       expiryTime:moment(expiryTime).valueOf(),
       customerDetails:{detail:customerDetail},
       notes:tripNote,
+      bookingType:bookingType,
       basePrice:maxAmount,
       maxAmount:maxAmount,
       maxPrice:maxAmount,
