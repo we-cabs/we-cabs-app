@@ -30,7 +30,7 @@ const GoldBookingRequstPage: React.FC<RouteComponentProps> = ({history}) => {
     if(filterBidData != undefined){
     if(type != 'all'){
       filterBidData.map((bid:any)=>{
-        if(bid.status != 'cancel'){
+        if(bid.status != 'cancel' && bid.bookingType == 'gold'){
           if(bid.bidStatus == type){
             data.push(bid);
           }
@@ -38,7 +38,7 @@ const GoldBookingRequstPage: React.FC<RouteComponentProps> = ({history}) => {
       })
     }else{
       filterBidData.map((bid:any)=>{
-        if(bid.status != 'cancel'){
+        if(bid.status != 'cancel'  && bid.bookingType == 'gold'){
           data.push(bid);
         }
       })
@@ -61,7 +61,6 @@ const GoldBookingRequstPage: React.FC<RouteComponentProps> = ({history}) => {
     }
  }
  const setStartStopTrip = (e:any,bidData:any) =>{
-console.log('setStartStopTrip',bidData)
     if(bidData.startStopTripMessage == 'stop') return;
     let tm = (bidData.startStopTripMessage && bidData.startStopTripMessage == 'pending') ? 'start' : (bidData.startStopTripMessage && bidData.startStopTripMessage  == 'start') ? 'stop' : 'start';
      let bookingData = bidData;

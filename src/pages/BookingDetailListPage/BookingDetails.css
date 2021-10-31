@@ -244,7 +244,57 @@ ion-button.book_or_bid_button {
 }
 .avialable_booking_main_parent_section_loop_padding {
     padding: 7px 12px;
-    box-shadow: 0px 0px 20px 5px #cccccc73;
+}
+.add_booking_gold_request_modal_popup .booking_request_footer {
+    padding: 16px 12px;
+    text-align: right;
+}
+.add_booking_gold_request_modal_popup .booking_request_footer_add_button {
+    padding: 7px 26px;
+    border-radius: 3px;
+    color: white;
+    background: #3b9d3b;
+}
+.add_booking_gold_request_modal_popup .booking_request_footer_cancel_button {
+    padding: 7px 26px;
+    margin-right: 15px;
+    border-radius: 3px;
+    color: white;
+    background: #8b8b8b;
+}
+
+.booking_request_header svg{
+    width: 16px;
+    fill: #707070;
+    float: right;
+}
+.add_booking_gold_request_modal_popup_inner_body .booking_pickup_point_result select {
+    border: 1px solid #ccc!important;
+    padding: 12px;
+    font-size: 12px;
+}
+.add_booking_gold_request_modal_popup_inner_body .booking_request_body {
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    padding: 20px;
+}
+.add_booking_gold_request_modal_popup_inner_body {
+    background: #ffffff;
+    margin-top: 20%;
+    border-radius: 5px;
+}
+.booking_request_header {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    font-size: 13px;
+}
+.booking_request_success_tick {
+    text-align: center;
+    margin-top: 20%;
+}
+.add_booking_gold_request_modal_popup {
+    --background: none;
+    padding: 30px;
 }
 .booking_header_section_right_arrow::after{
     width: 0;
@@ -316,6 +366,10 @@ ion-button.book_or_bid_button {
 .booking_third_row_main_section_first_row.white{
     background: white
 }
+.avialable_booking_main_parent_section_loop_padding:last-child {
+    box-shadow: none!important;
+}
+
 .booking_third_row_main_section_first_col1 {
     border-right: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
@@ -397,10 +451,13 @@ ion-button.book_or_bid_button {
     color: var(--theme-color,rgb(218, 39, 46))!important;
     font-weight: 600;
 }
+button.make_bid_button.requested {
+    background: #18a118!important;
+}
 .booking_third_row_main_section_third_row button.make_bid_button {
     width: 100%;
     height: 37px;
-    background: var(--theme-color,rgb(218, 39, 46))!important;
+    background: var(--theme-color,rgb(218, 39, 46));
     color: white;
     font-size: 14px;
     font-weight: 600;

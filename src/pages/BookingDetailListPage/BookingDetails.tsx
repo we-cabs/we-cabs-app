@@ -77,6 +77,17 @@ const BookingDetails: React.FC<RouteComponentProps> = ({history}) => {
    }
   );
 
+
+  const actionToSetBookingClone = (bookingNewData:any)=>{
+    let finalArray:any = [];
+    bookingNewData.map((bookingBid:any)=>{
+      if(!bookingBid.allottedBidId && bookingBid.status != 'cancel' && bookingBid.bookingType != 'gold'){
+        finalArray.push(bookingBid);
+      }
+    })
+    setBookingClone(cloneDeep(finalArray));
+  }
+
   const applyFilterInBookingList = (type:string,value:any) =>{
     if(value && value != null){
       if(type == 'dateFilter'){
@@ -98,31 +109,19 @@ const BookingDetails: React.FC<RouteComponentProps> = ({history}) => {
       booking.map(function(item:any) {
         if(type == 'dateFilter'){
           if(moment(value).format('YYYY/MM/DD') == moment(item.pickupTime).format('YYYY/MM/DD')){
-            if(item.status != 'cancel'){
-              newBooking.push(item);
-            }
+            newBooking.push(item);
           }
         }else{
         for (var key in filter) {
           if (item[key] === undefined || item[key] != filter[key])
           {}
           else{
-            if(item.status != 'cancel'){
-              newBooking.push(item);
-            }
+            newBooking.push(item);
           }
         }
       }
       });
-
-      let finalArray:any = [];
-      newBooking.map((bookingBid:any)=>{
-        if(!bookingBid.allottedBidId && bookingBid.status != 'cancel'){
-          finalArray.push(bookingBid);
-        }
-      })
-     
-      setBookingClone(finalArray);
+      actionToSetBookingClone(newBooking);
     }
   }
 
@@ -136,39 +135,17 @@ const BookingDetails: React.FC<RouteComponentProps> = ({history}) => {
     setDropDownPoint(null);
     setCabTypeOption(null);
     setDateFilterOption(null);
-    let finalArray:any = [];
-    booking.map((bookingBid:any)=>{
-      if(bookingBid.status != 'cancel' && !bookingBid.allottedBidId){
-        finalArray.push(bookingBid);
-      }
-    })
-   
-
-    setBookingClone(finalArray);
+    actionToSetBookingClone(booking);
   }
 
   useEffect(()=>{
     if(booking != undefined && booking.length){
-      let bookingData = [];
-      for(let i = 0;i < booking.length;i++){
-        let data = booking[i];
-        if(data.status != 'cancel' && !data.allottedBidId){
-          bookingData.push(data);
-        }
-      }
-     setBookingClone(cloneDeep(bookingData));
+      actionToSetBookingClone(booking);
     }
    },[]);
    useEffect(()=>{
     if(booking != undefined && booking.length){
-      let bookingData = [];
-      for(let i = 0;i < booking.length;i++){
-        let data = booking[i];
-        if(data.status != 'cancel' && !data.allottedBidId){
-          bookingData.push(data);
-        }
-      }
-     setBookingClone(cloneDeep(bookingData));
+      actionToSetBookingClone(booking);
     }
    },[booking]);
 

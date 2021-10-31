@@ -25,7 +25,7 @@ const DashboardPage: React.FC<RouteComponentProps> = ({history}) => {
 
   const openGoldBookingDetailPage = (e:any) =>{
     e.preventDefault();
-    if(userInfo.role == 'goldDriaver'){
+    if(userInfo.role == 'goldDriver'){
       dispatch(actionToGetBookingData(0));
       history.push(`/tabs/dashboard/gold-booking-list-page`);
     }else{

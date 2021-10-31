@@ -12,15 +12,11 @@ export const actionToGetBookingData = (isLoad = 1) => async (dispatch:any) => {
     dispatch({ type: BOOKING_DETAIL_REQUEST });
   try {
     const response = await api.get('/booking');
-    dispatch({ type: BOOKING_DETAIL_SUCCESS, payload: response.data.bookings });
     let boookingDetails = response.data.bookings;
-    boookingDetails.sort()
     boookingDetails.sort(function(a:any,b:any){
-      // Turn your strings into dates, and then subtract them
-      // to get a value that is either negative, positive, or zero.
       return b.submittedAt - a.submittedAt;
     });
-    
+    dispatch({ type: BOOKING_DETAIL_SUCCESS, payload: boookingDetails });
     dispatch(actionToSetAllBookingFilters(boookingDetails));
 
   } catch (error) {

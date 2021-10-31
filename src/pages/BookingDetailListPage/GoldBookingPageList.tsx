@@ -1,17 +1,18 @@
 import React,{useEffect,useState} from 'react';
-import { IonPage, IonRow,IonCol, IonButton, IonInput, IonDatetime, IonContent } from '@ionic/react'
+import { IonPage, IonRow,IonCol, IonModal, IonDatetime, IonContent } from '@ionic/react'
 import { RouteComponentProps } from 'react-router-dom';
 import './BookingDetails.css';
 import SubPageHeaderComponent from '../../components/Header/SubPageHeaderComponent';
 import { useDispatch, useSelector,RootStateOrAny } from 'react-redux';
 import Select from 'react-select';
 import { _convertUnixToDateTimeFormat } from '../../hooks/DateTimeConverter';
-import { addBiddingBookingData } from '../../actions/BiddingAction';
+import { actionToAddBiddingData, addBiddingBookingData } from '../../actions/BiddingAction';
 import Loader from '../../components/Loader/Loader';
 import cloneDeep from 'lodash/cloneDeep';
 import moment from 'moment';
 import NoDataFound from '../../components/NoDatFound/NoDataFound';
 import { Virtuoso } from 'react-virtuoso';
+import checkTick from '../../img/check-mark-verified.gif';
 
 let filter:any  = {
   carType:'',
@@ -26,19 +27,77 @@ const GoldBookingPageList: React.FC<RouteComponentProps> = ({history}) => {
   const [_dropDownPoint, setDropDownPoint] = useState<any>(null);
   const [_cabTypeOption, setCabTypeOption] = useState<any>(null);
   const [_dateFilterOption, setDateFilterOption] = useState<any>(null);
+  const [showGoldRequestModal, setShowGoldRequestModal] = useState<boolean>(false);
+  const [selectedBookingData, setSelectedBookingData] = useState<any>({});
+  const [biddingSuccessPopup, setBiddingSuccessPopup] = useState<boolean>(false);
+  
+  
   const [isFixedSubHeader,setIsFixedSubHeader] = useState(false);
  
 
   const {booking,loading} = useSelector((state:RootStateOrAny) => state.bookingDetails);
+  const {userInfo} = useSelector((state:RootStateOrAny) => state.userSignin);
+  const {bidData} = useSelector((state:RootStateOrAny) => state.biddingDetailByUserId);
+  
   const [bookingClone,setBookingClone] = useState<any>(booking);
+
+
   const [showHideBookingFilter,setShowHideBookingFilter] = useState(false);
   const {pickupCity,dropCity,cabType} = useSelector((state:RootStateOrAny) => state.bookingFilterValues);
  
-  const openBiddingPage = (e:any,data:any) =>{
-    e.preventDefault();
-    dispatch(addBiddingBookingData(data));
-    history.push(`/tabs/dashboard/bidding`);
+  const [carPlate,setCarPlate] = useState('');
+  const {cars} = useSelector((state:RootStateOrAny) => state.carData);
+
+
+  const requestAlreadyPersentOrNot = (bookingId:any)=>{
+    let found = false;
+    if(bidData != undefined && bidData.length){
+      bidData.map((bid:any)=>{
+        if(bookingId == bid.bookingId){
+          found = true;
+        }
+      })
+    }
+    return found;
   }
+
+   const callFunctionToAddGoldBidRequest = (data:any) => {
+
+      let carSelected = ''
+      if(!carPlate.length){
+        if(cars != undefined && cars.length){
+          carSelected = cars[0].carDetails.rcno;
+        }else{
+          alert('You have not added any car');
+          return;
+        }
+      }else{
+        carSelected = carPlate;
+      }
+    let payload = {
+      linkedUserId:userInfo.phone,
+      linkedBookingId:data.bookingId,
+      amount:data.basePrice,
+      carPlate:carSelected,
+      bookingType:'gold',
+      linkedUserRating:0.2,
+      status:'pending'
+    };
+    setBiddingSuccessPopup(true);
+    dispatch(actionToAddBiddingData(payload));
+    setTimeout(function(){
+      setShowGoldRequestModal(false);
+    },2000)
+  }
+
+
+  const addRequestInBookingForGold = (data:any) =>{
+    setShowGoldRequestModal(true);
+    setSelectedBookingData(data);
+  }
+
+  
+
   const scrollProfileContent = (e:any) =>{
     if(e.detail.scrollTop > 1){
       setIsFixedSubHeader(true);
@@ -98,32 +157,31 @@ const GoldBookingPageList: React.FC<RouteComponentProps> = ({history}) => {
       booking.map(function(item:any) {
         if(type == 'dateFilter'){
           if(moment(value).format('YYYY/MM/DD') == moment(item.pickupTime).format('YYYY/MM/DD')){
-            if(item.status != 'cancel'){
-              newBooking.push(item);
-            }
+            newBooking.push(item);
           }
         }else{
         for (var key in filter) {
           if (item[key] === undefined || item[key] != filter[key])
           {}
           else{
-            if(item.status != 'cancel'){
-              newBooking.push(item);
-            }
+            newBooking.push(item);
           }
         }
       }
       });
 
-      let finalArray:any = [];
-      newBooking.map((bookingBid:any)=>{
-        if(!bookingBid.allottedBidId && bookingBid.status != 'cancel'){
-          finalArray.push(bookingBid);
-        }
-      })
-     
-      setBookingClone(finalArray);
+      actionToSetBookingClone(newBooking);
     }
+  }
+
+  const actionToSetBookingClone = (bookingNewData:any)=>{
+    let finalArray:any = [];
+    bookingNewData.map((bookingBid:any)=>{
+      if(!bookingBid.allottedBidId && bookingBid.status != 'cancel' && bookingBid.bookingType == 'gold'){
+        finalArray.push(bookingBid);
+      }
+    })
+    setBookingClone(cloneDeep(finalArray));
   }
 
   const clearAllFilterValue = () =>{
@@ -136,39 +194,17 @@ const GoldBookingPageList: React.FC<RouteComponentProps> = ({history}) => {
     setDropDownPoint(null);
     setCabTypeOption(null);
     setDateFilterOption(null);
-    let finalArray:any = [];
-    booking.map((bookingBid:any)=>{
-      if(bookingBid.status != 'cancel' && !bookingBid.allottedBidId){
-        finalArray.push(bookingBid);
-      }
-    })
-   
-
-    setBookingClone(finalArray);
+    actionToSetBookingClone(booking);
   }
 
   useEffect(()=>{
     if(booking != undefined && booking.length){
-      let bookingData = [];
-      for(let i = 0;i < booking.length;i++){
-        let data = booking[i];
-        if(data.status != 'cancel' && !data.allottedBidId){
-          bookingData.push(data);
-        }
-      }
-     setBookingClone(cloneDeep(bookingData));
+      actionToSetBookingClone(booking);
     }
    },[]);
    useEffect(()=>{
     if(booking != undefined && booking.length){
-      let bookingData = [];
-      for(let i = 0;i < booking.length;i++){
-        let data = booking[i];
-        if(data.status != 'cancel' && !data.allottedBidId){
-          bookingData.push(data);
-        }
-      }
-     setBookingClone(cloneDeep(bookingData));
+      actionToSetBookingClone(booking);
     }
    },[booking]);
 
@@ -261,7 +297,11 @@ const GoldBookingPageList: React.FC<RouteComponentProps> = ({history}) => {
                   </IonRow>  
                   <IonRow className="booking_third_row_main_section_third_row">
                     <IonCol size="12" className="booking_third_row_book_button">
-                      <button onClick={(e)=>openBiddingPage(e,data)} className="make_bid_button">Add Request</button>
+                      {(!requestAlreadyPersentOrNot(data.bookingId)) ?
+                        <button onClick={(e)=>addRequestInBookingForGold(data)} className="make_bid_button">Add Request</button>
+                        :
+                        <button className="make_bid_button requested">Requested</button>
+                      }
                     </IonCol>
                   </IonRow>            
                   </div>
@@ -364,6 +404,41 @@ const GoldBookingPageList: React.FC<RouteComponentProps> = ({history}) => {
             </IonCol>
           </IonRow>
          </div>
+
+         <IonModal
+          isOpen={showGoldRequestModal}
+          cssClass='add_booking_gold_request_modal_popup'
+          swipeToClose={true}
+          onDidDismiss={() => setShowGoldRequestModal(false)}>
+            {(!biddingSuccessPopup) ? 
+          <div className="add_booking_gold_request_modal_popup_inner_body">
+             <div className="booking_request_header">
+               SELECT CAR TO ADD REQUEST
+               <svg onClick={()=>setShowGoldRequestModal(false)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M443.6 387.1L312.4 255.4l131.5-130c5.4-5.4 5.4-14.2 0-19.6l-37.4-37.6c-2.6-2.6-6.1-4-9.8-4s-7.2 1.5-9.8 4L256 197.8 124.9 68.3c-2.6-2.6-6.1-4-9.8-4s-7.2 1.5-9.8 4L68 105.9c-5.4 5.4-5.4 14.2 0 19.6l131.5 130L68.4 387.1c-2.6 2.6-4.1 6.1-4.1 9.8s1.4 7.2 4.1 9.8l37.4 37.6c2.7 2.7 6.2 4.1 9.8 4.1 3.5 0 7.1-1.3 9.8-4.1L256 313.1l130.7 131.1c2.7 2.7 6.2 4.1 9.8 4.1 3.5 0 7.1-1.3 9.8-4.1l37.4-37.6c2.6-2.6 4.1-6.1 4.1-9.8-.1-3.6-1.6-7.1-4.2-9.7z"/></svg>
+             </div>
+             <div className="booking_request_body">
+                 <div className="booking_pickup_point_result">
+                    {(cars != undefined && cars.length) ? 
+                    <select onChange={(e)=>setCarPlate(e.target.value)}>
+                      {cars.map((car:any,key:number)=>(
+                        <option key={key}>{car.carDetails.rcno}</option>
+                      ))}
+                    </select>
+                    : <div>You Don't have any car</div>}
+                </div>
+             </div>
+             <div className="booking_request_footer">
+              <button  onClick={()=>setShowGoldRequestModal(false)} className="booking_request_footer_cancel_button">Cancel</button>
+              {(cars != undefined && cars.length) ?
+              <button onClick={()=>callFunctionToAddGoldBidRequest(selectedBookingData)} className="booking_request_footer_add_button">Add</button>
+              :''}
+             </div>
+          </div>
+          :<div className="booking_request_success_tick">
+              <img src={checkTick}/>
+           </div>}
+        </IonModal>
+
        </IonContent>
     </IonPage>
   );

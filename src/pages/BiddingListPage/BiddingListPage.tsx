@@ -21,30 +21,30 @@ const BiddingListPage: React.FC<RouteComponentProps> = ({history}) => {
 
 
   const [filterType,setFilterType] = useState('all');
-    const [isFixedSubHeader,setIsFixedSubHeader] = useState(false);
+  const [isFixedSubHeader,setIsFixedSubHeader] = useState(false);
 
   const filterAllBidDataByStatus = (type:any,bidDataProp:any) =>{
-    setFilterType(type);
-    let filterBidData = cloneDeep(bidDataProp);
-    let data:any = [];
-    if(filterBidData != undefined){
-    if(type != 'all'){
-      filterBidData.map((bid:any)=>{
-        if(bid.status != 'cancel'){
-          if(bid.bidStatus == type){
+      setFilterType(type);
+      let filterBidData = cloneDeep(bidDataProp);
+      let data:any = [];
+      if(filterBidData != undefined){
+      if(type != 'all'){
+        filterBidData.map((bid:any)=>{
+          if(bid.status != 'cancel' && bid.bookingType != 'gold'){
+            if(bid.bidStatus == type){
+              data.push(bid);
+            }
+          }
+        })
+      }else{
+        filterBidData.map((bid:any)=>{
+          if(bid.status != 'cancel' && bid.bookingType != 'gold'){
             data.push(bid);
           }
-        }
-      })
-    }else{
-      filterBidData.map((bid:any)=>{
-        if(bid.status != 'cancel'){
-          data.push(bid);
-        }
-      })
+        })
+      }
     }
-  }
-  setBidDataClone(data);
+    setBidDataClone(data);
   }
 
    
